@@ -1,4 +1,4 @@
-# CS 585 C++ Style Rules
+# C++ Coding Style
 
 ## Physical Rules
 -   All files must be written in lower snake case (render_engine.cpp)
