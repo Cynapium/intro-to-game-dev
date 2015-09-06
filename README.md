@@ -1,2 +1,2 @@
-# intro-to-game-dev
-Stevens Institute of Technology - CS 585 - Introduction to Game Development
+# Introduction to Game Development
+Stevens Institute of Technology - CS 585
