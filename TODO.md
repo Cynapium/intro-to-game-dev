@@ -1,5 +1,7 @@
 # TODO
 
+---
+
 ## Week 1
 
 ### GitHub Open Source Project
@@ -31,8 +33,8 @@
 
 ### Allocator Interface
 
-- [ ] (ABSTRACT) get( int count ) : T\*
-- [ ] (ABSTRACT) release( T\*, int count ) : void
+- [ ] \(ABSTRACT\) get( int count ) : T\*
+- [ ] \(ABSTRACT\) release( T\*, int count ) : void
 
 ### Default Allocator
 
@@ -43,9 +45,9 @@
 - [ ] getAllocationCount() : int const
 - [ ] getReleaseCount() : int const
 - [ ] getOutstandingCount() : int const
-- [ ] (STATIC) getTotalAllocationCount() : int
-- [ ] (STATIC) getTotalReleaseCount() : int
-- [ ] (STATIC) getOutstandingCount() : int
+- [ ] \(STATIC\) getTotalAllocationCount() : int
+- [ ] \(STATIC\) getTotalReleaseCount() : int
+- [ ] \(STATIC\) getOutstandingCount() : int
 
 ### Dynamic Array
 
@@ -56,8 +58,8 @@
 - [ ] popFront() : T
 - [ ] getLength() : unsigned int const
 - [ ] at( unsigned int index ) : T const
-- [ ] [ int ] : T
-- [ ] [ int ] : T const
+- [ ] \[ int \] : T
+- [ ] \[ int \] : T const
 - [ ] removeAt( unsigned int index ) : T
 - [ ] insertAt( unsigned int index ) : T
 
