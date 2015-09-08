@@ -20,5 +20,5 @@
 ## Google Test
 - [x] Install gtest
 - [x] Add gtest support to CMakeList.txt
-- [ ] Create dummy tests
+- [x] Create dummy tests
 - [x] Configure Travis
