@@ -1,13 +1,22 @@
 language : cpp
 compiler : gcc
 
-install:
+before_install:
     - sudo apt-get update
     - sudo apt-get install libgtest-dev
 
-script:
+install:
+    - cd /usr/src/gtest
+    - sudo cmake .
+    - sudo cmake --build .
+    - sudo mv libg* /usr/local/lib/
+    - cd -
+
+before_script:
     - mkdir build
     - cd build
     - cmake ..
-    - make
 
+script: make
+
+after_success: ./GameDev
