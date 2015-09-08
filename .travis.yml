@@ -5,9 +5,9 @@ install:
     - sudo apt-get update
     - sudo apt-get install libgtest-dev
 
-before_script:
+script:
     - mkdir build
     - cd build
     - cmake ..
+    - make
 
-script: make

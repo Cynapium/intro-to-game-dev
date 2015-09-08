@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 
 // Tests factorial of 0.
-TEST(FactorialTest, HandlesZeroInput)
+TEST(Dummy, First)
 {
-    EXPECT_EQ(1, 1);
+    ASSERT_EQ(1, 1);
 }
 
 
