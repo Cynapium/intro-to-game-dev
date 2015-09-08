@@ -6,7 +6,7 @@
 
 ## Coding Style
 - [x] Create coding style file
-- [ ] Link the file from README
+- [x] Link the file from README
 
 ## Main
 - [x] Create main in `game.m.cpp`
