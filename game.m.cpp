@@ -6,17 +6,17 @@
  * Moreover, they are not relevant, but the project has not started so there is
  * nothing to test.
  */
-TEST(Dummy, First)
+TEST( Dummy, First )
 {
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ( 1, 1 );
 }
-TEST(Dummy, Second)
+TEST( Dummy, Second )
 {
-    ASSERT_TRUE(true);
+    ASSERT_TRUE( true );
 }
-TEST(Dummy, Third)
+TEST( Dummy, Third )
 {
-    ASSERT_STREQ("Hello", "Hello");
+    ASSERT_STREQ( "Hello", "Hello" );
 }
 
 
@@ -24,8 +24,8 @@ TEST(Dummy, Third)
  * TODO
  * The tests launch is supposed to be done elsewhere.
  */
-int main(int argc, char **argv)
+int main( int argc, char **argv )
 {
-    testing::InitGoogleTest(&argc, argv);
+    testing::InitGoogleTest( &argc, argv );
     return RUN_ALL_TESTS();
 }
