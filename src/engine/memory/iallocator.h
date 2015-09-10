@@ -6,14 +6,14 @@
 namespace sgdm
 {
 
-template<class T>
+template<typename T>
 class IAllocator
 {
   public:
-    T*          get( int count ) = 0;
+    virtual T*      get( int count ) = 0;
       //
 
-    void        release( T* ptr, int count ) = 0;
+    virtual void    release( T* ptr, int count ) = 0;
       //
 };
 

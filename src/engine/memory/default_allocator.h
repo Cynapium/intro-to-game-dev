@@ -8,7 +8,8 @@
 namespace sgdm
 {
 
-class DefaultAllocator : public IAllocator
+template<typename T>
+class DefaultAllocator : public IAllocator<T>
 {
   public:
     T*          get( int count );
