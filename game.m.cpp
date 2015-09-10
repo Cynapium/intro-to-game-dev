@@ -1,11 +1,11 @@
+// game.m.cpp
+
 #include <gtest/gtest.h>
 
-/**
- * TODO
- * These tests are supposed to go into a specific file.
- * Moreover, they are not relevant, but the project has not started so there is
- * nothing to test.
- */
+// TODO
+// These tests are supposed to go into a specific file.
+// Moreover, they are not relevant, but the project has not started so there is
+// nothing to test.
 TEST( Dummy, First )
 {
     ASSERT_EQ( 1, 1 );
@@ -20,10 +20,8 @@ TEST( Dummy, Third )
 }
 
 
-/**
- * TODO
- * The tests launch is supposed to be done elsewhere.
- */
+// TODO
+// The tests launch is supposed to be done elsewhere.
 int main( int argc, char **argv )
 {
     testing::InitGoogleTest( &argc, argv );
