@@ -15,7 +15,7 @@ add_executable(${PROJECT_NAME} game.m.cpp ${FILES_SGDM} ${FILES_SGDC})
 # Tests
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
-add_executable(${PROJECT_TEST} test.m.cpp)
+add_executable(${PROJECT_TEST} test.m.cpp ${FILES_SGDM} ${FILES_SGDC})
 
 # Libraries
 target_link_libraries(${PROJECT_NAME} ${GTEST_LIBRARIES} pthread)
