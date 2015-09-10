@@ -1,50 +1,44 @@
 // counting_allocator.cxx
 
-#include "counting_allocator.h"
-
-namespace sgdm
-{
-
 template<typename T>
-CountingAllocator<T>::CountingAllocator()
+StevensDev::sgdm::CountingAllocator<T>::CountingAllocator()
     : d_allocation_count( 0 ), d_release_count( 0 )
 {
 }
 
 template<typename T>
-int const CountingAllocator<T>::getAllocationCount()
+int const StevensDev::sgdm::CountingAllocator<T>::getAllocationCount()
 {
     return d_allocation_count;
 }
- 
+
 template<typename T>
-int const CountingAllocator<T>::getReleaseCount()
+int const StevensDev::sgdm::CountingAllocator<T>::getReleaseCount()
 {
     return d_release_count;
 }
- 
+
 template<typename T>
-int const CountingAllocator<T>::getOutstandingCount()
+int const StevensDev::sgdm::CountingAllocator<T>::getOutstandingCount()
 {
     return d_allocation_count - d_release_count;
 }
- 
+
 template<typename T>
-static int CountingAllocator<T>::getTotalAllocationCount()
+int StevensDev::sgdm::CountingAllocator<T>::getTotalAllocationCount()
 {
     return d_total_allocation_count;
 }
 
 template<typename T>
-static int CountingAllocator<T>::getTotalReleaseCount()
+int StevensDev::sgdm::CountingAllocator<T>::getTotalReleaseCount()
 {
     return d_total_release_count;
 }
- 
+
 template<typename T>
-static int CountingAllocator<T>::getOutstandingCount()
+int StevensDev::sgdm::CountingAllocator<T>::getTotalOutstandingCount()
 {
     return d_total_allocation_count - d_total_release_count;
 }
- 
-} // End sgdm namespace
+

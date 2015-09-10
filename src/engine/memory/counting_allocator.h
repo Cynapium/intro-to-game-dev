@@ -5,11 +5,13 @@
 
 #include "default_allocator.h"
 
+namespace StevensDev
+{
 namespace sgdm
 {
 
 template<typename T>
-class CountingAllocator<T> : public DefaultAllocator
+class CountingAllocator : public DefaultAllocator<T>
 {
   private:
 
@@ -41,18 +43,22 @@ class CountingAllocator<T> : public DefaultAllocator
     static int  getTotalReleaseCount();
       // Number of releases across instances
 
-    static int  getOutstandingCount();
+    static int  getTotalOutstandingCount();
       // Allocations - releases across instances
 
 };
 
 // Static variables instantiation
-int CountingAllocator::d_total_allocation_count = 0;
-int CountingAllocator::d_total_release_count = 0;
+template<typename T>
+int CountingAllocator<T>::d_total_allocation_count = 0;
+
+template<typename T>
+int CountingAllocator<T>::d_total_release_count = 0;
 
 #include "counting_allocator.cxx"
 
 } // End sgdm namespace
+} // End StevensDev namespace
 
 #endif // INCLUDED_COUNTING_ALLOCATOR
 
