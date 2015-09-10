@@ -3,6 +3,8 @@
 #ifndef INCLUDED_IALLOCATOR
 # define INCLUDED_IALLOCATOR
 
+namespace StevensDev
+{
 namespace sgdm
 {
 
@@ -20,5 +22,6 @@ class IAllocator
 
 
 } // End sgdm namespace
+} // End StevensDev namespace
 
 #endif // INCLUDED_IALLOCATOR

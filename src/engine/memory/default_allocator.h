@@ -5,6 +5,8 @@
 
 #include "iallocator.h"
 
+namespace StevensDev
+{
 namespace sgdm
 {
 
@@ -22,5 +24,6 @@ class DefaultAllocator : public IAllocator<T>
 #include "default_allocator.cxx"
 
 } // End sgdm namespace
+} // End StevensDev namespace
 
 #endif // INCLUDED_DEFAULT_ALLOCATOR
