@@ -14,6 +14,14 @@ template<typename T>
 class DefaultAllocator : public IAllocator<T>
 {
   public:
+
+    // CONSTRUCTOR
+
+    DefaultAllocator();
+
+    
+    // MEMBER FUNCTIONS
+
     T*          get( int count );
       //
 
