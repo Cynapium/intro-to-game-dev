@@ -8,8 +8,9 @@ int main( int argc, char **argv )
 {
     using namespace StevensDev;
 
-    sgdm::DefaultAllocator<int> *alloc;
-    sgdc::DynamicArray<int>     array(alloc);
+    sgdm::DefaultAllocator<int> alloc;
+
+    sgdc::DynamicArray<int>     array(&alloc);
 
     array.push(1);
     array.push(2);

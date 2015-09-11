@@ -2,8 +2,10 @@
 
 template<typename T>
 StevensDev::sgdc::DynamicArray<T>::DynamicArray( sgdm::IAllocator<T>* alloc )
-    : d_allocator( alloc ), d_array( 0 )
+    : d_allocator( alloc ), d_array( 0 ), d_length( 0 ), d_size( 0 )
 {
+    d_array = alloc->get(ALLOC_SIZE);
+    d_size = ALLOC_SIZE;
 }
 
 template<typename T>

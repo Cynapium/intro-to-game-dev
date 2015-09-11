@@ -8,6 +8,9 @@ namespace StevensDev
 namespace sgdc
 {
 
+// FIXME There should be a better way
+#define ALLOC_SIZE  64
+
 using namespace sgdm;
 
 template<typename T>
