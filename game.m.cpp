@@ -8,12 +8,12 @@ int main( int argc, char **argv )
 {
     using namespace StevensDev;
 
-    sgdm::DefaultAllocator<int> alloc;
+    sgdm::DefaultAllocator<int*> alloc;
 
-    sgdc::DynamicArray<int>     array(&alloc);
+    sgdc::DynamicArray<int*>     array(&alloc);
 
-    array.push(1);
-    array.push(2);
+    array.push(new int(1));
+    array.push(new int(2));
 
     std::cout << array.getLength() << std::endl;
 
