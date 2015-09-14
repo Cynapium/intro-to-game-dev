@@ -92,7 +92,7 @@ inline DynamicArray<T>::DynamicArray( sgdm::IAllocator<T>* alloc )
     : d_allocator( alloc ), d_array( 0 ), d_length( 0 ), d_size( 0 )
 {
     d_array = alloc->get(1);
-    d_size = ALLOC_SIZE;
+    d_size = 1;
 }
 
 template<typename T>
@@ -242,7 +242,7 @@ inline void DynamicArray<T>::reallocate()
     }
 
     // Release the old memory space
-    d_allocator->release(array, d_size);
+    d_allocator->release(d_array, d_size);
 
     // Update values of the array
     d_size = new_size;
