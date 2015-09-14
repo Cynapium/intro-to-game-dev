@@ -110,8 +110,6 @@ inline const T DynamicArray<T>::at( unsigned int index )
 template<typename T>
 inline T DynamicArray<T>::operator[]( int index )
 {
-    d_array[index] = 0; // TODO, what are we supposed to insert?
-
     return d_array[index];
 }
 
