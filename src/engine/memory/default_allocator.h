@@ -18,8 +18,9 @@ class DefaultAllocator : public IAllocator<T>
     // CONSTRUCTOR
 
     DefaultAllocator();
+      // Instantiate a default allocator
 
-    
+
     // MEMBER FUNCTIONS
 
     T*          get( int count );
@@ -29,7 +30,39 @@ class DefaultAllocator : public IAllocator<T>
       //
 };
 
-#include "default_allocator.cxx"
+template<typename T>
+inline DefaultAllocator<T>::DefaultAllocator()
+{
+}
+
+template<typename T>
+inline T* DefaultAllocator<T>::get( int count )
+{
+    // Error checking
+    if (count <= 0)
+        return 0;
+
+    // Create the value
+    T       *val = new T[count];
+
+    // Return the memory
+    return val;
+}
+
+template<typename T>
+inline void DefaultAllocator<T>::release( T* ptr, int count )
+{
+    // Error checking
+    if (ptr == 0)
+        return;
+
+    // Release the memory
+    for (int i = 0; i < count; i++)
+    {
+        delete ptr[i];
+    }
+    delete[] ptr;
+}
 
 } // End sgdm namespace
 } // End StevensDev namespace
