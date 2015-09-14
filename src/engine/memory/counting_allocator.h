@@ -24,7 +24,9 @@ class CountingAllocator : public DefaultAllocator<T>
   public:
 
     // CONSTRUCTOR
+
     CountingAllocator();
+      // Instantiate a CountingAllocator
 
     // ACCESSORS
 
@@ -55,7 +57,50 @@ int CountingAllocator<T>::d_total_allocation_count = 0;
 template<typename T>
 int CountingAllocator<T>::d_total_release_count = 0;
 
-#include "counting_allocator.cxx"
+// CONSTRUCTOR
+template<typename T>
+CountingAllocator<T>::CountingAllocator()
+    : d_allocation_count( 0 ), d_release_count( 0 )
+{
+}
+
+// ACCESSORS
+template<typename T>
+inline int const CountingAllocator<T>::getAllocationCount()
+{
+    return d_allocation_count;
+}
+
+template<typename T>
+inline int const CountingAllocator<T>::getReleaseCount()
+{
+    return d_release_count;
+}
+
+template<typename T>
+inline int const CountingAllocator<T>::getOutstandingCount()
+{
+    return d_allocation_count - d_release_count;
+}
+
+template<typename T>
+inline int CountingAllocator<T>::getTotalAllocationCount()
+{
+    return d_total_allocation_count;
+}
+
+template<typename T>
+inline int CountingAllocator<T>::getTotalReleaseCount()
+{
+    return d_total_release_count;
+}
+
+template<typename T>
+inline int CountingAllocator<T>::getTotalOutstandingCount()
+{
+    return d_total_allocation_count - d_total_release_count;
+}
+
 
 } // End sgdm namespace
 } // End StevensDev namespace
