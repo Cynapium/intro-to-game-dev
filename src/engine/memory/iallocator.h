@@ -13,10 +13,10 @@ class IAllocator
 {
   public:
     virtual T*      get( int count ) = 0;
-      //
+      // Allocate memory
 
     virtual void    release( T* ptr, int count ) = 0;
-      //
+      // Release allocated memory
 };
 
 
