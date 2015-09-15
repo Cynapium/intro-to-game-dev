@@ -20,15 +20,30 @@ class DefaultAllocator : public IAllocator<T>
     DefaultAllocator();
       // Instantiate a default allocator
 
+    DefaultAllocator( const DefaultAllocator<T>& allocator );
+      // Copy Constructor
+
+
+    // DESTRUCTOR
+
+    virtual             ~DefaultAllocator();
+
+
+    // OPERATORS
+    DefaultAllocator&   operator=( const DefaultAllocator& allocator );
+      // Copy assignment operator
+
 
     // MEMBER FUNCTIONS
 
-    T*          get( int count );
-      //
+    T*                  get( int count );
+      // Allocate memory
 
-    void        release( T* ptr, int count );
-      //
+    void                release( T* ptr, int count );
+      // Release allocated memory
 };
+
+// CONSTRUCTORS
 
 template<typename T>
 inline DefaultAllocator<T>::DefaultAllocator()
@@ -36,33 +51,72 @@ inline DefaultAllocator<T>::DefaultAllocator()
 }
 
 template<typename T>
-inline T* DefaultAllocator<T>::get( int count )
+inline DefaultAllocator<T>::DefaultAllocator( const DefaultAllocator<T>& copy )
+{
+}
+
+// DESTRUCTOR
+
+template<typename T>
+inline DefaultAllocator<T>::~DefaultAllocator()
+{
+}
+
+// OPERATORS
+
+template<typename T>
+inline DefaultAllocator<T>&
+DefaultAllocator<T>::operator=(const DefaultAllocator<T>& allocator )
+{
+    return *this;
+}
+
+
+// MEMBER FUNCTIONS
+
+template<typename T>
+inline T*
+DefaultAllocator<T>::get( int count )
 {
     // Error checking
-    if (count <= 0)
+    if ( count <= 0 )
         return 0;
 
     // Create the value
-    T       *val = new T[count];
+    T       *ptr = new T[count];
 
     // Return the memory
-    return val;
+    return ptr;
 }
 
 template<typename T>
-inline void DefaultAllocator<T>::release( T* ptr, int count )
+inline void
+DefaultAllocator<T>::release( T* ptr, int count )
 {
     // Error checking
-    if (ptr == 0)
+    if ( ptr == 0 )
         return;
 
     // Release the memory
-    for (int i = 0; i < count; i++)
+    for ( int i = 0; i < count; i++ )
     {
-        delete ptr[i];
+        //delete ptr[i];
     }
     delete[] ptr;
+
+    ptr = 0;
 }
+
+
+// FREE OPERATORS
+
+template<class T>
+inline std::ostream&
+operator<<( std::ostream& stream, const DefaultAllocator<T> allocator )
+{
+    return stream << "{ DefaultAllocator }";
+}
+
 
 } // End sgdm namespace
 } // End StevensDev namespace
