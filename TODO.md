@@ -33,33 +33,34 @@
 
 ### Allocator Interface
 
-- [ ] \(ABSTRACT\) get( int count ) : T\*
-- [ ] \(ABSTRACT\) release( T\*, int count ) : void
+- [x] \(ABSTRACT\) get( int count ) : T\*
+- [x] \(ABSTRACT\) release( T\*, int count ) : void
 
 ### Default Allocator
 
-- [ ] Default implementation of IAllocator using new and delete
+- [x] get( int count ) : T\*
+- [ ] release( T\*, int count ) : void
 
 ### Counting Allocator
 
-- [ ] getAllocationCount() : int const
-- [ ] getReleaseCount() : int const
-- [ ] getOutstandingCount() : int const
-- [ ] \(STATIC\) getTotalAllocationCount() : int
-- [ ] \(STATIC\) getTotalReleaseCount() : int
-- [ ] \(STATIC\) getOutstandingCount() : int
+- [x] getAllocationCount() : int const
+- [x] getReleaseCount() : int const
+- [x] getOutstandingCount() : int const
+- [x] \(STATIC\) getTotalAllocationCount() : int
+- [x] \(STATIC\) getTotalReleaseCount() : int
+- [x] \(STATIC\) getOutstandingCount() : int
 
 ### Dynamic Array
 
-- [ ] DynamicArray( IAllocator\* alloc )
-- [ ] push( const T& element ) : void
-- [ ] pushFront( T element ) : void
-- [ ] pop() : T
-- [ ] popFront() : T
-- [ ] getLength() : unsigned int const
-- [ ] at( unsigned int index ) : T const
-- [ ] \[ int \] : T
-- [ ] \[ int \] : T const
-- [ ] removeAt( unsigned int index ) : T
-- [ ] insertAt( unsigned int index ) : T
+- [x] DynamicArray( IAllocator\* alloc )
+- [x] push( const T& element ) : void
+- [x] pushFront( T element ) : void
+- [x] pop() : T
+- [x] popFront() : T
+- [x] getLength() : unsigned int const
+- [x] at( unsigned int index ) : T const
+- [x] \[ int \] : T
+- [x] \[ int \] : T const
+- [x] removeAt( unsigned int index ) : T
+- [x] insertAt( unsigned int index ) : T
 
