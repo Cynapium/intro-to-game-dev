@@ -1,10 +1,7 @@
 // dynamic_array_tests.h
 
-#ifndef INCLUDE_DYNAMIC_ARRAY
-# define INCLUDE_DYNAMIC_ARRAY
-
-#include "../src/engine/containers/dynamic_array.h"
 #include "../src/engine/memory/counting_allocator.h"
+#include "../src/engine/containers/dynamic_array.h"
 
 class DynamicArrayTest : public ::testing::Test
 {
@@ -185,4 +182,3 @@ TEST_F( DynamicArrayTest, PopFront)
         EXPECT_EQ( d_values[i + 2], d_arr1->at( i ) );
 }
 
-#endif // INCLUDE_DYNAMIC_ARRAY
