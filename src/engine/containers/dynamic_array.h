@@ -1,3 +1,5 @@
+// dynamic_array.h
+
 #ifndef INCLUDE_DYNAMIC_ARRAY
 # define INCLUDE_DYNAMIC_ARRAY
 
@@ -20,7 +22,7 @@ class DynamicArray
       // Allocator used to manage memory in the dynamic array
 
     T              *d_array;
-      // Array where data is stored
+      // Array where data are stored
 
     unsigned int    d_length;
       // Number of elements contained
@@ -42,7 +44,7 @@ class DynamicArray
     void            reallocate();
       // This function increase the size of the array. When the array is full,
       // it allocate a new array twice as large (size * 2). That strategy
-      // allows us to amortize the reallocation cost logarithmically.
+      // allows us to reduce the reallocation cost logarithmically.
 
 
   public:
@@ -108,8 +110,8 @@ class DynamicArray
 // Declared first because private
 
 template<typename T>
-inline void
-DynamicArray<T>::shiftRight( unsigned int index )
+inline
+void DynamicArray<T>::shiftRight( unsigned int index )
 {
     // Error checking
     if ( index < 0 || index > d_length )
@@ -127,8 +129,8 @@ DynamicArray<T>::shiftRight( unsigned int index )
 }
 
 template<typename T>
-inline void
-DynamicArray<T>::shiftLeft( unsigned int index )
+inline
+void DynamicArray<T>::shiftLeft( unsigned int index )
 {
     // Error checking
     if ( index < 0 || index > d_length )
@@ -142,9 +144,10 @@ DynamicArray<T>::shiftLeft( unsigned int index )
 }
 
 template<typename T>
-inline void
-DynamicArray<T>::reallocate()
+inline
+void DynamicArray<T>::reallocate()
 {
+    // Initialization
     unsigned int    new_size = d_size * 2;
     T*              new_array = d_allocator->get( new_size );
 
@@ -171,7 +174,7 @@ DynamicArray<T>::DynamicArray( sgdm::IAllocator<T>* alloc )
     : d_allocator( alloc ), d_array( 0 ), d_length( 0 ), d_size( 0 )
 {
     // Size is two because we want to create a dynamic array, and we don't know
-    // the final number of element we want. 1 is not an array and will have to
+    // the final number of element we want. 1 is not an array thus will have to
     // be reallocate in every case, and we don't know if we need more than 2.
     int     size = 2;
 
@@ -203,8 +206,8 @@ DynamicArray<T>::~DynamicArray()
 // OPERATORS
 
 template<typename T>
-inline DynamicArray<T>&
-DynamicArray<T>::operator=( const DynamicArray<T>& array )
+inline
+DynamicArray<T>& DynamicArray<T>::operator=( const DynamicArray<T>& array )
 {
     d_allocator = array.d_allocator;
     d_length = array.d_length;
@@ -217,15 +220,15 @@ DynamicArray<T>::operator=( const DynamicArray<T>& array )
 }
 
 template<typename T>
-inline T&
-DynamicArray<T>::operator[]( int index )
+inline
+T& DynamicArray<T>::operator[]( int index )
 {
     return d_array[index];
 }
 
 template<typename T>
-inline T
-DynamicArray<T>::operator[]( int index ) const
+inline
+T DynamicArray<T>::operator[]( int index ) const
 {
     return d_array[index];
 }
@@ -234,13 +237,15 @@ DynamicArray<T>::operator[]( int index ) const
 // ACCESSORS
 
 template<typename T>
-inline unsigned int const DynamicArray<T>::getLength()
+inline
+unsigned int const DynamicArray<T>::getLength()
 {
     return d_length;
 }
 
 template<typename T>
-inline const T DynamicArray<T>::at( unsigned int index )
+inline
+const T DynamicArray<T>::at( unsigned int index )
 {
     // Error checking
     if ( index < 0 || index >= d_length )
@@ -253,19 +258,22 @@ inline const T DynamicArray<T>::at( unsigned int index )
 // MEMBER FUNCTIONS
 
 template<typename T>
-inline void DynamicArray<T>::push( const T& element )
+inline
+void DynamicArray<T>::push( const T& element )
 {
     insertAt( d_length, element );
 }
 
 template<typename T>
-inline void DynamicArray<T>::pushFront( T element )
+inline
+void DynamicArray<T>::pushFront( T element )
 {
     insertAt( 0, element );
 }
 
 template<typename T>
-inline T DynamicArray<T>::pop()
+inline
+T DynamicArray<T>::pop()
 {
     // Error checking
     if ( d_length <= 0 )
@@ -277,7 +285,8 @@ inline T DynamicArray<T>::pop()
 }
 
 template<typename T>
-inline T DynamicArray<T>::popFront()
+inline
+T DynamicArray<T>::popFront()
 {
     // Error checking
     if ( d_length <= 0 )
@@ -295,7 +304,8 @@ inline T DynamicArray<T>::popFront()
 }
 
 template<typename T>
-inline T DynamicArray<T>::removeAt( unsigned int index )
+inline
+T DynamicArray<T>::removeAt( unsigned int index )
 {
     // Error checking
     if ( index < 0 || index > d_length )
@@ -307,7 +317,8 @@ inline T DynamicArray<T>::removeAt( unsigned int index )
 }
 
 template<typename T>
-inline T DynamicArray<T>::insertAt( unsigned int index, const T& element )
+inline
+T DynamicArray<T>::insertAt( unsigned int index, const T& element )
 {
     // Error checking
     if ( index < 0 || index > d_length )

@@ -16,9 +16,16 @@ class CountingAllocator : public DefaultAllocator<T>
   private:
 
     int         d_allocation_count;
+      // Number of allocations that occured
+
     int         d_release_count;
+      // Number of releases that occured
+
     static int  d_total_allocation_count;
+      // Number of allocations across instances
+
     static int  d_total_release_count;
+      // Number of releases across instances
 
 
   public:
@@ -82,12 +89,14 @@ int CountingAllocator<T>::d_total_release_count = 0;
 // CONSTRUCTORS
 
 template<typename T>
+inline
 CountingAllocator<T>::CountingAllocator()
     : d_allocation_count( 0 ), d_release_count( 0 )
 {
 }
 
 template<typename T>
+inline
 CountingAllocator<T>::CountingAllocator( const CountingAllocator<T>& copy )
     : d_allocation_count( copy.d_allocation_count ),
       d_release_count( copy.d_release_count )
@@ -98,6 +107,7 @@ CountingAllocator<T>::CountingAllocator( const CountingAllocator<T>& copy )
 // DESTRUCTOR
 
 template<typename T>
+inline
 CountingAllocator<T>::~CountingAllocator()
 {
 }
@@ -106,7 +116,8 @@ CountingAllocator<T>::~CountingAllocator()
 // OPERATORS
 
 template<typename T>
-inline CountingAllocator<T>&
+inline
+CountingAllocator<T>&
 CountingAllocator<T>::operator=( const CountingAllocator<T>& allocator )
 {
     d_allocation_count = allocator.d_allocation_count;
@@ -118,8 +129,8 @@ CountingAllocator<T>::operator=( const CountingAllocator<T>& allocator )
 
 // MEMBER FUNCTIONS
 template<typename T>
-inline T*
-CountingAllocator<T>::get( int count )
+inline
+T* CountingAllocator<T>::get( int count )
 {
     if ( count <= 0 )
         return 0;
@@ -131,8 +142,8 @@ CountingAllocator<T>::get( int count )
 }
 
 template<typename T>
-inline void
-CountingAllocator<T>::release( T* ptr, int count )
+inline
+void CountingAllocator<T>::release( T* ptr, int count )
 {
     if ( ptr == 0 || count <= 0 )
         return;
@@ -147,43 +158,43 @@ CountingAllocator<T>::release( T* ptr, int count )
 // ACCESSORS
 
 template<typename T>
-inline int const
-CountingAllocator<T>::getAllocationCount()
+inline
+int const CountingAllocator<T>::getAllocationCount()
 {
     return d_allocation_count;
 }
 
 template<typename T>
-inline int const
-CountingAllocator<T>::getReleaseCount()
+inline
+int const CountingAllocator<T>::getReleaseCount()
 {
     return d_release_count;
 }
 
 template<typename T>
-inline int const
-CountingAllocator<T>::getOutstandingCount()
+inline
+int const CountingAllocator<T>::getOutstandingCount()
 {
     return d_allocation_count - d_release_count;
 }
 
 template<typename T>
-inline int
-CountingAllocator<T>::getTotalAllocationCount()
+inline
+int CountingAllocator<T>::getTotalAllocationCount()
 {
     return d_total_allocation_count;
 }
 
 template<typename T>
-inline int
-CountingAllocator<T>::getTotalReleaseCount()
+inline
+int CountingAllocator<T>::getTotalReleaseCount()
 {
     return d_total_release_count;
 }
 
 template<typename T>
-inline int
-CountingAllocator<T>::getTotalOutstandingCount()
+inline
+int CountingAllocator<T>::getTotalOutstandingCount()
 {
     return d_total_allocation_count - d_total_release_count;
 }
@@ -192,7 +203,8 @@ CountingAllocator<T>::getTotalOutstandingCount()
 // FREE OPERATORS
 
 template<class T>
-inline std::ostream&
+inline
+std::ostream&
 operator<<( std::ostream& stream, const CountingAllocator<T> allocator )
 {
     return stream << "{ "

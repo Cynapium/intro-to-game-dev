@@ -1,5 +1,8 @@
 // default_allocator_tests.h
 
+#ifndef INCLUDE_DEFAULT_ALLOCATOR
+# define INCLUDE_DEFAULT_ALLOCATOR
+
 #include <gtest/gtest.h>
 #include "../src/engine/memory/default_allocator.h"
 
@@ -7,24 +10,8 @@ class DefaultAllocatorTest : public ::testing::Test
 {
   public:
 
-    StevensDev::sgdm::DefaultAllocator<int>     d_alloc;
-    StevensDev::sgdm::DefaultAllocator<char*>    d_alloc_char;
-
-
-    virtual void SetUp();
-      // Set-up work for each tests
-
-    virtual void TearDown();
-      // Clean-up work for each tests
-
+    StevensDev::sgdm::DefaultAllocator<int>      d_alloc;
 };
-
-void DefaultAllocatorTest::SetUp()
-{
-}
-void DefaultAllocatorTest::TearDown()
-{
-}
 
 TEST_F( DefaultAllocatorTest, SimpleAllocation )
 {
@@ -39,10 +26,10 @@ TEST_F( DefaultAllocatorTest, MultipleAllocation )
     int*   tmp = d_alloc.get( 4 );
 
     ASSERT_TRUE( tmp != 0 );
-    ASSERT_TRUE( tmp[0] != 0);
-    ASSERT_TRUE( tmp[1] != 0);
-    ASSERT_TRUE( tmp[2] != 0);
-    ASSERT_TRUE( tmp[3] != 0);
+    ASSERT_TRUE( tmp[0] != 0 );
+    ASSERT_TRUE( tmp[1] != 0 );
+    ASSERT_TRUE( tmp[2] != 0 );
+    ASSERT_TRUE( tmp[3] != 0 );
 }
 
 TEST_F( DefaultAllocatorTest, SimpleRelease )
@@ -60,3 +47,5 @@ TEST_F( DefaultAllocatorTest, BiggerRelease )
 
     ASSERT_TRUE( tmp == 0 );
 }
+
+#endif // INCLUDE_DEFAULT_ALLOCATOR

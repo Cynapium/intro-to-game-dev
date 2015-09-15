@@ -1,20 +1,23 @@
 // dynamic_array_tests.h
 
-#include "../src/engine/memory/counting_allocator.h"
+#ifndef INCLUDE_DYNAMIC_ARRAY
+# define INCLUDE_DYNAMIC_ARRAY
+
 #include "../src/engine/containers/dynamic_array.h"
+#include "../src/engine/memory/counting_allocator.h"
 
 class DynamicArrayTest : public ::testing::Test
 {
   public:
 
-    int                         d_values[3];
-    int                         d_size;
+    int                                             d_values[3];
+    int                                             d_size;
 
-    StevensDev::sgdm::CountingAllocator<int>      d_alloc1;
-    StevensDev::sgdm::CountingAllocator<char*>    d_alloc2;
+    StevensDev::sgdm::CountingAllocator<int>        d_alloc1;
+    StevensDev::sgdm::CountingAllocator<char*>      d_alloc2;
 
-    StevensDev::sgdc::DynamicArray<int>          *d_arr1;
-    StevensDev::sgdc::DynamicArray<char*>        *d_arr2;
+    StevensDev::sgdc::DynamicArray<int>             *d_arr1;
+    StevensDev::sgdc::DynamicArray<char*>           *d_arr2;
 
 
     // CONSTRUCTOR
@@ -52,9 +55,11 @@ void DynamicArrayTest::SetUp()
 
 void DynamicArrayTest::TearDown()
 {
+    delete d_arr1;
+    delete d_arr2;
 }
 
-// getLength() tests
+// getLength()
 
 TEST_F( DynamicArrayTest, LengthZero )
 {
@@ -66,7 +71,7 @@ TEST_F( DynamicArrayTest, Length )
 }
 
 
-// at tests
+// at
 
 TEST_F( DynamicArrayTest, At )
 {
@@ -75,7 +80,7 @@ TEST_F( DynamicArrayTest, At )
 }
 
 
-// operator[] tests
+// operator[]
 
 TEST_F( DynamicArrayTest, OperatorAtGet )
 {
@@ -179,3 +184,5 @@ TEST_F( DynamicArrayTest, PopFront)
     for ( int i = 0; i < d_size - 2; i++ )
         EXPECT_EQ( d_values[i + 2], d_arr1->at( i ) );
 }
+
+#endif // INCLUDE_DYNAMIC_ARRAY

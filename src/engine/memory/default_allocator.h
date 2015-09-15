@@ -46,27 +46,31 @@ class DefaultAllocator : public IAllocator<T>
 // CONSTRUCTORS
 
 template<typename T>
-inline DefaultAllocator<T>::DefaultAllocator()
+inline
+DefaultAllocator<T>::DefaultAllocator()
 {
 }
 
 template<typename T>
-inline DefaultAllocator<T>::DefaultAllocator( const DefaultAllocator<T>& copy )
+inline
+DefaultAllocator<T>::DefaultAllocator( const DefaultAllocator<T>& copy )
 {
 }
 
 // DESTRUCTOR
 
 template<typename T>
-inline DefaultAllocator<T>::~DefaultAllocator()
+inline
+DefaultAllocator<T>::~DefaultAllocator()
 {
 }
 
 // OPERATORS
 
 template<typename T>
-inline DefaultAllocator<T>&
-DefaultAllocator<T>::operator=(const DefaultAllocator<T>& allocator )
+inline
+DefaultAllocator<T>&
+DefaultAllocator<T>::operator=( const DefaultAllocator<T>& allocator )
 {
     return *this;
 }
@@ -75,8 +79,8 @@ DefaultAllocator<T>::operator=(const DefaultAllocator<T>& allocator )
 // MEMBER FUNCTIONS
 
 template<typename T>
-inline T*
-DefaultAllocator<T>::get( int count )
+inline
+T* DefaultAllocator<T>::get( int count )
 {
     // Error checking
     if ( count <= 0 )
@@ -90,8 +94,8 @@ DefaultAllocator<T>::get( int count )
 }
 
 template<typename T>
-inline void
-DefaultAllocator<T>::release( T* ptr, int count )
+inline
+void DefaultAllocator<T>::release( T* ptr, int count )
 {
     // Error checking
     if ( ptr == 0 )
@@ -111,7 +115,8 @@ DefaultAllocator<T>::release( T* ptr, int count )
 // FREE OPERATORS
 
 template<class T>
-inline std::ostream&
+inline
+std::ostream&
 operator<<( std::ostream& stream, const DefaultAllocator<T> allocator )
 {
     return stream << "{ DefaultAllocator }";

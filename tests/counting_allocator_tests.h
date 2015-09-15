@@ -1,5 +1,8 @@
 // counting_allocator_tests.h
 
+#ifndef INCLUDE_COUNTING_ALLOCATOR_TESTS
+# define INCLUDE_COUNTING_ALLOCATOR_TESTS
+
 #include "../src/engine/memory/counting_allocator.h"
 
 class CountingAllocatorTest : public ::testing::Test
@@ -9,20 +12,7 @@ class CountingAllocatorTest : public ::testing::Test
     StevensDev::sgdm::CountingAllocator<int>      d_alloc;
     StevensDev::sgdm::CountingAllocator<char*>    d_alloc_char;
 
-    virtual void SetUp();
-      // Set-up work for each tests
-
-    virtual void TearDown();
-      // Clean-up work for each tests
-
 };
-
-void CountingAllocatorTest::SetUp()
-{
-}
-void CountingAllocatorTest::TearDown()
-{
-}
 
 TEST_F( CountingAllocatorTest, Initialization )
 {
@@ -65,3 +55,5 @@ TEST_F( CountingAllocatorTest, MultipleInstances )
     EXPECT_EQ( 0, d_alloc_char.getReleaseCount() );
     EXPECT_EQ( 3, d_alloc_char.getOutstandingCount() );
 }
+
+#endif // INCLUDE_COUNTING_ALLOCATOR_TESTS
