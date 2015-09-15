@@ -4,6 +4,7 @@
 # define INCLUDED_DYNAMIC_ARRAY
 
 #include <stdexcept>
+#include "../memory/default_allocator.h"
 #include "../memory/iallocator.h"
 
 namespace StevensDev
@@ -51,6 +52,9 @@ class DynamicArray
 
     // CONSTRUCTORS
 
+    DynamicArray();
+      // Default constructor
+
     DynamicArray( IAllocator<T>* alloc );
       // Pointer to an allocator for use with memory
 
@@ -65,7 +69,7 @@ class DynamicArray
 
     // OPERATORS
 
-    DynamicArray&       operator=( const DynamicArray& allocator );
+    DynamicArray&       operator=( const DynamicArray& array );
       // Copy assignment operator
 
     T&                  operator[]( int index );
@@ -170,12 +174,24 @@ void DynamicArray<T>::reallocate()
 
 template<typename T>
 inline
-DynamicArray<T>::DynamicArray( sgdm::IAllocator<T>* alloc )
-    : d_allocator( alloc ), d_array( 0 ), d_length( 0 ), d_size( 0 )
+DynamicArray<T>::DynamicArray()
+    : d_allocator( new DefaultAllocator<T> ), d_array( 0 ),
+    d_length( 0 ), d_size( 0 )
 {
     // Size is two because we want to create a dynamic array, and we don't know
     // the final number of element we want. 1 is not an array thus will have to
     // be reallocate in every case, and we don't know if we need more than 2.
+    int     size = 2;
+
+    d_array = alloc->get( size );
+    d_size = size;
+}
+
+template<typename T>
+inline
+DynamicArray<T>::DynamicArray( sgdm::IAllocator<T>* alloc )
+    : d_allocator( alloc ), d_array( 0 ), d_length( 0 ), d_size( 0 )
+{
     int     size = 2;
 
     d_array = alloc->get( size );
