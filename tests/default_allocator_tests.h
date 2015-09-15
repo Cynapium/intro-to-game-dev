@@ -1,7 +1,7 @@
 // default_allocator_tests.h
 
-#ifndef INCLUDE_DEFAULT_ALLOCATOR
-# define INCLUDE_DEFAULT_ALLOCATOR
+#ifndef INCLUDED_DEFAULT_ALLOCATOR_TEST
+# define INCLUDED_DEFAULT_ALLOCATOR_TEST
 
 #include <gtest/gtest.h>
 #include "../src/engine/memory/default_allocator.h"
@@ -48,4 +48,4 @@ TEST_F( DefaultAllocatorTest, BiggerRelease )
     ASSERT_TRUE( tmp == 0 );
 }
 
-#endif // INCLUDE_DEFAULT_ALLOCATOR
+#endif // INCLUDED_DEFAULT_ALLOCATOR_TEST

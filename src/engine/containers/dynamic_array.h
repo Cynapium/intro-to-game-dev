@@ -1,7 +1,7 @@
 // dynamic_array.h
 
-#ifndef INCLUDE_DYNAMIC_ARRAY
-# define INCLUDE_DYNAMIC_ARRAY
+#ifndef INCLUDED_DYNAMIC_ARRAY
+# define INCLUDED_DYNAMIC_ARRAY
 
 #include <stdexcept>
 #include "../memory/iallocator.h"
@@ -360,4 +360,4 @@ operator<<( std::ostream& stream, const DynamicArray<T> array )
 } // End sgdc namespace
 } // End StevensDev namespace
 
-#endif // INCLUDE_DYNAMIC_ARRAY
+#endif // INCLUDED_DYNAMIC_ARRAY

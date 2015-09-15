@@ -1,5 +1,8 @@
 // dynamic_array_tests.h
 
+#ifndef INCLUDED_DYNAMIC_ARRAY_TEST
+# define INCLUDED_DYNAMIC_ARRAY_TEST
+
 #include "../src/engine/memory/counting_allocator.h"
 #include "../src/engine/containers/dynamic_array.h"
 
@@ -182,3 +185,4 @@ TEST_F( DynamicArrayTest, PopFront)
         EXPECT_EQ( d_values[i + 2], d_arr1->at( i ) );
 }
 
+#endif // INCLUDED_DYNAMIC_ARRAY_TEST

@@ -1,7 +1,7 @@
 // counting_allocator_tests.h
 
-#ifndef INCLUDE_COUNTING_ALLOCATOR_TESTS
-# define INCLUDE_COUNTING_ALLOCATOR_TESTS
+#ifndef INCLUDED_COUNTING_ALLOCATOR_TEST
+# define INCLUDED_COUNTING_ALLOCATOR_TEST
 
 #include "../src/engine/memory/counting_allocator.h"
 
@@ -56,4 +56,4 @@ TEST_F( CountingAllocatorTest, MultipleInstances )
     EXPECT_EQ( 3, d_alloc_char.getOutstandingCount() );
 }
 
-#endif // INCLUDE_COUNTING_ALLOCATOR_TESTS
+#endif // INCLUDED_COUNTING_ALLOCATOR_TEST
