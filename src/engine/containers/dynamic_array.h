@@ -40,7 +40,9 @@ class DynamicArray
       // Shift the array to the left, starting at index value
 
     void            reallocate();
-      // Double the size of the array
+      // This function increase the size of the array. When the array is full,
+      // it allocate a new array twice as large (size * 2). That strategy
+      // allows us to amortize the reallocation cost logarithmically.
 
 
   public:
@@ -168,8 +170,13 @@ inline
 DynamicArray<T>::DynamicArray( sgdm::IAllocator<T>* alloc )
     : d_allocator( alloc ), d_array( 0 ), d_length( 0 ), d_size( 0 )
 {
-    d_array = alloc->get( 1 );
-    d_size = 1;
+    // Size is two because we want to create a dynamic array, and we don't know
+    // the final number of element we want. 1 is not an array and will have to
+    // be reallocate in every case, and we don't know if we need more than 2.
+    int     size = 2;
+
+    d_array = alloc->get( size );
+    d_size = size;
 }
 
 template<typename T>
