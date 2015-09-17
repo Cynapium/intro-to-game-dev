@@ -183,7 +183,7 @@ DynamicArray<T>::DynamicArray()
     // be reallocate in every case, and we don't know if we need more than 2.
     int     size = 2;
 
-    d_array = alloc->get( size );
+    d_array = d_allocator->get( size );
     d_size = size;
 }
 
