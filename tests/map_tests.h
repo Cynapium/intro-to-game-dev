@@ -3,13 +3,13 @@
 #ifndef INCLUDED_MAPS_TEST
 # define INCLUDED_MAPS_TEST
 
-#include "../src/engine/containers/maps.h"
+#include "../src/engine/containers/map.h"
 
 class MapTest : public ::testing::Test
 {
   public:
 
-    Map<int>            d_map_1;
+      StevensDev::sgdc::Map<int> d_map;
 
 
     // CONSTRUCTOR
@@ -32,12 +32,24 @@ class MapTest : public ::testing::Test
 };
 
 MapTest::MapTest()
-    : d_map_1()
+    : d_map()
 {
 }
 
 void MapTest::SetUp()
 {
+    d_map["one"] = 1;
+    d_map["two"] = 2;
+    d_map["three"] = 3;
+    d_map["four"] = 4;
+    d_map["five"] = 5;
+    d_map["six"] = 6;
+    d_map["seven"] = 7;
+    d_map["eight"] = 8;
+    d_map["nine"] = 9;
+    d_map["ten"] = 10;
+
+    d_map["twelve"] = 12;
 }
 
 void MapTest::TearDown()
@@ -46,9 +58,11 @@ void MapTest::TearDown()
 
 MapTest::~MapTest()
 {
-    delete d_arr1;
-    delete d_arr2;
 }
 
+TEST_F( MapTest, has )
+{
+    EXPECT_TRUE( d_map.has( "one" ) );
+}
 
 #endif // INCLUDED_MAPS_TEST
