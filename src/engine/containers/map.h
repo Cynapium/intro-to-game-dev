@@ -33,6 +33,22 @@ struct Node
     {
         children.push( child );
     }
+    
+    void print( int level )
+    {
+        std::cout << key;
+        if (hasValue)
+            std::cout << ", " << value;
+        std::cout << std::endl << "[ ";
+
+        for ( int i = 0; i < children.getLength(); i++ )
+        {
+            std::cout << children[i]->key << ", ";
+            //children[i]->print( level + 1 );
+        }
+
+        std::cout << std::endl << " ]";
+    }
 };
 
 
@@ -66,8 +82,9 @@ class Map
 
   public:
 
-    void                insert( const std::string, T& value );
-    void                insert( const std::string );
+    void print() { d_trie->print( 0 ); }
+    Node<T>*            insert( const std::string, T& value );
+    Node<T>*            insert( const std::string );
     // CONSTRUCTORS
 
     Map();
@@ -126,7 +143,7 @@ Node<T>* Map<T>::findChild( Node<T>* node, const char c )
     {
         Node<T>         *current = node->children[i];
 
-        if ( current->hasValue && current->key == c )
+        if ( current->key == c )
         {
             return current;
         }
@@ -164,7 +181,7 @@ Node<T>* Map<T>::lookUp( const std::string& key )
 // FIXME: Duplicate with insert( string, value ) so find a way to fix that.
 template<typename T>
 inline
-void Map<T>::insert( const std::string key )
+Node<T>* Map<T>::insert( const std::string key )
 {
     Node<T>             *current = d_trie;
 
@@ -184,11 +201,13 @@ void Map<T>::insert( const std::string key )
             current = child;
         }
     }
+
+    return current;
 }
 
 template<typename T>
 inline
-void Map<T>::insert( const std::string key, T& value )
+Node<T>* Map<T>::insert( const std::string key, T& value )
 {
     Node<T>             *current = d_trie;
 
@@ -214,6 +233,8 @@ void Map<T>::insert( const std::string key, T& value )
         current->hasValue = true;
         current->value = value;
     }
+
+    return current;
 }
 
 
@@ -271,6 +292,8 @@ Map<T>& Map<T>::operator=( const Map& map )
     d_trie = map.d_trie;
     d_keys = map.d_keys;
     d_values = map.d_values;
+
+    return *this;
 }
 
 template<typename T>
@@ -281,7 +304,7 @@ T& Map<T>::operator[]( const std::string& key )
 
     // If the value does not exist, create an entry with default value
     if ( !node )
-        insert( key );
+        node = insert( key );
 
     return node->value;
 }
@@ -294,7 +317,7 @@ const T Map<T>::operator[]( const std::string& key ) const
 
     // If the value does not exist, create an entry with default value
     if ( !node )
-        insert( key );
+        node = insert( key );
 
     return node->value;
 }
