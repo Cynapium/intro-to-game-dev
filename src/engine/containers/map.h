@@ -33,7 +33,7 @@ struct Node
     {
         children.push( child );
     }
-    
+
     void print( int level )
     {
         std::cout << key;
@@ -63,7 +63,7 @@ class Map
     Node<T>*            d_trie;
     // Root node of the trie containing keys & values
 
-    DynamicArray<T>     d_keys;
+    DynamicArray<std::string>     d_keys;
     // Keys of the map
 
     DynamicArray<T>     d_values;
@@ -78,13 +78,16 @@ class Map
     Node<T>*            findChild( Node<T>* node, const char c );
       //
 
+    // FIXME: Add doc
+    Node<T>*            createEntry( const std::string );
 
 
   public:
 
+    // FIXME: Clean that
     void print() { d_trie->print( 0 ); }
-    Node<T>*            insert( const std::string, T& value );
-    Node<T>*            insert( const std::string );
+
+
     // CONSTRUCTORS
 
     Map();
@@ -126,7 +129,7 @@ class Map
     T                   remove( const std::string& key );
       // Removes a key and its value
 
-    const DynamicArray<T>& keys() const;
+    const DynamicArray<std::string>& keys() const;
       // Retrieves all keys
 
     const DynamicArray<T>& values() const;
@@ -178,17 +181,16 @@ Node<T>* Map<T>::lookUp( const std::string& key )
     }
 }
 
-// FIXME: Duplicate with insert( string, value ) so find a way to fix that.
 template<typename T>
 inline
-Node<T>* Map<T>::insert( const std::string key )
+Node<T>* Map<T>::createEntry( const std::string key )
 {
     Node<T>             *current = d_trie;
 
     for ( int i = 0; i < key.length(); i++ )
     {
         Node<T>         *child = findChild( current, key[i] );
-        
+
         if ( child )
         {
             current = child;
@@ -202,41 +204,11 @@ Node<T>* Map<T>::insert( const std::string key )
         }
     }
 
-    return current;
-}
-
-template<typename T>
-inline
-Node<T>* Map<T>::insert( const std::string key, T& value )
-{
-    Node<T>             *current = d_trie;
-
-    for ( int i = 0; i < key.length(); i++ )
-    {
-        Node<T>         *child = findChild( current, key[i] );
-        
-        if ( child )
-        {
-            current = child;
-        }
-        else
-        {
-            child = new Node<T>();
-            child->key = key[i];
-            current->children.push( child );
-            current = child;
-        }
-    }
-
-    if ( value )
-    {
-        current->hasValue = true;
-        current->value = value;
-    }
+    current->hasValue = true;
+    d_keys.push( key );
 
     return current;
 }
-
 
 // CONSTRUCTORS
 
@@ -304,7 +276,7 @@ T& Map<T>::operator[]( const std::string& key )
 
     // If the value does not exist, create an entry with default value
     if ( !node )
-        node = insert( key );
+        node = createEntry( key );
 
     return node->value;
 }
@@ -314,10 +286,11 @@ inline
 const T Map<T>::operator[]( const std::string& key ) const
 {
     Node<T>*    node = lookUp( key );
+    std::cout << "const" << std::endl; // XXX TO REMOVE
 
     // If the value does not exist, create an entry with default value
     if ( !node )
-        node = insert( key );
+        node = createEntry( key );
 
     return node->value;
 }
@@ -329,7 +302,14 @@ template<typename T>
 inline
 bool Map<T>::has( const std::string& key )
 {
-    return lookUp( key )->value;
+    Node<T>*        node = lookUp( key );
+
+    if ( node )
+    {
+        return true;
+    }
+
+    return false;
 }
 
 template<typename T>
@@ -342,7 +322,7 @@ T Map<T>::remove( const std::string& key )
 
 template<typename T>
 inline
-const DynamicArray<T>& Map<T>::keys() const
+const DynamicArray<std::string>& Map<T>::keys() const
 {
     return d_keys;
 }
