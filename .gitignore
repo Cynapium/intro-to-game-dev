@@ -4,4 +4,5 @@ Makefile
 cmake_install.cmake
 GameDev*
 *.swp
+*.swo
 libs/*
