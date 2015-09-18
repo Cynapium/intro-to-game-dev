@@ -87,9 +87,6 @@ class Map
 
   public:
 
-    // FIXME: Clean that
-    void print() { d_trie->print( 0 ); }
-
 
     // CONSTRUCTORS
 
@@ -124,6 +121,15 @@ class Map
       // No mutation
 
 
+    // ACCESSORS
+
+    const DynamicArray<std::string>& keys() const;
+      // Retrieves all keys
+
+    const DynamicArray<T>& values() const;
+      // Retrieves all values
+
+
     // MEMBER FUNCTIONS
 
     bool                has( const std::string& key );
@@ -132,11 +138,8 @@ class Map
     T                   remove( const std::string& key );
       // Removes a key and its value
 
-    const DynamicArray<std::string>& keys() const;
-      // Retrieves all keys
-
-    const DynamicArray<T>& values() const;
-      // Retrieves all values
+    void                print();
+      // Print function for debug purpose
 };
 
 
@@ -303,29 +306,7 @@ const T Map<T>::operator[]( const std::string& key ) const
 }
 
 
-// MEMBER FUNCTIONS
-
-template<typename T>
-inline
-bool Map<T>::has( const std::string& key )
-{
-    Node<T>*        node = lookUp( key );
-
-    if ( node )
-    {
-        return true;
-    }
-
-    return false;
-}
-
-template<typename T>
-inline
-T Map<T>::remove( const std::string& key )
-{
-    // TODO
-    return nullptr;
-}
+// ACCESSORS
 
 template<typename T>
 inline
@@ -339,6 +320,36 @@ inline
 const DynamicArray<T>& Map<T>::values() const
 {
     return d_values;
+}
+
+
+// MEMBER FUNCTIONS
+
+template<typename T>
+inline
+bool Map<T>::has( const std::string& key )
+{
+    // Equivalent to return ( ( node = lookUp(key) ) != nullptr );
+    return lookUp(key);
+}
+
+template<typename T>
+inline
+T Map<T>::remove( const std::string& key )
+{
+    int         index;
+    // TODO: Find node in tries and removes it. Keep index in memory
+
+    // Remove in DynamicArrays keys and values, and return
+    d_keys.removeAt(index);
+    return d_values.removeAt(index);
+}
+
+template<typename T>
+inline
+void Map<T>::print()
+{
+    d_trie->print( 0 );
 }
 
 
