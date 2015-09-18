@@ -17,15 +17,13 @@ struct Node
 {
     char                key;
     //
-    T                   value;
-    //
-    bool                hasValue;
+    int                 index;
     //
     DynamicArray< Node<T>* > children;
     //
 
     Node()
-        : key(), value(), hasValue( false ), children()
+        : key(), index( -1 ), children()
     {
     }
 
@@ -34,20 +32,25 @@ struct Node
         children.push( child );
     }
 
-    void print( int level )
+    // FIXME: My code is ugly.
+    void print( int level, bool last = false )
     {
-        std::cout << key;
-        if (hasValue)
-            std::cout << ", " << value;
-        std::cout << std::endl << "[ ";
+        for ( int i = 1; i < level; i++)
+            std::cout << "    ";
+
+        if ( level > 0 )
+            if ( last )
+                std::cout << "└── ";
+            else
+                std::cout << "├── ";
+
+        std::cout << key << std::endl;
 
         for ( int i = 0; i < children.getLength(); i++ )
         {
-            std::cout << children[i]->key << ", ";
-            //children[i]->print( level + 1 );
+            children[i]->print( level + 1, i == children.getLength() - 1 );
         }
 
-        std::cout << std::endl << " ]";
     }
 };
 
@@ -78,8 +81,8 @@ class Map
     Node<T>*            findChild( Node<T>* node, const char c );
       //
 
-    // FIXME: Add doc
     Node<T>*            createEntry( const std::string );
+      // Create an empty entry in the map and return link to the Node in tries
 
 
   public:
@@ -174,7 +177,7 @@ Node<T>* Map<T>::lookUp( const std::string& key )
             }
         }
 
-        if ( current->hasValue )
+        if ( current->index >= 0 )
             return current;
         else
             return nullptr;
@@ -204,7 +207,11 @@ Node<T>* Map<T>::createEntry( const std::string key )
         }
     }
 
-    current->hasValue = true;
+    // Update current node
+    current->index = d_values.getLength();
+
+    // Fill arrays with default values
+    d_values.push( 0 );
     d_keys.push( key );
 
     return current;
@@ -278,7 +285,7 @@ T& Map<T>::operator[]( const std::string& key )
     if ( !node )
         node = createEntry( key );
 
-    return node->value;
+    return d_values[node->index];
 }
 
 template<typename T>
@@ -292,7 +299,7 @@ const T Map<T>::operator[]( const std::string& key ) const
     if ( !node )
         node = createEntry( key );
 
-    return node->value;
+    return d_values[node->index];
 }
 
 
