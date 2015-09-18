@@ -31,6 +31,8 @@ class DynamicArray
     unsigned int    d_size;
       // Size of the array allocation
 
+    unsigned int    d_max_size;
+
 
     // MEMBER FUNCTIONS
     // These functions are private because we don't want them to be used in a
@@ -46,6 +48,7 @@ class DynamicArray
       // This function increase the size of the array. When the array is full,
       // it allocate a new array twice as large (size * 2). That strategy
       // allows us to reduce the reallocation cost logarithmically.
+      // Returns true if reallocation was successful, false otherwise.
 
 
   public:
@@ -86,6 +89,11 @@ class DynamicArray
 
     const T             at( unsigned int index );
       // Retrieves an element at a location, throws if out of bounds
+
+
+    // MUTATORS
+
+    void                setMaxSize( unsigned int max );
 
 
     // MEMBER FUNCTIONS
@@ -153,7 +161,31 @@ void DynamicArray<T>::reallocate()
 {
     // Initialization
     unsigned int    new_size = d_size * 2;
+
+    // If the max size has been specified, we have to check if we can
+    // reallocate new memory.
+    if ( d_max_size > 0 )
+    {
+        // If the size is already at its maximum, we cannot.
+        if ( d_size >= d_max_size )
+        {
+            throw std::bad_alloc();
+        }
+
+        // If the new size is bigger than the max size, update it.
+        if ( d_max_size > 0 && new_size > d_max_size )
+        {
+            new_size = d_max_size;
+        }
+    }
+
+    // Allocate and check if new memory is valid
     T*              new_array = d_allocator->get( new_size );
+
+    if ( new_array == nullptr )
+    {
+        throw std::bad_alloc();
+    }
 
     // Move the values from d_array to the new memory space
     for ( int i = 0; i < d_length; i++ )
@@ -176,7 +208,7 @@ template<typename T>
 inline
 DynamicArray<T>::DynamicArray()
     : d_allocator( new DefaultAllocator<T> ), d_array( 0 ),
-    d_length( 0 ), d_size( 0 )
+    d_length( 0 ), d_size( 0 ), d_max_size( 0 )
 {
     // Size is two because we want to create a dynamic array, and we don't know
     // the final number of element we want. 1 is not an array thus will have to
@@ -190,7 +222,8 @@ DynamicArray<T>::DynamicArray()
 template<typename T>
 inline
 DynamicArray<T>::DynamicArray( sgdm::IAllocator<T>* alloc )
-    : d_allocator( alloc ), d_array( 0 ), d_length( 0 ), d_size( 0 )
+    : d_allocator( alloc ), d_array( 0 ),
+    d_length( 0 ), d_size( 0 ), d_max_size( 0 )
 {
     int     size = 2;
 
@@ -202,7 +235,8 @@ template<typename T>
 inline
 DynamicArray<T>::DynamicArray( const DynamicArray<T>& copy )
     : d_allocator( copy.d_allocator ), d_array( 0 ),
-      d_length( copy.d_length ), d_size( copy.d_size )
+    d_length( copy.d_length ), d_size( copy.d_size ),
+    d_max_size( copy.d_max_size )
 {
     d_array = d_allocator->get( d_size );
 
@@ -270,6 +304,16 @@ const T DynamicArray<T>::at( unsigned int index )
         throw std::out_of_range( "DynamicArray::at: out of range" );
 
     return d_array[index];
+}
+
+
+// MUTATOTRS
+
+template<typename T>
+inline
+void DynamicArray<T>::setMaxSize( unsigned int max )
+{
+    d_max_size = max;
 }
 
 
