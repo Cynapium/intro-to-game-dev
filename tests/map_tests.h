@@ -105,11 +105,11 @@ TEST_F( MapTest, GetValues )
     StevensDev::sgdc::DynamicArray<int> values = d_map.values();
 
     EXPECT_EQ( 20, values[0] );
-    EXPECT_EQ( 15, values[1] );
+    EXPECT_EQ( 16, values[1] );
     EXPECT_EQ( 3, values[2] );
     EXPECT_EQ( 1, values[3] );
     EXPECT_EQ( 6, values[4] );
-    EXPECT_EQ( 15, values[5] );
+    EXPECT_EQ( 14, values[5] );
     EXPECT_EQ( 2, values[6] );
     EXPECT_EQ( 5, values[7] );
     EXPECT_EQ( 10, values[8] );
