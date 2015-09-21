@@ -143,6 +143,20 @@ Node* Node::lookUp( const std::string& key )
     return lookUp( key, 0 );
 }
 
+void Node::remove( const char c )
+{
+    for ( int i = 0; i < d_children.length(); i++ )
+    {
+        Node         *current = d_children[i];
+
+        if ( current->key() == c )
+        {
+            d_children.removeAt( i );
+            return;
+        }
+    }
+}
+
 void Node::print( int level, bool last )
 {
     for ( int i = 1; i < level; i++)
@@ -154,7 +168,7 @@ void Node::print( int level, bool last )
         else
             std::cout << "├── ";
 
-    std::cout << d_key << std::endl;
+    std::cout << d_key << " (" << d_index << ")" << std::endl;
 
     for ( int i = 0; i < d_children.length(); i++ )
     {

@@ -62,6 +62,7 @@ class Node
     Node*               childAt( int index ) const;
     bool                hasValue() const;
     bool                isFree() const;
+    void                remove( const char c );
 
     void addChild( Node* child );
       // Add a child to the node
