@@ -8,6 +8,7 @@
 #include "dynamic_array.h"
 #include "node.h"
 
+
 namespace StevensDev
 {
 namespace sgdc
@@ -29,12 +30,6 @@ class Map
 
 
     // MEMBER FUNCTIONS
-
-    Node*               lookUp( const std::string& key );
-      //
-
-    Node*               findChild( Node* node, const char c );
-      //
 
     Node*               createEntry( const std::string );
       // Create an empty entry in the map and return link to the Node in tries
@@ -92,6 +87,7 @@ class Map
     bool                has( const std::string& key );
       // Determines if a key exists in the map
 
+    bool                remove( Node* node, const std::string& key, int l );
     T                   remove( const std::string& key );
       // Removes a key and its value
 
@@ -101,48 +97,6 @@ class Map
 
 
 // PRIVATE MEMBER FUNCTIONS
-template<typename T>
-inline
-Node* Map<T>::findChild( Node* node, const char c )
-{
-    for ( int i = 0; i < node->children().length(); i++ )
-    {
-        Node         *current = node->childAt( i );
-
-        if ( current->key() == c )
-        {
-            return current;
-        }
-    }
-
-    return 0;
-}
-
-template<typename T>
-inline
-Node* Map<T>::lookUp( const std::string& key )
-{
-    Node             *current = d_trie;
-
-    while ( current )
-    {
-        for ( int i = 0; i < key.length(); i++ )
-        {
-
-            current = findChild( current, key[i] );
-
-            if (!current)
-            {
-                return nullptr;
-            }
-        }
-
-        if ( current->index() >= 0 )
-            return current;
-        else
-            return nullptr;
-    }
-}
 
 template<typename T>
 inline
@@ -152,7 +106,7 @@ Node* Map<T>::createEntry( const std::string key )
 
     for ( int i = 0; i < key.length(); i++ )
     {
-        Node         *child = findChild( current, key[i] );
+        Node         *child = current->findChild( key[i] );
 
         if ( child )
         {
@@ -218,7 +172,7 @@ template<typename T>
 inline
 Map<T>::~Map()
 {
-    delete d_trie;
+    //delete d_trie;
 }
 
 
@@ -239,7 +193,7 @@ template<typename T>
 inline
 T& Map<T>::operator[]( const std::string& key )
 {
-    Node*    node = lookUp( key );
+    Node*    node = d_trie->lookUp( key );
 
     // If the value does not exist, create an entry with default value
     if ( !node )
@@ -252,7 +206,7 @@ template<typename T>
 inline
 const T Map<T>::operator[]( const std::string& key ) const
 {
-    Node*    node = lookUp( key );
+    Node*    node = d_trie->lookUp( key );
     std::cout << "const" << std::endl; // XXX TO REMOVE
 
     // If the value does not exist, create an entry with default value
@@ -293,18 +247,50 @@ template<typename T>
 inline
 bool Map<T>::has( const std::string& key )
 {
-    // Equivalent to return ( ( node = lookUp(key) ) != nullptr );
-    return lookUp(key);
+    // Equivalent to return ( ( node = d_trie->lookUp(key) ) != nullptr );
+    return d_trie->lookUp(key);
+}
+
+template<typename T>
+inline
+bool Map<T>::remove( Node* node, const std::string& key, int level )
+{
+    if ( !node )
+        return false;
+
+    if ( level == key.length() )
+    {
+        if ( !node->hasValue() )
+        {
+            return false;
+        }
+
+        node->setIndex( -1 );
+    }
+    else
+    {
+        Node*       next = node->findChild( key[level] );
+
+        if ( remove( next, key, level + 1 ) )
+        {
+            next->setIndex( -1 );
+        }
+    }
+
+    return node->isFree();
 }
 
 template<typename T>
 inline
 T Map<T>::remove( const std::string& key )
 {
-    int         index = 0;
-    // TODO: Find node in tries and removes it. Keep index in memory
+    int         index = d_trie->lookUp( key )->index();
 
-    // Remove in DynamicArrays keys and values, and return
+    if ( key.length() > 0 )
+    {
+        remove( d_trie, key, 0 );
+    }
+
     d_keys.removeAt(index);
     return d_values.removeAt(index);
 }

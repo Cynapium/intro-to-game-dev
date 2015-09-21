@@ -76,7 +76,6 @@ Node* Node::childAt( int index ) const
     return d_children[index];
 }
 
-
 // MUTATORS
 
 void Node::setIndex( int index )
@@ -89,6 +88,17 @@ void Node::setIndex( int index )
 
 // MEMBER FUNCTION
 
+bool Node::hasValue() const
+{
+    return ( d_index >= 0 );
+}
+
+ 
+bool Node::isFree() const
+{
+    return !( hasValue() || d_children.length() > 0 );
+}
+
 void Node::addChild( Node* child )
 {
     d_children.push( child );
@@ -99,6 +109,39 @@ void Node::print( int level )
     print( level, false );
 }
 
+Node* Node::findChild( const char c )
+{
+    for ( int i = 0; i < d_children.length(); i++ )
+    {
+        Node         *current = d_children[i];
+
+        if ( current->key() == c )
+        {
+            return current;
+        }
+    }
+
+    return 0;
+}
+
+Node* Node::lookUp( const std::string& key, int level )
+{
+    Node *node = findChild( key[level] );
+
+    if (!node)
+    {
+        return nullptr;
+    }
+
+    if ( level >= key.length() - 1 && node->hasValue() )
+        return node;
+    else
+        return node->lookUp( key, level + 1);
+}
+Node* Node::lookUp( const std::string& key )
+{
+    return lookUp( key, 0 );
+}
 
 void Node::print( int level, bool last )
 {

@@ -45,14 +45,23 @@ class Node
     const char          key() const;
     const int           index() const;
     DynamicArray<Node*> children() const;
-    Node*               childAt( int index ) const;
-
 
     // MUTATORS
 
     void                setIndex( int index );
 
     // MEMBER FUNCTIONS
+
+    Node*               lookUp( const std::string& key );
+    Node*               lookUp( const std::string& key, int level );
+
+    Node*               findChild( const char c );
+      //
+      //
+
+    Node*               childAt( int index ) const;
+    bool                hasValue() const;
+    bool                isFree() const;
 
     void addChild( Node* child );
       // Add a child to the node
