@@ -3,6 +3,5 @@ CMakeFiles/*
 Makefile
 cmake_install.cmake
 GameDev*
-*.swp
-*.swo
+*.sw*
 libs/*
