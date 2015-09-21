@@ -269,11 +269,11 @@ bool Map<T>::remove( Node* node, const std::string& key, int level )
     }
     else
     {
-        Node*       next = node->findChild( key[level] );
+        Node*       child = node->findChild( key[level] );
 
-        if ( remove( next, key, level + 1 ) )
+        if ( remove( child, key, level + 1 ) )
         {
-            next->setIndex( -1 );
+            node->remove( key[level] );
         }
     }
 
