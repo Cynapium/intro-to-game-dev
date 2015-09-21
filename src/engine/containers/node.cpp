@@ -7,7 +7,7 @@ namespace StevensDev
 namespace sgdc
 {
 
-// CONSTRUCTOR
+// CONSTRUCTORS
 
 Node::Node()
     : d_key(), d_index( -1 ), d_children()
@@ -71,10 +71,6 @@ DynamicArray<Node*> Node::children() const
     return d_children;
 }
 
-Node* Node::childAt( int index ) const
-{
-    return d_children[index];
-}
 
 // MUTATORS
 
@@ -86,27 +82,27 @@ void Node::setIndex( int index )
     d_index = index;
 }
 
+
 // MEMBER FUNCTION
 
-bool Node::hasValue() const
+Node* Node::lookUp( const std::string& key )
 {
-    return ( d_index >= 0 );
+    return lookUp( key, 0 );
 }
 
- 
-bool Node::isFree() const
+Node* Node::lookUp( const std::string& key, int level )
 {
-    return !( hasValue() || d_children.length() > 0 );
-}
+    Node *node = findChild( key[level] );
 
-void Node::addChild( Node* child )
-{
-    d_children.push( child );
-}
+    if (!node)
+    {
+        return nullptr;
+    }
 
-void Node::print( int level )
-{
-    print( level, false );
+    if ( level >= key.length() - 1 && node->hasValue() )
+        return node;
+    else
+        return node->lookUp( key, level + 1);
 }
 
 Node* Node::findChild( const char c )
@@ -124,25 +120,26 @@ Node* Node::findChild( const char c )
     return 0;
 }
 
-Node* Node::lookUp( const std::string& key, int level )
+Node* Node::childAt( int index ) const
 {
-    Node *node = findChild( key[level] );
-
-    if (!node)
-    {
-        return nullptr;
-    }
-
-    if ( level >= key.length() - 1 && node->hasValue() )
-        return node;
-    else
-        return node->lookUp( key, level + 1);
-}
-Node* Node::lookUp( const std::string& key )
-{
-    return lookUp( key, 0 );
+    return d_children[index];
 }
 
+bool Node::hasValue() const
+{
+    return ( d_index >= 0 );
+}
+
+
+bool Node::isFree() const
+{
+    return !( hasValue() || d_children.length() > 0 );
+}
+
+void Node::print( int level )
+{
+    print( level, false );
+}
 void Node::remove( const char c )
 {
     for ( int i = 0; i < d_children.length(); i++ )
@@ -155,6 +152,11 @@ void Node::remove( const char c )
             return;
         }
     }
+}
+
+void Node::addChild( Node* child )
+{
+    d_children.push( child );
 }
 
 void Node::print( int level, bool last )
