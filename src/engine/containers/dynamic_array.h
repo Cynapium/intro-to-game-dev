@@ -373,9 +373,14 @@ T DynamicArray<T>::removeAt( unsigned int index )
     if ( index < 0 || index > d_length )
         throw std::out_of_range( "DynamicArray::shiftLeft: out of range" );
 
+    // Retrieve the element
+    T       element = d_array[index];
+
     // Decrease size and shift array
     shiftLeft( index );
     d_length--;
+
+    return element;
 }
 
 template<typename T>
