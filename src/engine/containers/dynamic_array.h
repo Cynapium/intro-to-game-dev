@@ -212,7 +212,7 @@ template<typename T>
 inline
 DynamicArray<T>::DynamicArray( const DynamicArray<T>& copy )
     : d_allocator( copy.d_allocator ), d_array( 0 ),
-    d_length( copy.d_length ), d_size( copy.d_size ),
+    d_length( copy.d_length ), d_size( copy.d_size )
 {
     d_array = d_allocator->get( d_size );
 
