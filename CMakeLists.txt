@@ -16,7 +16,14 @@ project(${PROJECT_NAME})
 file(GLOB FILES_SGDM RELATIVE "src/engine/memory" "*.cpp")
 file(GLOB FILES_SGDC RELATIVE "src/engine/containers" "*.cpp")
 
+#get_cmake_property(_variableNames VARIABLES)
+#foreach (_variableName ${_variableNames})
+#    message(STATUS "${_variableName}=${${_variableName}}")
+#endforeach()
+
+# Set flags to compile C++11 with G++
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+
 
 ###############################################################################
 ### GTEST
@@ -60,9 +67,21 @@ add_dependencies(${GTEST_LIBRARY} googletest)
 ###############################################################################
 
 # Main Project
-add_executable(${PROJECT_NAME} game.m.cpp ${FILES_SGDM} ${FILES_SGDC})
+add_executable(${PROJECT_NAME} game.m.cpp
+    "src/engine/memory/iallocator.cpp"
+    "src/engine/memory/default_allocator.cpp"
+    "src/engine/memory/counting_allocator.cpp"
+    "src/engine/containers/dynamic_array.cpp"
+    "src/engine/containers/node.cpp"
+    "src/engine/containers/map.cpp")
 target_link_libraries(${PROJECT_NAME} pthread)
 
 # Test suite
-add_executable(${PROJECT_TEST} test.m.cpp ${FILES_SGDM} ${FILES_SGDC})
+add_executable(${PROJECT_TEST} test.m.cpp
+    "src/engine/memory/iallocator.cpp"
+    "src/engine/memory/default_allocator.cpp"
+    "src/engine/memory/counting_allocator.cpp"
+    "src/engine/containers/dynamic_array.cpp"
+    "src/engine/containers/node.cpp"
+    "src/engine/containers/map.cpp")
 target_link_libraries(${PROJECT_TEST} ${GTEST_LIBRARY} pthread)
