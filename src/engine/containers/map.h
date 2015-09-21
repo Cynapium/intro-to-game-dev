@@ -84,6 +84,8 @@ class Map
     const DynamicArray<T>& values() const;
       // Retrieves all values
 
+    const unsigned int  length() const;
+
 
     // MEMBER FUNCTIONS
 
@@ -103,7 +105,7 @@ template<typename T>
 inline
 Node* Map<T>::findChild( Node* node, const char c )
 {
-    for ( int i = 0; i < node->children().getLength(); i++ )
+    for ( int i = 0; i < node->children().length(); i++ )
     {
         Node         *current = node->childAt( i );
 
@@ -165,7 +167,7 @@ Node* Map<T>::createEntry( const std::string key )
     }
 
     // Update current node
-    current->setIndex( d_values.getLength() );
+    current->setIndex( d_values.length() );
 
     // Fill arrays with default values
     d_values.push( 0 );
@@ -277,6 +279,13 @@ const DynamicArray<T>& Map<T>::values() const
     return d_values;
 }
 
+template<typename T>
+inline
+const unsigned int Map<T>::length() const
+{
+    return d_keys.length();
+}
+
 
 // MEMBER FUNCTIONS
 
@@ -312,9 +321,24 @@ void Map<T>::print()
 
 template<class T>
 inline std::ostream&
-operator<<( std::ostream& stream, const Map<T> map )
+operator<<( std::ostream& str, const Map<T> map )
 {
-    return stream << "{ Map }";
+    str << "{ " << std::endl
+        << "maps: [" << std::endl;
+
+    for ( int i = 0; i < map.values().length(); i++ )
+    {
+        if ( i > 0)
+        {
+            str << ", " << std::endl;
+        }
+        str << map.keys()[i] << ": " << map.values()[i];
+    }
+
+    str << std::endl << "]" << std::endl
+        << "}" << std::endl;
+
+    return str;
 }
 
 

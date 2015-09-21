@@ -79,7 +79,7 @@
 
 - [x] Map( IAllocator\* allocator )
 - [x] Orthodox canonical form
-- [ ] Operator <<
+- [x] Operator <<
 - [x] \[ const string& key \] : T&
 - [x] \[ const string& key \] const : const T&
 - [x] has( const string& key ) : bool
@@ -87,7 +87,7 @@
 - [x] keys() const : DynamicArray<string>
 - [x] values() const : DynamicArray<T>
 - [ ] Tests
-- [ ] Trie implementation
+- [x] Trie implementation
 
 ### Node
 

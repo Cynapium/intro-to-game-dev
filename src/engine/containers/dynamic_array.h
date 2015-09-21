@@ -84,7 +84,7 @@ class DynamicArray
 
     // ACCESSORS
 
-    unsigned int const  getLength();
+    unsigned int const  length() const;
       // Number of elements contained
 
     const T             at( unsigned int index );
@@ -290,7 +290,7 @@ T DynamicArray<T>::operator[]( int index ) const
 
 template<typename T>
 inline
-unsigned int const DynamicArray<T>::getLength()
+unsigned int const DynamicArray<T>::length() const
 {
     return d_length;
 }
@@ -409,10 +409,10 @@ inline std::ostream&
 operator<<( std::ostream& stream, const DynamicArray<T> array )
 {
     stream << "{ "
-        << "\"length\": " << array.getLength() << ", "
-        << "\"array\": [ " << array.getLength();
+        << "\"length\": " << array.length() << ", "
+        << "\"array\": [ " << array.length();
 
-    for ( int i = 0; i < array.getLength(); i++ )
+    for ( int i = 0; i < array.length(); i++ )
         stream << array[i] << ", ";
 
     return stream << " ] }";

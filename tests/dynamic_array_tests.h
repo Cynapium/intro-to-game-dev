@@ -59,15 +59,15 @@ void DynamicArrayTest::TearDown()
     delete d_arr2;
 }
 
-// getLength()
+// length()
 
 TEST_F( DynamicArrayTest, LengthZero )
 {
-    EXPECT_EQ( 0, d_arr2->getLength() );
+    EXPECT_EQ( 0, d_arr2->length() );
 }
 TEST_F( DynamicArrayTest, Length )
 {
-    EXPECT_EQ( 3, d_arr1->getLength() );
+    EXPECT_EQ( 3, d_arr1->length() );
 }
 
 
@@ -94,7 +94,7 @@ TEST_F( DynamicArrayTest, OperatorAtSet )
 
     ( *d_arr1 )[i] = 99;
 
-    EXPECT_EQ( d_size, d_arr1->getLength() );
+    EXPECT_EQ( d_size, d_arr1->length() );
     EXPECT_EQ( 99, ( *d_arr1 )[i] );
 }
 
@@ -137,6 +137,7 @@ TEST_F( DynamicArrayTest, PushFront )
         EXPECT_EQ( d_values[i - 1], d_arr1->at( i ) );
 }
 
+// TODO: Tests for max size of dynamic array
 
 // removeAt, pop and popFront
 

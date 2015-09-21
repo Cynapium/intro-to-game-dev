@@ -42,10 +42,10 @@ class Node
 
     // ACCESSORS
 
-    char                key();
-    int                 index();
-    DynamicArray<Node*> children();
-    Node*               childAt( int index );
+    const char          key() const;
+    const int           index() const;
+    DynamicArray<Node*> children() const;
+    Node*               childAt( int index ) const;
 
 
     // MUTATORS

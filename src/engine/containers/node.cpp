@@ -56,22 +56,22 @@ Node& Node::operator=( const Node& node )
 
 // ACCESSORS
 
-char Node::key()
+const char Node::key() const
 {
     return d_key;
 }
 
-int Node::index()
+const int Node::index() const
 {
     return d_index;
 }
 
-DynamicArray<Node*> Node::children()
+DynamicArray<Node*> Node::children() const
 {
     return d_children;
 }
 
-Node* Node::childAt( int index )
+Node* Node::childAt( int index ) const
 {
     return d_children[index];
 }
@@ -113,11 +113,40 @@ void Node::print( int level, bool last )
 
     std::cout << d_key << std::endl;
 
-    for ( int i = 0; i < d_children.getLength(); i++ )
+    for ( int i = 0; i < d_children.length(); i++ )
     {
-        d_children[i]->print( level + 1, i == d_children.getLength() - 1 );
+        d_children[i]->print( level + 1, i == d_children.length() - 1 );
     }
 }
+
+
+// FREE OPERATORS
+
+template<class T>
+inline std::ostream&
+operator<<( std::ostream& str, const Node node )
+{
+    str << "{ " << std::endl
+        << "key: \"" << node.key() << "\", " << std::endl
+        << "index: \"" << node.index() << "\", " << std::endl
+        << "children: [";
+
+    for ( int i = 0; i < node.children().length(); i++ )
+    {
+        if ( i > 0)
+        {
+            str << ", ";
+        }
+        str << node.childAt( i );
+    }
+
+    str << "]" << std::endl
+        << "}" << std::endl;
+
+    return str;
+
+}
+
 
 } // End sgdc namespace
 } // End StevensDev namespace
