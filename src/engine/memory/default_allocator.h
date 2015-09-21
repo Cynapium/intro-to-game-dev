@@ -3,6 +3,7 @@
 #ifndef INCLUDED_DEFAULT_ALLOCATOR
 # define INCLUDED_DEFAULT_ALLOCATOR
 
+#include <iostream>
 #include "iallocator.h"
 
 namespace StevensDev
