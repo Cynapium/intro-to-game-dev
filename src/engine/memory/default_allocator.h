@@ -42,6 +42,16 @@ class DefaultAllocator : public IAllocator<T>
 
     void                release( T* ptr, int count );
       // Release allocated memory
+
+
+    void                construct( T* ptr, T&& copy);
+      // 
+    
+    void                construct( T* ptr, const T& copy );
+      //
+
+    void                destruct( T* ptr );
+      //
 };
 
 // CONSTRUCTORS
@@ -110,6 +120,27 @@ void DefaultAllocator<T>::release( T* ptr, int count )
     delete[] ptr;
 
     ptr = 0;
+}
+
+template<typename T>
+inline
+void construct( T* ptr, T&& copy )
+{
+    ptr = new T( copy );
+}
+
+template<typename T>
+inline
+void DefaultAllocator<T>::construct( T* ptr, const T& copy )
+{
+    ptr = new T( copy );
+}
+
+template<typename T>
+inline
+void DefaultAllocator<T>::destruct( T* ptr )
+{
+    delete ptr;
 }
 
 

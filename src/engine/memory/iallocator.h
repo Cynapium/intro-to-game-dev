@@ -17,6 +17,15 @@ class IAllocator
 
     virtual void    release( T* ptr, int count ) = 0;
       // Release allocated memory
+
+    //virtual void    construct( T* ptr, Args&&... args ) = 0;
+      //
+    
+    virtual void    construct( T* ptr, const T& copy ) = 0;
+      //
+
+    virtual void    destruct( T* ptr ) = 0;
+      //
 };
 
 

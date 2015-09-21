@@ -70,9 +70,9 @@
 
 ### Allocator Interface
 
-- [ ] construct( T\* pointer, Args&&... args ) : void
-- [ ] construct( T\* pointer, const T& copy ) : void
-- [ ] destruct( T\* pointer ) : void
+- [x] construct( T\* pointer, Args&&... args ) : void
+- [x] construct( T\* pointer, const T& copy ) : void
+- [x] destruct( T\* pointer ) : void
 - [ ] Tests
 
 ### Map
