@@ -68,6 +68,7 @@ class DynamicArray
     // DESTRUCTOR
 
     virtual             ~DynamicArray();
+      // Delete everything
 
 
     // OPERATORS
@@ -89,11 +90,6 @@ class DynamicArray
 
     const T             at( unsigned int index );
       // Retrieves an element at a location, throws if out of bounds
-
-
-    // MUTATORS
-
-    void                setMaxSize( unsigned int max );
 
 
     // MEMBER FUNCTIONS
@@ -304,16 +300,6 @@ const T DynamicArray<T>::at( unsigned int index )
         throw std::out_of_range( "DynamicArray::at: out of range" );
 
     return d_array[index];
-}
-
-
-// MUTATOTRS
-
-template<typename T>
-inline
-void DynamicArray<T>::setMaxSize( unsigned int max )
-{
-    d_max_size = max;
 }
 
 
