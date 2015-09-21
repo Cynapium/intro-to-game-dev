@@ -64,3 +64,36 @@
 - [x] removeAt( unsigned int index ) : T
 - [x] insertAt( unsigned int index ) : T
 
+---
+
+## Week 3
+
+### Allocator Interface
+
+- [ ] construct( T\* pointer, Args&&... args ) : void
+- [ ] construct( T\* pointer, const T& copy ) : void
+- [ ] destruct( T\* pointer ) : void
+- [ ] Tests
+
+### Map
+
+- [x] Map( IAllocator\* allocator )
+- [x] Orthodox canonical form
+- [ ] Operator <<
+- [x] \[ const string& key \] : T&
+- [x] \[ const string& key \] const : const T&
+- [x] has( const string& key ) : bool
+- [ ] remove( const string& key ) : T
+- [x] keys() const : DynamicArray<string>
+- [x] values() const : DynamicArray<T>
+- [ ] Tests
+- [ ] Trie implementation
+
+### Node
+
+- [x] Default constructor
+- [x] Copy constructor
+- [x] Move constructor
+- [x] Move operator assignment
+- [x] Destructor
+- [x] addChild();
