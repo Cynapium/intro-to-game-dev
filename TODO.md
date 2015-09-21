@@ -83,10 +83,10 @@
 - [x] \[ const string& key \] : T&
 - [x] \[ const string& key \] const : const T&
 - [x] has( const string& key ) : bool
-- [ ] remove( const string& key ) : T
+- [x] remove( const string& key ) : T
 - [x] keys() const : DynamicArray<string>
 - [x] values() const : DynamicArray<T>
-- [ ] Tests
+- [x] Tests
 - [x] Trie implementation
 
 ### Node
