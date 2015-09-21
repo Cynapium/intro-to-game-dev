@@ -31,6 +31,7 @@ class DefaultAllocator : public IAllocator<T>
 
 
     // OPERATORS
+
     DefaultAllocator&   operator=( const DefaultAllocator& allocator );
       // Copy assignment operator
 
@@ -43,15 +44,14 @@ class DefaultAllocator : public IAllocator<T>
     void                release( T* ptr, int count );
       // Release allocated memory
 
-
     void                construct( T* ptr, T&& copy);
-      // 
+      // Construct a T object in-place by move
     
     void                construct( T* ptr, const T& copy );
-      //
+      // Construct a T object in-place by copy
 
     void                destruct( T* ptr );
-      //
+      // Call the destructor on an object
 };
 
 // CONSTRUCTORS
@@ -124,7 +124,7 @@ void DefaultAllocator<T>::release( T* ptr, int count )
 
 template<typename T>
 inline
-void construct( T* ptr, T&& copy )
+void DefaultAllocator<T>::construct( T* ptr, T&& copy )
 {
     ptr = new T( copy );
 }
