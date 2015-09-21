@@ -134,7 +134,20 @@ TEST_F( MapTest, OperatorAt )
 
 TEST_F( MapTest, Remove )
 {
-    // TODO
+    d_map.remove("five");
+    d_map.remove("twelve");
+    d_map.remove("one");
+
+    StevensDev::sgdc::DynamicArray<std::string> keys = d_map.keys();
+
+    EXPECT_EQ( "twenty", keys[0] );
+    EXPECT_EQ( "sixteen", keys[1] );
+    EXPECT_EQ( "three", keys[2] );
+    EXPECT_EQ( "six", keys[3] );
+    EXPECT_EQ( "fourteen", keys[4] );
+    EXPECT_EQ( "two", keys[5] );
+    EXPECT_EQ( "ten", keys[6] );
+    EXPECT_EQ( "fifteen", keys[7] );
 }
 
 #endif // INCLUDED_MAPS_TEST
