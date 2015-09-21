@@ -73,7 +73,6 @@
 - [x] construct( T\* pointer, Args&&... args ) : void
 - [x] construct( T\* pointer, const T& copy ) : void
 - [x] destruct( T\* pointer ) : void
-- [ ] Tests
 
 ### Map
 
