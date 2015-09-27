@@ -165,10 +165,16 @@ void Node::print( int level, bool last )
         std::cout << "    ";
 
     if ( level > 0 )
+    {
         if ( last )
+        {
             std::cout << "└── ";
+        }
         else
+        {
             std::cout << "├── ";
+        }
+    }
 
     std::cout << d_key << " (" << d_index << ")" << std::endl;
 
