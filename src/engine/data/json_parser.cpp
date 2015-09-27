@@ -6,6 +6,7 @@
 #include "json_object.h"
 #include <exception>
 #include <iostream>
+#include <cstdlib>
 
 namespace StevensDev
 {
@@ -49,11 +50,30 @@ JsonParser::token()
             // STRING
         case '"':
         case '\'':
-            return new TokenString( STRING, "test" );
+            return parseString();
+
+        // BOOLEAN
+        case 't':
+        case 'f':
+            return parseBool();
+
+        // INTEGER or DOUBLE
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+        case '-':
+            return parseNumber();
 
             // PRIMITIVE
         default:
-            return new TokenBool( BOOLEAN, true );
+            throw std::exception();
     }
 }
 
@@ -115,20 +135,79 @@ JsonParser::parseObject()
     }
 }*/
 
-JsonEntity*
+TokenString*
 JsonParser::parseString()
 {
     std::cout << "\tparseString starting at " << d_index << std::endl;
 
-    int         i_start = d_index + 1;
+    int         i_start = ++d_index;
 
     // Browse until we find another "
-    while ( d_index < d_json.size() && d_json[d_index] != '"' )
+    while ( d_index < d_json.size() &&
+            d_json[d_index] != '"' && d_json[d_index] != '\'')
+    {
         d_index++;
+    }
 
     std::string s = d_json.substr( i_start, d_index - i_start );
 
-    return new JsonString ( s );
+    std::cout << "\tparseString stopped at " << d_index << ": " << s << std::endl;
+
+    return new TokenString ( STRING, s );
+}
+
+Token*
+JsonParser::parseNumber()
+{
+    const char      *numbers = "0123456789";
+    int              i_start = d_index++;
+    size_t           i = d_json.find_first_not_of( numbers, d_index );
+    bool             isFloat = false;
+
+    std::cout << "INDEX IS NOW " << i << std::endl;
+    if ( d_json[i] == '.' )
+    {
+        isFloat = true;
+        i = d_json.find_first_not_of( numbers, i + 1 );
+        std::cout << "INDEX IS NOW " << i << std::endl;
+    }
+
+    std::string      nb = d_json.substr( i_start, i - i_start );
+
+    d_index = i - 1;
+
+    if ( isFloat )
+    {
+        return new TokenDouble( DOUBLE, atof( nb.c_str() ) );
+    }
+    else
+    {
+        return new TokenInt( INTEGER, atoi( nb.c_str() ) );
+    }
+}
+
+TokenBool*
+JsonParser::parseBool()
+{
+    TokenBool*   token = nullptr;
+
+    if ( d_json.substr( d_index, 5 ) == "false" )
+    {
+        token = new TokenBool( BOOLEAN, false );
+        d_index += 5;
+    }
+    else if ( d_json.substr( d_index, 4 ) == "true" )
+    {
+        token = new TokenBool(BOOLEAN, true );
+        d_index += 4;
+    }
+    else
+    {
+        throw std::invalid_argument( "parseBool" ); //TODO
+    }
+
+    return token;
+
 }
 
 JsonString*
