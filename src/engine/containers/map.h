@@ -309,22 +309,18 @@ template<class T>
 inline std::ostream&
 operator<<( std::ostream& str, const Map<T> map )
 {
-    str << "{ " << std::endl
-        << "maps: [" << std::endl;
+    str << "{ ";
 
     for ( int i = 0; i < map.values().length(); i++ )
     {
         if ( i > 0)
         {
-            str << ", " << std::endl;
+            str << ", ";
         }
-        str << map.keys()[i] << ": " << map.values()[i];
+        str << "\"" << map.keys()[i] << "\": " << map.values()[i];
     }
 
-    str << std::endl << "]" << std::endl
-        << "}" << std::endl;
-
-    return str;
+    return str << " }";
 }
 
 
