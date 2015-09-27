@@ -15,8 +15,8 @@ JsonObject::JsonObject( MapJEntity attributes )
 
 // ACCESSORS
 
-MapJEntity
-JsonObject::attributes()
+const MapJEntity&
+JsonObject::attributes() const
 {
     return d_attributes;
 }

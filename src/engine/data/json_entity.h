@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "../containers/dynamic_array.h"
+#include "../containers/map.h"
 
 namespace StevensDev
 {
@@ -72,6 +73,8 @@ class JsonEntity
 
     const sgdc::DynamicArray<JsonEntity*>& asArray() const;
 
+    const sgdc::Map<JsonEntity*>& asMap() const;
+
 
     bool const          isInt() const;
       // Return true if type is int
@@ -99,10 +102,8 @@ operator<<( std::ostream& str, const JsonEntity* entity )
 {
     switch ( entity->type() )
     {
-/*
         case JsonEntity::OBJECT:
-            return str << *( ( JsonObject* ) entity );
-            */
+            return str << entity->asMap();
 
         case JsonEntity::ARRAY:
             return str << entity->asArray();
@@ -111,7 +112,7 @@ operator<<( std::ostream& str, const JsonEntity* entity )
             return str << entity->asInt();
 
         case JsonEntity::STRING:
-            return str << entity->asString();
+            return str << "\"" << entity->asString() << "\"";
 
         case JsonEntity::DOUBLE:
             return str << entity->asDouble();

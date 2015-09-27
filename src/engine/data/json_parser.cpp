@@ -23,10 +23,12 @@ Token*
 JsonParser::token()
 {
     d_index++;
-    std::cout << "\tCheck token \"" << d_json[d_index] << "\" at " << d_index
-        << std::endl;
     switch ( d_json[d_index] )
     {
+        // SPACES AND NEWLINES (We skip them)
+        case ' ':
+            return token();
+
         // OBJECT
         case '{':
             return new Token( OPEN_BRACE );
@@ -34,8 +36,6 @@ JsonParser::token()
             return new Token( CLOSE_BRACE );
 
             // PUNCTUATION INSIDE OBJECT
-        case ' ':
-            return new Token( SPACE );
         case ',':
             return new Token( COMMA );
         case ':':
@@ -56,6 +56,10 @@ JsonParser::token()
         case 't':
         case 'f':
             return parseBool();
+
+        // NULL
+        case 'n':
+            return parseNull();
 
         // INTEGER or DOUBLE
         case '0':
@@ -80,7 +84,7 @@ JsonParser::token()
 JsonEntity*
 JsonParser::parseArray()
 {
-    sgdc::DynamicArray<JsonEntity*> array;//( d_allocator );
+    ArrayJEntity            array;
 
     while ( true )
     {
@@ -120,26 +124,102 @@ JsonParser::parseArray()
     }
 }
 
-/*
-JsonObject*
+JsonEntity*
 JsonParser::parseObject()
 {
+    MapJEntity          object;
+    Token               expect( STRING );
+
+    // Initialization of a new attribute
+    std::string     key;
+    JsonEntity*     value = nullptr;
+
     while ( true )
     {
-        Token       *t = token();
+        Token*          t = token();
 
-        switch ( t.type )
+        if ( ( expect.type != NULLPTR && t->type != expect.type && t->type !=
+               CLOSE_BRACE ) || ( expect.type != COMMA   && t->type == CLOSE_BRACE ) )
         {
-            case 
+            std::string err = "parseArray: Invalid token \"";
+            err += t->typeStr();
+            err += "\" when expected \"";
+            err += expect.typeStr();
+            err += "\"";
+            throw std::invalid_argument( err );
+        }
+
+        switch ( t->type )
+        {
+            case COLON:
+                expect.type = NULLPTR;
+                break;
+
+            case COMMA:
+                object[key] = value;
+                expect.type = STRING;
+                break;
+
+            case STRING:
+                // If we expect a STRING then it's an identifier
+                if ( expect.type == STRING )
+                {
+                    key = ( ( TokenString* ) t )->value;
+                    expect.type = COLON;
+                }
+                // If we didn't explicitly expected a STRING then it's a value
+                else
+                {
+                    value = asString( t );
+                    expect.type = COMMA;
+                }
+                break;
+
+            // Possible values
+
+            case INTEGER:
+                value = asInt( t );
+                expect.type = COMMA;
+                break;
+
+            case DOUBLE:
+                value = asDouble( t );
+                expect.type = COMMA;
+                break;
+
+            case BOOLEAN:
+                value = asBool( t );
+                expect.type = COMMA;
+                break;
+                
+            case OPEN_BRACKET:
+                value = parseArray();
+                expect.type = COMMA;
+                break;
+
+            case OPEN_BRACE:
+                value = parseObject();
+                expect.type = COMMA;
+                break;
+
+            // End of the Object definition
+            case CLOSE_BRACE:
+                object[key] = value;
+                return new JsonObject( object );
+
+            // Error
+            default:
+                std::string err = "parseArray: Invalid token \"";
+                err += t->typeStr();
+                err += "\"";
+                throw std::invalid_argument( err );
         }
     }
-}*/
+}
 
 TokenString*
 JsonParser::parseString()
 {
-    std::cout << "\tparseString starting at " << d_index << std::endl;
-
     int         i_start = ++d_index;
 
     // Browse until we find another "
@@ -150,8 +230,6 @@ JsonParser::parseString()
     }
 
     std::string s = d_json.substr( i_start, d_index - i_start );
-
-    std::cout << "\tparseString stopped at " << d_index << ": " << s << std::endl;
 
     return new TokenString ( STRING, s );
 }
@@ -164,12 +242,10 @@ JsonParser::parseNumber()
     size_t           i = d_json.find_first_not_of( numbers, d_index );
     bool             isFloat = false;
 
-    std::cout << "INDEX IS NOW " << i << std::endl;
     if ( d_json[i] == '.' )
     {
         isFloat = true;
         i = d_json.find_first_not_of( numbers, i + 1 );
-        std::cout << "INDEX IS NOW " << i << std::endl;
     }
 
     std::string      nb = d_json.substr( i_start, i - i_start );
@@ -204,6 +280,24 @@ JsonParser::parseBool()
     else
     {
         throw std::invalid_argument( "parseBool" ); //TODO
+    }
+
+    return token;
+}
+
+Token*
+JsonParser::parseNull()
+{
+    Token*   token = nullptr;
+
+    if ( d_json.substr( d_index, 4 ) == "null" )
+    {
+        token = new Token( NULLPTR );
+        d_index += 4;
+    }
+    else
+    {
+        throw std::invalid_argument( "parseNull" ); //TODO
     }
 
     return token;
@@ -246,22 +340,19 @@ JsonParser::asBool( Token* token )
 // PUBLIC MEMBER FUNCTIONS
 //
 
-JsonEntity*  
+JsonEntity*
 JsonParser::fromString( const std::string& json)
 {
     // Initialize variables
     d_json = json;
     d_index = -1;
 
-    std::cout << "START PARSING STRING: " << json << std::endl;
-
     // Read first token
     Token       *t = token();
     if ( t->type == OPEN_BRACE )
     {
         // First token is {
-        //return parseObject();
-        ;
+        return parseObject();
     }
     else if ( t->type == OPEN_BRACKET )
     {

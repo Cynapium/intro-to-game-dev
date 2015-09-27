@@ -28,7 +28,7 @@ class JsonObject : public JsonEntity
 
     // ACCESSORS
 
-    MapJEntity                  attributes();
+    const MapJEntity&                 attributes() const;
 
 
     // OPERATORS

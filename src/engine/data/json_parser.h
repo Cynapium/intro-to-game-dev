@@ -23,7 +23,8 @@ enum TokenType
     STRING,
     INTEGER,
     DOUBLE,
-    BOOLEAN
+    BOOLEAN,
+    NULLPTR
 };
 
 class Token
@@ -38,7 +39,7 @@ class Token
             case OPEN_BRACE:
                 return "{";
             case CLOSE_BRACE:
-                return "";
+                return "}";
             case OPEN_BRACKET:
                 return "[";
             case CLOSE_BRACKET:
@@ -57,6 +58,8 @@ class Token
                 return "DOUBLE";
             case BOOLEAN:
                 return "BOOLEAN";
+            case NULLPTR:
+                return "NULL";
         }
     }
 };
@@ -91,11 +94,13 @@ class JsonParser
     // MEMBER FUNCTIONS
 
     static Token*           token();
+
     static JsonEntity*      parseArray();
-    //static JsonEntity*      parseObject();
+    static JsonEntity*      parseObject();
     static TokenString*      parseString();
     static Token*           parseNumber();
     static TokenBool*       parseBool();
+    static Token*           parseNull();
 
     static JsonString*     asString( Token* t );
     static JsonInt*        asInt( Token* t );

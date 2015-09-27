@@ -96,6 +96,16 @@ JsonEntity::asArray() const
 {
     if ( isArray() )
         return ( ( JsonArray* ) this )->array();
+
+    throw std::exception();
+}
+
+const sgdc::Map<JsonEntity*>&
+JsonEntity::asMap() const
+{
+    if ( isObject() )
+        return ( ( JsonObject* ) this )->attributes();
+
     throw std::exception();
 }
 
