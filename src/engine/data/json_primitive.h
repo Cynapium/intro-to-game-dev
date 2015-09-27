@@ -21,19 +21,64 @@ class JsonPrimitive : public JsonEntity
 
     // CONSTRUCTORS
 
-    JsonPrimitive( T value )
-        : JsonEntity( JsonEntity::PRIMITIVE ), d_value( value )
-    {
-    }
+    JsonPrimitive( T value );
 
 
     // ACCESSORS
 
-    T                           value()
-    {
-        return d_value;
-    }
+    const T                     value() const;
+      // Return the value contained by the primitive type.
 };
+
+//
+// CONSTRUCTORS
+//
+
+template<typename T>
+inline
+JsonPrimitive<T>::JsonPrimitive( T value )
+    : JsonEntity( JsonEntity::UNKNOWN ), d_value( value )
+{
+}
+
+template<>
+inline
+JsonPrimitive<int>::JsonPrimitive( int value )
+    : JsonEntity( JsonEntity::INTEGER ), d_value( value )
+{
+}
+
+template<>
+inline
+JsonPrimitive<std::string>::JsonPrimitive( std::string value )
+    : JsonEntity( JsonEntity::STRING ), d_value( value )
+{
+}
+
+template<>
+inline
+JsonPrimitive<double>::JsonPrimitive( double value )
+    : JsonEntity( JsonEntity::DOUBLE ), d_value( value )
+{
+}
+
+template<>
+inline
+JsonPrimitive<bool>::JsonPrimitive( bool value )
+    : JsonEntity( JsonEntity::BOOLEAN ), d_value( value )
+{
+}
+
+//
+// ACCESSORS
+//
+
+template<typename T>
+inline
+const T JsonPrimitive<T>::value() const
+{
+    return d_value;
+}
 
 
 // Typedef for primitives types

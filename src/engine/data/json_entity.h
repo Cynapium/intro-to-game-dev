@@ -12,9 +12,20 @@ class JsonEntity
 
     enum EntityType
     {
-        PRIMITIVE,
+      // Primitive types
+        STRING,
+        INTEGER,
+        BOOLEAN,
+        DOUBLE,
+
+      // Object
         OBJECT,
-        ARRAY
+
+      // Array
+        ARRAY,
+
+      // In case of error
+        UNKNOWN
     };
 
 
@@ -54,14 +65,22 @@ class JsonEntity
     JsonArray& const    asArray();
 */
     bool const          isInt();
+      // Return true if type is int
 
     bool const          isString();
+      // Return true if type is std::string
 
     bool const          isDouble();
+      // Return true if type is double
+
+    bool const          isBool();
+      // Return true if type is bool
 
     bool const          isArray();
+      // Return true if type is an array
 
     bool const          isObject();
+      // Return true if type is an object
 };
 
 } // End sgdd namespace

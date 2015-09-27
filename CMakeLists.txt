@@ -78,6 +78,7 @@ add_executable(${PROJECT_NAME} game.m.cpp
     "src/engine/data/json_primitive.cpp"
     "src/engine/data/json_object.cpp"
     "src/engine/data/json_array.cpp"
+    "src/engine/data/json_parser.cpp"
     )
 target_link_libraries(${PROJECT_NAME} pthread)
 

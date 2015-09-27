@@ -26,37 +26,25 @@ JsonEntity::type()
 bool const
 JsonEntity::isInt()
 {
-    if ( d_type == PRIMITIVE )
-    {
-        // TODO Check if int
-        return true;
-    }
-
-    return false;
+    return d_type == INTEGER;
 }
 
 bool const
 JsonEntity::isString()
 {
-    if ( d_type == PRIMITIVE )
-    {
-        // TODO Check if str
-        return true;
-    }
-
-    return false;
+    return d_type == STRING;
 }
 
 bool const
 JsonEntity::isDouble()
 {
-    if ( d_type == PRIMITIVE )
-    {
-        // TODO Check if double
-        return true;
-    }
+    return d_type == DOUBLE;
+}
 
-    return false;
+bool const
+JsonEntity::isBool()
+{
+    return d_type == BOOLEAN;
 }
 
 bool const
