@@ -1,4 +1,5 @@
 #include "json_entity.h"
+#include <exception>
 
 namespace StevensDev
 {
@@ -20,8 +21,39 @@ JsonEntity::type()
     return d_type;
 }
 
+std::string
+JsonEntity::typeStr() const
+{
+    switch ( d_type )
+    {
+        case PRIMITIVE:
+            return "PRIMITIVE";
+
+        case OBJECT:
+            return "OBJECT";
+
+        case ARRAY:
+            return "ARRAY";
+
+        default:
+            return "error";
+    }
+}
+
 
 // MEMBER FUNCTIONS
+
+int const
+JsonEntity::asInt()
+{
+    throw std::exception();
+}
+
+std::string const
+JsonEntity::asString()
+{
+    throw std::exception();
+}
 
 bool const
 JsonEntity::isInt()

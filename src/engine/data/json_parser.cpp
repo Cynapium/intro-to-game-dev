@@ -11,7 +11,6 @@ namespace StevensDev
 {
 namespace sgdd
 {
-//static sgdm::IAllocator<JsonEntity*>*       d_allocator;
 std::string             JsonParser::d_json = "";
 int                     JsonParser::d_index = -1;
 
@@ -169,15 +168,9 @@ JsonParser::asBool( Token* token )
 //
 
 JsonEntity*  
-JsonParser::fromString( const std::string& json)//, sgdm::IAllocator* alloc = 0 )
+JsonParser::fromString( const std::string& json)
 {
     // Initialize variables
-    /*
-    if ( alloc )
-        d_allocator = alloc;
-    else
-        d_allocator = new sgdm::DefaultAllocator;
-        */
     d_json = json;
     d_index = -1;
 
@@ -212,3 +205,4 @@ JsonParser::fromString( const std::string& json)//, sgdm::IAllocator* alloc = 0 
 
 } // End sgdd namespace
 } // End StevensDev namespace
+

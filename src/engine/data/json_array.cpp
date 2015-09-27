@@ -22,7 +22,7 @@ JsonArray::array()
 }
 
 const ArrayJEntity&
-JsonArray::asArray()
+JsonArray::asArray() const
 {
     return d_array;
 }

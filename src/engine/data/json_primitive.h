@@ -2,6 +2,7 @@
 # define INCLUDED_JSON_PRIMITIVE
 
 #include "json_entity.h"
+#include <exception>
 #include <string>
 
 namespace StevensDev
@@ -33,8 +34,42 @@ class JsonPrimitive : public JsonEntity
     {
         return d_value;
     }
+
+
+    // MEMBER FUNCTIONS
+
+    int const           asInt();
+
+    std::string const   asString();
 };
 
+template<typename T>
+inline
+int const JsonPrimitive<T>::asInt()
+{
+    throw std::exception(); //TODO
+}
+
+template<>
+inline
+int const JsonPrimitive<int>::asInt()
+{
+    return d_value;
+}
+
+template<typename T>
+inline
+std::string const JsonPrimitive<T>::asString()
+{
+    throw std::exception(); // TODO
+}
+
+template<>
+inline
+std::string const JsonPrimitive<std::string>::asString()
+{
+    return d_value;
+}
 
 // Typedef for primitives types
 
