@@ -1,4 +1,4 @@
-#include "json_entity.hh"
+#include "json_entity.h"
 
 namespace StevensDev
 {
@@ -14,7 +14,7 @@ JsonEntity::JsonEntity(EntityType type)
 
 // ACCESSORS
 
-EntityType
+JsonEntity::EntityType
 JsonEntity::type()
 {
     return d_type;
@@ -62,23 +62,13 @@ JsonEntity::isDouble()
 bool const
 JsonEntity::isArray()
 {
-    if ( d_type == ARRAY )
-    {
-        return true;
-    }
-
-    return false;
+    return d_type == ARRAY;
 }
 
 bool const
 JsonEntity::isObject()
 {
-    if ( d_type == OBJECT )
-    {
-        return true;
-    }
-
-    return false;
+    return d_type == OBJECT;
 }
 
 } // End sgdd namespace

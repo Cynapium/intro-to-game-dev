@@ -8,13 +8,17 @@ namespace sgdd
 
 class JsonEntity
 {
-  private:
+  public:
+
     enum EntityType
     {
         PRIMITIVE,
         OBJECT,
         ARRAY
-    }
+    };
+
+
+  private:
 
     EntityType          d_type;
       // Type which represents this JsonEntity
@@ -30,7 +34,7 @@ class JsonEntity
 
     // ACCESSORS
 
-    EntityType          types();
+    EntityType          type();
       // Return the type of the entity
 
 

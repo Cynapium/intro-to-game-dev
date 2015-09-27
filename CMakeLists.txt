@@ -73,7 +73,12 @@ add_executable(${PROJECT_NAME} game.m.cpp
     "src/engine/memory/counting_allocator.cpp"
     "src/engine/containers/dynamic_array.cpp"
     "src/engine/containers/node.cpp"
-    "src/engine/containers/map.cpp")
+    "src/engine/containers/map.cpp"
+    "src/engine/data/json_entity.cpp"
+    "src/engine/data/json_primitive.cpp"
+    "src/engine/data/json_object.cpp"
+    "src/engine/data/json_array.cpp"
+    )
 target_link_libraries(${PROJECT_NAME} pthread)
 
 # Test suite
@@ -85,3 +90,5 @@ add_executable(${PROJECT_TEST} test.m.cpp
     "src/engine/containers/node.cpp"
     "src/engine/containers/map.cpp")
 target_link_libraries(${PROJECT_TEST} ${GTEST_LIBRARY} pthread)
+
+
