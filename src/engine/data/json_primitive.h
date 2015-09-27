@@ -2,6 +2,7 @@
 # define INCLUDED_JSON_PRIMITIVE
 
 #include "json_entity.h"
+#include <exception>
 #include <string>
 
 namespace StevensDev
@@ -46,6 +47,7 @@ inline
 JsonPrimitive<int>::JsonPrimitive( int value )
     : JsonEntity( JsonEntity::INTEGER ), d_value( value )
 {
+std::cout << "Create a new " << typeStr() << " : " << value << std::endl;
 }
 
 template<>
@@ -53,6 +55,7 @@ inline
 JsonPrimitive<std::string>::JsonPrimitive( std::string value )
     : JsonEntity( JsonEntity::STRING ), d_value( value )
 {
+std::cout << "Create a new " << typeStr() << " : " << value << std::endl;
 }
 
 template<>
@@ -60,6 +63,7 @@ inline
 JsonPrimitive<double>::JsonPrimitive( double value )
     : JsonEntity( JsonEntity::DOUBLE ), d_value( value )
 {
+std::cout << "Create a new " << typeStr() << " : " << value << std::endl;
 }
 
 template<>
@@ -67,6 +71,7 @@ inline
 JsonPrimitive<bool>::JsonPrimitive( bool value )
     : JsonEntity( JsonEntity::BOOLEAN ), d_value( value )
 {
+std::cout << "Create a new " << typeStr() << " : " << value << std::endl;
 }
 
 //
@@ -80,6 +85,12 @@ const T JsonPrimitive<T>::value() const
     return d_value;
 }
 
+template<typename T>
+inline
+std::ostream& operator<<( std::ostream& str, const JsonPrimitive<T>* prim )
+{
+    return str << prim->value();
+}
 
 // Typedef for primitives types
 

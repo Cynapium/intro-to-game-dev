@@ -1,6 +1,9 @@
 #ifndef INCLUDED_JSON_ENTITY
 # define INCLUDED_JSON_ENTITY
 
+#include <iostream>
+#include <string>
+
 namespace StevensDev
 {
 namespace sgdd
@@ -48,6 +51,9 @@ class JsonEntity
     EntityType          type();
       // Return the type of the entity
 
+    std::string         typeStr() const;
+      // Return a string representing the type of the entity
+
 
     // OPERATORS
     // TODO: cf. sujet
@@ -55,11 +61,10 @@ class JsonEntity
 
     // MEMBER FUNCTIONS
 
+    virtual int const           asInt();
+
+    virtual std::string const   asString();
 /*
-    int const           asInt();
-
-    std::string const   asString();
-
     double const        asDouble();
 
     JsonArray& const    asArray();
@@ -82,6 +87,14 @@ class JsonEntity
     bool const          isObject();
       // Return true if type is an object
 };
+
+inline std::ostream&
+operator<<( std::ostream& str, const JsonEntity* entity )
+{
+    str << "{ "<< "type: " << entity->typeStr() << "}";
+
+    return str;
+}
 
 } // End sgdd namespace
 } // End StevensDev namespace

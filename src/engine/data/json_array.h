@@ -29,7 +29,7 @@ class JsonArray : public JsonEntity
 
     ArrayJEntity                array();
 
-    const ArrayJEntity&         asArray();
+    const ArrayJEntity&         asArray() const;
 
 
     // OPERATORS
@@ -37,6 +37,16 @@ class JsonArray : public JsonEntity
     const JsonEntity&           operator[]( int index );
 
 };
+
+inline std::ostream&
+operator<<( std::ostream& str, const JsonArray jarray )
+{
+    str << "{ " << std::endl
+        << "array: " << jarray.asArray() << std::endl
+        << "}" << std::endl;
+
+    return str;
+}
 
 } // End sgdd namespace
 } // End StevensDev namespace
