@@ -84,6 +84,7 @@ class JsonParser
 {
   private:
 
+    //static sgdm::IAllocator<JsonEntity*>*       d_allocator;
     static std::string             d_json;
     static int                     d_index;
 
@@ -92,7 +93,9 @@ class JsonParser
     static Token*           token();
     static JsonEntity*      parseArray();
     //static JsonEntity*      parseObject();
-    static JsonEntity*      parseString();
+    static TokenString*      parseString();
+    static Token*           parseNumber();
+    static TokenBool*       parseBool();
 
     static JsonString*     asString( Token* t );
     static JsonInt*        asInt( Token* t );
@@ -103,7 +106,8 @@ class JsonParser
 
     // MEMBER FUNCTIONS
 
-    static JsonEntity*      fromString( const std::string& json);
+    static JsonEntity*      fromString( const std::string& json);//,
+                                        //sgdm::IAllocator* alloc = 0 );
       // Parse a string into a JsonEntity
       // Should throw an invalid json exception with appropriate information
       // about what segment of json is invalid (char, num,...)
