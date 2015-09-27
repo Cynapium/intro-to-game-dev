@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include "../containers/dynamic_array.h"
 
 namespace StevensDev
 {
@@ -48,7 +49,7 @@ class JsonEntity
 
     // ACCESSORS
 
-    EntityType          type();
+    EntityType          type() const;
       // Return the type of the entity
 
     std::string         typeStr() const;
@@ -61,43 +62,72 @@ class JsonEntity
 
     // MEMBER FUNCTIONS
 
-    virtual int const           asInt();
+    int const           asInt() const;
 
-    virtual std::string const   asString();
-/*
-    double const        asDouble();
+    std::string const   asString() const;
 
-    JsonArray& const    asArray();
-*/
-    bool const          isInt();
+    double const        asDouble() const;
+
+    bool const          asBool() const;
+
+    const sgdc::DynamicArray<JsonEntity*>& asArray() const;
+
+
+    bool const          isInt() const;
       // Return true if type is int
 
-    bool const          isString();
+    bool const          isString() const;
       // Return true if type is std::string
 
-    bool const          isDouble();
+    bool const          isDouble() const;
       // Return true if type is double
 
-    bool const          isBool();
+    bool const          isBool() const;
       // Return true if type is bool
 
-    bool const          isArray();
+    bool const          isArray() const;
       // Return true if type is an array
 
-    bool const          isObject();
+    bool const          isObject() const;
       // Return true if type is an object
+
 };
 
-inline std::ostream&
+inline
+std::ostream&
 operator<<( std::ostream& str, const JsonEntity* entity )
 {
-    str << "{ "<< "type: " << entity->typeStr() << "}";
+    switch ( entity->type() )
+    {
+/*
+        case JsonEntity::OBJECT:
+            return str << *( ( JsonObject* ) entity );
+            */
 
-    return str;
+        case JsonEntity::ARRAY:
+            return str << entity->asArray();
+
+        case JsonEntity::INTEGER:
+            return str << entity->asInt();
+
+        case JsonEntity::STRING:
+            return str << entity->asString();
+
+        case JsonEntity::DOUBLE:
+            return str << entity->asDouble();
+
+        case JsonEntity::BOOLEAN:
+            return str << entity->asBool();
+
+        default:
+            return str << "{ UNKNOWN ENTITY }";
+    }
 }
+
 
 } // End sgdd namespace
 } // End StevensDev namespace
+
 
 #endif // INCLUDED_JSON_ENTITY
 

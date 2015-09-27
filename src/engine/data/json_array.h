@@ -27,9 +27,7 @@ class JsonArray : public JsonEntity
 
     // ACCESSORS
 
-    ArrayJEntity                array();
-
-    const ArrayJEntity&         asArray() const;
+    const ArrayJEntity&               array() const;
 
 
     // OPERATORS
@@ -41,11 +39,7 @@ class JsonArray : public JsonEntity
 inline std::ostream&
 operator<<( std::ostream& str, const JsonArray jarray )
 {
-    str << "{ " << std::endl
-        << "array: " << jarray.asArray() << std::endl
-        << "}" << std::endl;
-
-    return str;
+        return str << jarray.array();
 }
 
 } // End sgdd namespace

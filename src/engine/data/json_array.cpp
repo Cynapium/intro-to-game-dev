@@ -15,14 +15,8 @@ JsonArray::JsonArray( ArrayJEntity array )
 
 // ACCESSORS
 
-ArrayJEntity
-JsonArray::array()
-{
-    return d_array;
-}
-
 const ArrayJEntity&
-JsonArray::asArray() const
+JsonArray::array() const
 {
     return d_array;
 }

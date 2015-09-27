@@ -30,6 +30,7 @@ JsonObject::operator[]( std::string key )
     return *( d_attributes[key] );
 }
 
+
 } // End sgdd namespace
 } // End StevensDev namespace
 

@@ -12,7 +12,7 @@ namespace sgdd
 
 typedef sgdc::Map<JsonEntity*> MapJEntity;
 
-class JsonObject : JsonEntity
+class JsonObject : public JsonEntity
 {
   private:
 
@@ -35,6 +35,13 @@ class JsonObject : JsonEntity
 
     const JsonEntity&           operator[]( std::string key );
 };
+
+inline std::ostream&
+operator<<( std::ostream& str, const JsonObject jobj )
+{
+    return str << "{ OBJ }";
+}
+
 
 } // End sgdd namespace
 } // End StevensDev namespace
