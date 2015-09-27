@@ -379,14 +379,18 @@ template<class T>
 inline std::ostream&
 operator<<( std::ostream& stream, const DynamicArray<T> array )
 {
-    stream << "{ "
-        << "\"length\": " << array.length() << ", "
-        << "\"array\": [ " << array.length();
+    stream << "[ ";
 
     for ( int i = 0; i < array.length(); i++ )
-        stream << array[i] << ", ";
+    {
+        if ( i > 0 )
+        {
+            stream << ", ";
+        }
+        stream << array[i];
+    }
 
-    return stream << " ] }";
+    return stream << " ]";
 }
 
 
