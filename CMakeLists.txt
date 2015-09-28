@@ -68,6 +68,7 @@ add_dependencies(${GTEST_LIBRARY} googletest)
 
 # Main Project
 add_executable(${PROJECT_NAME} game.m.cpp
+    "src/engine/memory/stack_guard.cpp"
     "src/engine/memory/iallocator.cpp"
     "src/engine/memory/default_allocator.cpp"
     "src/engine/memory/counting_allocator.cpp"
