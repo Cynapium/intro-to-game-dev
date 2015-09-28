@@ -1,8 +1,8 @@
 #ifndef INCLUDED_JSON_ARRAY
 # define INCLUDED_JSON_ARRAY
 
-#include "../containers/dynamic_array.h"
-#include "json_entity.h"
+#include "containers/dynamic_array.h"
+#include "data/json_entity.h"
 
 namespace StevensDev
 {

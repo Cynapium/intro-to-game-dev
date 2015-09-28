@@ -1,9 +1,9 @@
 #ifndef INCLUDED_JSON_PARSER
 # define INCLUDED_JSON_PARSER
 
-#include "json_entity.h"
-#include "json_primitive.h"
-#include "../memory/iallocator.h"
+#include "data/json_entity.h"
+#include "data/json_primitive.h"
+#include "memory/iallocator.h"
 #include <string>
 
 namespace StevensDev

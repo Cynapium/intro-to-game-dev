@@ -2,8 +2,8 @@
 # define INCLUDED_JSON_OBJECT
 
 #include <string>
-#include "../containers/map.h"
-#include "json_entity.h"
+#include "containers/map.h"
+#include "data/json_entity.h"
 
 namespace StevensDev
 {

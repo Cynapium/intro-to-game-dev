@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <string>
-#include "../containers/dynamic_array.h"
-#include "../containers/map.h"
+#include "containers/dynamic_array.h"
+#include "containers/map.h"
 
 namespace StevensDev
 {

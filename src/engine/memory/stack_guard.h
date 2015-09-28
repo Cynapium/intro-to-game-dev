@@ -3,6 +3,11 @@
 #ifndef INCLUDED_STACK_GUARD
 # define INCLUDED_STACK_GUARD
 
+namespace StevensDev
+{
+namespace sgdm
+{
+
 template<typename T>
 class StackGuard
 {
@@ -55,7 +60,8 @@ template<typename T>
 inline
 StackGuard<T>::~StackGuard()
 {
-    delete d_ptr;
+    if ( d_ptr != nullptr )
+        delete d_ptr;
 }
 
 template<typename T>
@@ -71,7 +77,10 @@ inline
 const bool
 StackGuard<T>::operator!()
 {
-    return ( !d_ptr );
+    if ( d_ptr == nullptr )
+        return true;
+
+    return false;
 }
 
 template<typename T>
@@ -79,7 +88,10 @@ inline
 const bool
 StackGuard<T>::operator==( bool rhs )
 {
-    return ( d_ptr == rhs );
+    if ( d_ptr != nullptr )
+        return rhs;
+
+    return !rhs;
 }
 
 template<typename T>
@@ -87,7 +99,13 @@ inline
 const bool
 StackGuard<T>::operator!=( bool rhs )
 {
-    return ( d_ptr == rhs );
+    if ( d_ptr == nullptr )
+        return rhs;
+
+    return !rhs;
 }
+
+} // End sgdm namespace
+} // End StevenDevs namespace
 
 #endif // INCLUDED_STACK_GUARD

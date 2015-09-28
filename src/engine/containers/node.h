@@ -3,7 +3,7 @@
 //#ifndef INCLUDED_NODE
 //# define INCLUDED_NODE
 
-#include "dynamic_array.h"
+#include "containers/dynamic_array.h"
 
 namespace StevensDev
 {

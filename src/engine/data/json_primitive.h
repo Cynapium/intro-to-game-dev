@@ -1,7 +1,7 @@
 #ifndef INCLUDED_JSON_PRIMITIVE
 # define INCLUDED_JSON_PRIMITIVE
 
-#include "json_entity.h"
+#include "data/json_entity.h"
 #include <exception>
 #include <string>
 

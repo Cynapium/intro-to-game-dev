@@ -4,9 +4,9 @@
 # define INCLUDED_MAP
 
 #include <cstddef>
-#include "../memory/iallocator.h"
-#include "dynamic_array.h"
-#include "node.h"
+#include "containers/dynamic_array.h"
+#include "containers/node.h"
+#include "memory/iallocator.h"
 
 
 namespace StevensDev

@@ -4,8 +4,8 @@
 # define INCLUDED_DYNAMIC_ARRAY
 
 #include <stdexcept>
-#include "../memory/default_allocator.h"
-#include "../memory/iallocator.h"
+#include "memory/default_allocator.h"
+#include "memory/iallocator.h"
 
 namespace StevensDev
 {

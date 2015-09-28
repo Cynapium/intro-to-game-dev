@@ -20,7 +20,7 @@ class IAllocator
 
     virtual void    construct( T* ptr, T&& copy ) = 0;
       // Construct a T object in-place by move
-    
+
     virtual void    construct( T* ptr, const T& copy ) = 0;
       // Construct a T object in-place by copy
 
