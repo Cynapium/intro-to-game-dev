@@ -4,7 +4,7 @@
 # define INCLUDED_DEFAULT_ALLOCATOR_TEST
 
 #include <gtest/gtest.h>
-#include "../src/engine/memory/default_allocator.h"
+#include "memory/default_allocator.h"
 
 class DefaultAllocatorTest : public ::testing::Test
 {

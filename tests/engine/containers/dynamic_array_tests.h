@@ -3,8 +3,8 @@
 #ifndef INCLUDED_DYNAMIC_ARRAY_TEST
 # define INCLUDED_DYNAMIC_ARRAY_TEST
 
-#include "../src/engine/memory/counting_allocator.h"
-#include "../src/engine/containers/dynamic_array.h"
+#include "../../../src/engine/memory/counting_allocator.h"
+#include "../../../src/engine/containers/dynamic_array.h"
 
 class DynamicArrayTest : public ::testing::Test
 {

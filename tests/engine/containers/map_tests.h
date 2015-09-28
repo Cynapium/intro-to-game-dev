@@ -3,7 +3,7 @@
 #ifndef INCLUDED_MAPS_TEST
 # define INCLUDED_MAPS_TEST
 
-#include "../src/engine/containers/map.h"
+#include "../../../src/engine/containers/map.h"
 
 class MapTest : public ::testing::Test
 {
