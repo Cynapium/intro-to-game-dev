@@ -1,17 +1,21 @@
+// json_parser.cpp
+
 #include "json_parser.h"
+#include "json_array.h"
+#include "json_object.h"
 #include "../memory/default_allocator.h"
 #include "../containers/dynamic_array.h"
 #include "../containers/map.h"
-#include "json_array.h"
-#include "json_object.h"
+#include <cstdlib>
 #include <exception>
 #include <iostream>
-#include <cstdlib>
 
 namespace StevensDev
 {
 namespace sgdd
 {
+
+// Static variables from JsonParser class
 std::string             JsonParser::d_json = "";
 int                     JsonParser::d_index = -1;
 
@@ -27,6 +31,8 @@ JsonParser::token()
     {
         // SPACES AND NEWLINES (We skip them)
         case ' ':
+        case '\r':
+        case '\n':
             return token();
 
         // OBJECT
@@ -84,37 +90,70 @@ JsonParser::token()
 JsonEntity*
 JsonParser::parseArray()
 {
-    ArrayJEntity            array;
+    ArrayJEntity        array;
+    Token               expect( NULLPTR );
 
     while ( true )
     {
-        Token*              t = token();
+        Token*          t = token();
+
+        // We check if the token is the one we expected
+        if ( ( expect.type != NULLPTR && t->type != expect.type &&
+               t->type != CLOSE_BRACKET ) ||
+               ( expect.type != COMMA && t->type == CLOSE_BRACKET ) )
+        {
+            std::string err = "parseArray: Invalid token \"";
+            err += t->typeStr();
+            err += "\" when expected \"";
+            err += expect.typeStr();
+            err += "\"";
+            throw std::invalid_argument( err );
+        }
 
         switch ( t->type )
         {
             case COMMA:
-            case SPACE:
+                expect.type = NULLPTR;
                 break;
 
+            // Possible values
             case STRING:
                 array.push( asString( t ) );
+                expect.type = COMMA;
                 break;
 
             case INTEGER:
                 array.push( asInt( t ) );
+                expect.type = COMMA;
                 break;
 
             case DOUBLE:
                 array.push( asDouble( t ) );
+                expect.type = COMMA;
                 break;
 
             case BOOLEAN:
                 array.push( asBool( t ) );
+                expect.type = COMMA;
                 break;
 
+            // New array
+            case OPEN_BRACKET:
+                array.push( parseArray() );
+                expect.type = COMMA;
+                break;
+
+            // New object
+            case OPEN_BRACE:
+                array.push( parseObject() );
+                expect.type = COMMA;
+                break;
+
+            // End of the array
             case CLOSE_BRACKET:
                 return new JsonArray( array );
 
+            // Everything else is an error
             default:
                 std::string err = "parseArray: Invalid token \"";
                 err += t->typeStr();
@@ -138,8 +177,10 @@ JsonParser::parseObject()
     {
         Token*          t = token();
 
-        if ( ( expect.type != NULLPTR && t->type != expect.type && t->type !=
-               CLOSE_BRACE ) || ( expect.type != COMMA   && t->type == CLOSE_BRACE ) )
+        // We check if the token is the one we expected
+        if ( ( expect.type != NULLPTR && t->type != expect.type &&
+               t->type != CLOSE_BRACE ) ||
+               ( expect.type != COMMA && t->type == CLOSE_BRACE ) )
         {
             std::string err = "parseArray: Invalid token \"";
             err += t->typeStr();
@@ -191,7 +232,7 @@ JsonParser::parseObject()
                 value = asBool( t );
                 expect.type = COMMA;
                 break;
-                
+
             case OPEN_BRACKET:
                 value = parseArray();
                 expect.type = COMMA;
@@ -270,12 +311,12 @@ JsonParser::parseBool()
     if ( d_json.substr( d_index, 5 ) == "false" )
     {
         token = new TokenBool( BOOLEAN, false );
-        d_index += 5;
+        d_index += 4;
     }
     else if ( d_json.substr( d_index, 4 ) == "true" )
     {
         token = new TokenBool(BOOLEAN, true );
-        d_index += 4;
+        d_index += 3;
     }
     else
     {
