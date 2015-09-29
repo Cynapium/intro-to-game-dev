@@ -58,7 +58,10 @@ class JsonEntity
 
 
     // OPERATORS
-    // TODO: cf. sujet
+
+    const JsonEntity&   operator[]( std::string& key );
+
+    const JsonEntity&   operator[]( int i );
 
 
     // MEMBER FUNCTIONS
@@ -73,7 +76,7 @@ class JsonEntity
 
     const sgdc::DynamicArray<JsonEntity*>& asArray() const;
 
-    const sgdc::Map<JsonEntity*>& asMap() const;
+    const sgdc::Map<JsonEntity*>& asObject() const;
 
 
     bool const          isInt() const;
@@ -103,7 +106,7 @@ operator<<( std::ostream& str, const JsonEntity* entity )
     switch ( entity->type() )
     {
         case JsonEntity::OBJECT:
-            return str << entity->asMap();
+            return str << entity->asObject();
 
         case JsonEntity::ARRAY:
             return str << entity->asArray();

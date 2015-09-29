@@ -53,6 +53,27 @@ JsonEntity::typeStr() const
 }
 
 
+// OPERATORS
+
+const JsonEntity& 
+JsonEntity::operator[]( std::string& key )
+{
+    if ( isObject() )
+        return *( ( ( JsonObject* ) this )->attributes()[key] );
+
+    throw std::exception();
+}
+
+const JsonEntity&
+JsonEntity::operator[]( int i )
+{
+    if ( isArray() )
+        return *( ( ( JsonArray* ) this )->array()[i] );
+
+    throw std::exception();
+}
+
+
 // MEMBER FUNCTIONS
 
 int const
@@ -101,7 +122,7 @@ JsonEntity::asArray() const
 }
 
 const sgdc::Map<JsonEntity*>&
-JsonEntity::asMap() const
+JsonEntity::asObject() const
 {
     if ( isObject() )
         return ( ( JsonObject* ) this )->attributes();
