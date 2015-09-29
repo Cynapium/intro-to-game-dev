@@ -98,4 +98,30 @@ TEST_F( JsonParserTest, ObjectPrimitives )
     ASSERT_EQ( true, ( *entity )[b].asBool() );
 }
 
+TEST_F( JsonParserTest, TestSubject )
+{
+    std::string str("{ 'name' : 'Configuration', 'values' : [ 1, 3, 'penguin' ] }" );
+    std::string name("name");
+    std::string values("values");
+
+    entity = StevensDev::sgdd::JsonParser::fromString( str );
+
+    ASSERT_TRUE( entity->isObject() );
+
+    ASSERT_TRUE( ( *entity )[name].isString() );
+    ASSERT_EQ( "Configuration", ( *entity )[name].asString() );
+
+    // Check types
+    ASSERT_TRUE( ( *entity )[values].isArray() );
+    ASSERT_TRUE( ( *entity )[values][0].isInt() );
+    ASSERT_TRUE( ( *entity )[values][1].isInt() );
+    ASSERT_TRUE( ( *entity )[values][2].isString() );
+
+    // Check values
+    ASSERT_EQ( 1,         ( *entity )[values][0].asInt() );
+    ASSERT_EQ( 3,         ( *entity )[values][1].asInt() );
+    ASSERT_EQ( "penguin", ( *entity )[values][2].asString() );
+}
+
+
 #endif // INCLUDED_JSON_PARSER_TEST
