@@ -207,7 +207,6 @@ inline
 const T Map<T>::operator[]( const std::string& key ) const
 {
     Node*    node = d_trie->lookUp( key );
-    std::cout << "const" << std::endl; // XXX TO REMOVE
 
     return d_values[node->index()];
 }
