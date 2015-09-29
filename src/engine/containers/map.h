@@ -209,10 +209,6 @@ const T Map<T>::operator[]( const std::string& key ) const
     Node*    node = d_trie->lookUp( key );
     std::cout << "const" << std::endl; // XXX TO REMOVE
 
-    // If the value does not exist, create an entry with default value
-    if ( !node )
-        node = createEntry( key );
-
     return d_values[node->index()];
 }
 
