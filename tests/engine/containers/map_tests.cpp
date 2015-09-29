@@ -1,6 +1,6 @@
 // map_tests.h
 
-#include "map_test.h"
+#include "map_tests.h"
 
 MapTest::MapTest()
     : d_map()

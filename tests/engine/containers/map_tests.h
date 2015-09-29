@@ -3,6 +3,7 @@
 #ifndef INCLUDED_MAPS_TEST
 # define INCLUDED_MAPS_TEST
 
+#include <gtest/gtest.h>
 #include "containers/map.h"
 
 class MapTest : public ::testing::Test

@@ -3,7 +3,8 @@
 #ifndef INCLUDED_COUNTING_ALLOCATOR_TEST
 # define INCLUDED_COUNTING_ALLOCATOR_TEST
 
-#include "../../../src/engine/memory/counting_allocator.h"
+#include <gtest/gtest.h>
+#include "memory/counting_allocator.h"
 
 class CountingAllocatorTest : public ::testing::Test
 {

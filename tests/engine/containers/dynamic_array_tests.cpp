@@ -1,6 +1,6 @@
 // dynamic_array_tests.cpp
 
-#include "dynamic_array_tests.cpp"
+#include "dynamic_array_tests.h"
 
 DynamicArrayTest::DynamicArrayTest()
 {
