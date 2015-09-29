@@ -1,3 +1,5 @@
+// json_entity.h
+
 #ifndef INCLUDED_JSON_ENTITY
 # define INCLUDED_JSON_ENTITY
 
@@ -60,23 +62,33 @@ class JsonEntity
     // OPERATORS
 
     const JsonEntity&   operator[]( std::string& key );
+      // Subscript operator for JsonObject
+      // Return the element from the object with the given key
 
     const JsonEntity&   operator[]( int i );
+      // Subscript operator for JsonArray
+      // Return the element from the array at the index i
 
 
     // MEMBER FUNCTIONS
 
     int const           asInt() const;
+      // Return the value of the entity as an integer
 
     std::string const   asString() const;
+      // Return the value of the entity as an string
 
     double const        asDouble() const;
+      // Return the value of the entity as an double
 
     bool const          asBool() const;
+      // Return the value of the entity as an boolean
 
     const sgdc::DynamicArray<JsonEntity*>& asArray() const;
+      // Return the value of the entity as an array
 
     const sgdc::Map<JsonEntity*>& asObject() const;
+      // Return the value of the entity as an object
 
 
     bool const          isInt() const;
@@ -98,6 +110,8 @@ class JsonEntity
       // Return true if type is an object
 
 };
+
+// FREE OPERATOR
 
 inline
 std::ostream&

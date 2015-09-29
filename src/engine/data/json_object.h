@@ -1,3 +1,5 @@
+// json_object.h
+
 #ifndef INCLUDED_JSON_OBJECT
 # define INCLUDED_JSON_OBJECT
 
@@ -17,6 +19,7 @@ class JsonObject : public JsonEntity
   private:
 
     MapJEntity                  d_attributes;
+      // Map of pointer to JsonEntity
 
 
   public:
@@ -29,12 +32,16 @@ class JsonObject : public JsonEntity
     // ACCESSORS
 
     const MapJEntity&                 attributes() const;
+      // Return the map of JsonEntity
 
 
     // OPERATORS
 
     const JsonEntity&           operator[]( std::string key );
+      // Retrieve the element stored with the given key
 };
+
+// FREE OPERATOR
 
 inline std::ostream&
 operator<<( std::ostream& str, const JsonObject jobj )

@@ -1,3 +1,5 @@
+// json_array.h
+
 #ifndef INCLUDED_JSON_ARRAY
 # define INCLUDED_JSON_ARRAY
 
@@ -16,6 +18,7 @@ class JsonArray : public JsonEntity
   private:
 
     ArrayJEntity                d_array;
+      // Array of pointer to JsonEntity
 
 
   public:
@@ -28,13 +31,17 @@ class JsonArray : public JsonEntity
     // ACCESSORS
 
     const ArrayJEntity&               array() const;
+      // Return the array of JsonEntity
 
 
     // OPERATORS
 
     const JsonEntity&           operator[]( int index );
+      // Retrieve the element stored at the index i
 
 };
+
+// FREE OPERATOR
 
 inline std::ostream&
 operator<<( std::ostream& str, const JsonArray jarray )

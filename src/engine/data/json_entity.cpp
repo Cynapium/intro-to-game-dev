@@ -1,3 +1,5 @@
+// json_entity.cpp
+
 #include "json_entity.h"
 #include "json_primitive.h"
 #include "json_array.h"
@@ -165,10 +167,6 @@ JsonEntity::isObject() const
 {
     return d_type == OBJECT;
 }
-
-//
-// FREE OPERATOS
-//
 
 } // End sgdd namespace
 } // End StevensDev namespace

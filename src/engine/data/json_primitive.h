@@ -1,3 +1,5 @@
+// json_primitive.h
+
 #ifndef INCLUDED_JSON_PRIMITIVE
 # define INCLUDED_JSON_PRIMITIVE
 
@@ -16,6 +18,7 @@ class JsonPrimitive : public JsonEntity
   private:
 
     T                           d_value;
+      // Primitive value stored
 
 
   public:
@@ -99,6 +102,7 @@ std::ostream& operator<<( std::ostream& str,
 {
     return str << "\"" << prim->value() << "\"";
 }
+
 
 // Typedef for primitives types
 

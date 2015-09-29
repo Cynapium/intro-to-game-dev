@@ -1,8 +1,13 @@
+// json_parser.cpp
+
 #ifndef INCLUDED_JSON_PARSER
 # define INCLUDED_JSON_PARSER
 
+#include "data/json_array.h"
 #include "data/json_entity.h"
+#include "data/json_object.h"
 #include "data/json_primitive.h"
+#include "data/token.h"
 #include "memory/iallocator.h"
 #include <string>
 
@@ -11,101 +16,55 @@ namespace StevensDev
 namespace sgdd
 {
 
-enum TokenType
-{
-    OPEN_BRACE,
-    CLOSE_BRACE,
-    OPEN_BRACKET,
-    CLOSE_BRACKET,
-    COLON,
-    COMMA,
-    SPACE,
-    STRING,
-    INTEGER,
-    DOUBLE,
-    BOOLEAN,
-    NULLPTR
-};
-
-class Token
-{
-  public:
-    TokenType               type;
-    Token( TokenType t ) : type( t ) {}
-    std::string             typeStr()
-    {
-        switch ( type )
-        {
-            case OPEN_BRACE:
-                return "{";
-            case CLOSE_BRACE:
-                return "}";
-            case OPEN_BRACKET:
-                return "[";
-            case CLOSE_BRACKET:
-                return "]";
-            case COLON:
-                return ":";
-            case COMMA:
-                return ",";
-            case SPACE:
-                return "SPACE";
-            case STRING:
-                return "STRING";
-            case INTEGER:
-                return "INTEGER";
-            case DOUBLE:
-                return "DOUBLE";
-            case BOOLEAN:
-                return "BOOLEAN";
-            case NULLPTR:
-                return "NULL";
-        }
-    }
-};
-
-template<typename T>
-class TokenPrimitive : public Token
-{
-  public:
-    T                       value;
-    TokenPrimitive( TokenType t, T v )
-        : Token( t ), value( v )
-        {}
-};
-
-
-
-// Typedef for primitives types
-
-typedef TokenPrimitive<std::string>  TokenString;
-typedef TokenPrimitive<int>          TokenInt;
-typedef TokenPrimitive<double>       TokenDouble;
-typedef TokenPrimitive<bool>         TokenBool;
-
 class JsonParser
 {
   private:
 
-    //static sgdm::IAllocator<JsonEntity*>*       d_allocator;
-    static std::string             d_json;
-    static int                     d_index;
+    static sgdm::IAllocator<JsonEntity*>*   d_allocator;
+      //
+
+    static std::string                      d_json;
+      //
+
+    static int                              d_index;
+      //
 
     // MEMBER FUNCTIONS
 
-    static Token*           token();
+    static Token*                           token();
+      // Analyze the json string and return the next token
 
-    static JsonEntity*      parseArray();
-    static JsonEntity*      parseObject();
-    static TokenString*      parseString();
-    static Token*           parseNumber();
-    static TokenBool*       parseBool();
-    static Token*           parseNull();
+    static Token*                           parseNull();
+      // Parse a null token
 
-    static JsonString*     asString( Token* t );
-    static JsonInt*        asInt( Token* t );
-    static JsonDouble*     asDouble( Token* t );
-    static JsonBool*       asBool( Token* t );
+    static Token*                           parseBool();
+      // Parse a bool token
+
+    static Token*                           parseNumber();
+      // Parse a integer or a double token
+
+    static Token*                           parseString();
+      // Parse a string token
+
+
+    static JsonArray*                       createArray();
+      // Create a JsonArray from the json string
+
+    static JsonObject*                      createObject();
+      // Create a JsonObject from the json string
+
+    static JsonInt*                         createInt( Token* t );
+      // Create a JsonPrimitive of int from the given token
+
+    static JsonBool*                        createBool( Token* t );
+      // Create a JsonPrimitive of bool from the given token
+
+    static JsonDouble*                      createDouble( Token* t );
+      // Create a JsonPrimitive of double from the given token
+
+    static JsonString*                      createString( Token* t );
+      // Create a JsonPrimitive of std::string from the given token
+
 
   public:
 
