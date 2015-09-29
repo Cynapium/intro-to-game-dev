@@ -8,6 +8,7 @@
 #include "data/json_object.h"
 #include "data/json_primitive.h"
 #include "data/token.h"
+#include "data/token_primitive.h"
 #include "memory/iallocator.h"
 #include <string>
 

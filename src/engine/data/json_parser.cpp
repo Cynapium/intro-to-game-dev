@@ -185,9 +185,9 @@ JsonParser::createArray()
         Token*          t = token();
 
         // We check if the token is the one we expected
-        if ( ( expect.type != NULLPTR && t->type != expect.type &&
-               t->type != CLOSE_BRACKET ) ||
-               ( expect.type != COMMA && t->type == CLOSE_BRACKET ) )
+        if ( ( expect.type() != NULLPTR && t->type() != expect.type() &&
+               t->type() != CLOSE_BRACKET ) ||
+               ( expect.type() != COMMA && t->type() == CLOSE_BRACKET ) )
         {
             std::string err = "createArray: Invalid token \"";
             err += t->typeStr();
@@ -197,43 +197,43 @@ JsonParser::createArray()
             throw std::invalid_argument( err );
         }
 
-        switch ( t->type )
+        switch ( t->type() )
         {
             case COMMA:
-                expect.type = NULLPTR;
+                expect.setType( NULLPTR );
                 break;
 
             // Possible values
             case STRING:
                 array.push( createString( t ) );
-                expect.type = COMMA;
+                expect.setType( COMMA );
                 break;
 
             case INTEGER:
                 array.push( createInt( t ) );
-                expect.type = COMMA;
+                expect.setType( COMMA );
                 break;
 
             case DOUBLE:
                 array.push( createDouble( t ) );
-                expect.type = COMMA;
+                expect.setType( COMMA );
                 break;
 
             case BOOLEAN:
                 array.push( createBool( t ) );
-                expect.type = COMMA;
+                expect.setType( COMMA );
                 break;
 
             // New array
             case OPEN_BRACKET:
                 array.push( createArray() );
-                expect.type = COMMA;
+                expect.setType( COMMA );
                 break;
 
             // New object
             case OPEN_BRACE:
                 array.push( createObject() );
-                expect.type = COMMA;
+                expect.setType( COMMA );
                 break;
 
             // End of the array
@@ -265,9 +265,9 @@ JsonParser::createObject()
         Token*          t = token();
 
         // We check if the token is the one we expected
-        if ( ( expect.type != NULLPTR && t->type != expect.type &&
-               t->type != CLOSE_BRACE ) ||
-               ( expect.type != COMMA && t->type == CLOSE_BRACE ) )
+        if ( ( expect.type() != NULLPTR && t->type() != expect.type() &&
+               t->type() != CLOSE_BRACE ) ||
+               ( expect.type() != COMMA && t->type() == CLOSE_BRACE ) )
         {
             std::string err = "createArray: Invalid token \"";
             err += t->typeStr();
@@ -277,29 +277,29 @@ JsonParser::createObject()
             throw std::invalid_argument( err );
         }
 
-        switch ( t->type )
+        switch ( t->type() )
         {
             case COLON:
-                expect.type = NULLPTR;
+                expect.setType( NULLPTR );
                 break;
 
             case COMMA:
                 object[key] = value;
-                expect.type = STRING;
+                expect.setType( STRING );
                 break;
 
             case STRING:
                 // If we expect a STRING then it's an identifier
-                if ( expect.type == STRING )
+                if ( expect.type() == STRING )
                 {
-                    key = ( ( TokenString* ) t )->value;
-                    expect.type = COLON;
+                    key = ( ( TokenString* ) t )->value();
+                    expect.setType( COLON );
                 }
                 // If we didn't explicitly expected a STRING then it's a value
                 else
                 {
                     value = createString( t );
-                    expect.type = COMMA;
+                    expect.setType( COMMA );
                 }
                 break;
 
@@ -307,27 +307,27 @@ JsonParser::createObject()
 
             case INTEGER:
                 value = createInt( t );
-                expect.type = COMMA;
+                expect.setType( COMMA );
                 break;
 
             case DOUBLE:
                 value = createDouble( t );
-                expect.type = COMMA;
+                expect.setType( COMMA );
                 break;
 
             case BOOLEAN:
                 value = createBool( t );
-                expect.type = COMMA;
+                expect.setType( COMMA );
                 break;
 
             case OPEN_BRACKET:
                 value = createArray();
-                expect.type = COMMA;
+                expect.setType( COMMA );
                 break;
 
             case OPEN_BRACE:
                 value = createObject();
-                expect.type = COMMA;
+                expect.setType( COMMA );
                 break;
 
             // End of the Object definition
@@ -349,7 +349,7 @@ JsonParser::createInt( Token* token )
 {
     TokenInt*        t = ( TokenInt* ) token;
 
-    return new JsonInt( t->value );
+    return new JsonInt( t->value() );
 }
 
 JsonBool*
@@ -357,7 +357,7 @@ JsonParser::createBool( Token* token )
 {
     TokenBool*        t = ( TokenBool* ) token;
 
-    return new JsonBool( t->value );
+    return new JsonBool( t->value() );
 }
 
 JsonDouble*
@@ -365,7 +365,7 @@ JsonParser::createDouble( Token* token )
 {
     TokenDouble*        t = ( TokenDouble* ) token;
 
-    return new JsonDouble( t->value );
+    return new JsonDouble( t->value() );
 }
 
 JsonString*
@@ -373,7 +373,7 @@ JsonParser::createString( Token* token )
 {
     TokenString*        t = ( TokenString* ) token;
 
-    return new JsonString( t->value );
+    return new JsonString( t->value() );
 }
 
 //
@@ -389,12 +389,12 @@ JsonParser::fromString( const std::string& json)
 
     // Read first token
     Token       *t = token();
-    if ( t->type == OPEN_BRACE )
+    if ( t->type() == OPEN_BRACE )
     {
         // First token is {
         return createObject();
     }
-    else if ( t->type == OPEN_BRACKET )
+    else if ( t->type() == OPEN_BRACKET )
     {
         // First token is [
         return createArray();
