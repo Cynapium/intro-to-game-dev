@@ -3,13 +3,13 @@
 #ifndef INCLUDED_JSON_PARSER
 # define INCLUDED_JSON_PARSER
 
+#include "memory/iallocator.h"
 #include "data/json_array.h"
 #include "data/json_entity.h"
 #include "data/json_object.h"
 #include "data/json_primitive.h"
 #include "data/token.h"
 #include "data/token_primitive.h"
-#include "memory/iallocator.h"
 #include <string>
 
 namespace StevensDev
@@ -22,18 +22,18 @@ class JsonParser
   private:
 
     static sgdm::IAllocator<JsonEntity*>*   d_allocator;
-      //
+      // Allocator used to allocate memory
 
     static std::string                      d_json;
-      //
+      // String json to parse
 
     static int                              d_index;
-      //
+      // Index of the lexer inside the json string
 
     // MEMBER FUNCTIONS
 
     static Token*                           token();
-      // Analyze the json string and return the next token
+      // Analyze the json string and return the next token (lexer)
 
     static Token*                           parseNull();
       // Parse a null token
@@ -66,13 +66,17 @@ class JsonParser
     static JsonString*                      createString( Token* t );
       // Create a JsonPrimitive of std::string from the given token
 
+    
+    //static JsonEntity*                      newString( Token* t );
+      // FIXME: Figure out how to make the allocator works for Json Entities
+
 
   public:
 
     // MEMBER FUNCTIONS
 
-    static JsonEntity*      fromString( const std::string& json);//,
-                                        //sgdm::IAllocator* alloc = 0 );
+    static JsonEntity*      fromString( const std::string& json,
+                                        sgdm::IAllocator<JsonEntity*>* a = 0 );
       // Parse a string into a JsonEntity
       // Should throw an invalid json exception with appropriate information
       // about what segment of json is invalid (char, num,...)

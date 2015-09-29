@@ -1,6 +1,7 @@
 // json_parser.cpp
 
-#include "data/json_parser.h"
+#include "json_parser.h"
+
 #include "data/json_array.h"
 #include "data/json_object.h"
 #include "memory/default_allocator.h"
@@ -17,8 +18,9 @@ namespace sgdd
 {
 
 // Static variables from JsonParser class
-std::string             JsonParser::d_json = "";
-int                     JsonParser::d_index = -1;
+sgdm::IAllocator<JsonEntity*>*  JsonParser::d_allocator = 0;
+std::string                     JsonParser::d_json = "";
+int                             JsonParser::d_index = -1;
 
 //
 // PRIVATE MEMBER FUNCTIONS
@@ -388,14 +390,44 @@ JsonParser::createString( Token* token )
     return new JsonString( t->value() );
 }
 
+// FIXME
+// The allocator is not used in this class.
+// How can we use the allocator on JsonEntity without truncating the datas in
+// the child classes? (ie. JsonPrimitive in a JsonEntity is going to lose
+// information)
+// This current version obviouly do not work because we return a JsonEntity**
+// instead of a JsonEntity*
+//JsonEntity*
+//JsonParser::newString( Token* token )
+//{
+//    TokenString*        t = ( TokenString* ) token;
+//    JsonEntity*         entity = new JsonString( t->value() );
+//    JsonEntity**        memory = d_allocator->get( 1 );
+//
+//    d_allocator->construct( memory, entity );
+//
+//    delete              entity;
+//
+//    return memory;
+//}
+
 //
 // PUBLIC MEMBER FUNCTIONS
 //
 
 JsonEntity*
-JsonParser::fromString( const std::string& json)
+JsonParser::fromString( const std::string& json,
+                        sgdm::IAllocator<JsonEntity*>* alloc )
 {
     // Initialize variables
+    if ( alloc == 0 )
+    {
+        d_allocator = new sgdm::DefaultAllocator<JsonEntity*>();
+    }
+    else
+    {
+        d_allocator = alloc;
+    }
     d_json = json;
     d_index = -1;
 

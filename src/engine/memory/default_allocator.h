@@ -46,7 +46,7 @@ class DefaultAllocator : public IAllocator<T>
 
     void                construct( T* ptr, T&& copy);
       // Construct a T object in-place by move
-    
+
     void                construct( T* ptr, const T& copy );
       // Construct a T object in-place by copy
 
