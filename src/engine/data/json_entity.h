@@ -61,11 +61,11 @@ class JsonEntity
 
     // OPERATORS
 
-    const JsonEntity&   operator[]( std::string& key );
+    const JsonEntity&   operator[]( std::string& key ) const;
       // Subscript operator for JsonObject
       // Return the element from the object with the given key
 
-    const JsonEntity&   operator[]( int i );
+    const JsonEntity&   operator[]( int i ) const;
       // Subscript operator for JsonArray
       // Return the element from the array at the index i
 

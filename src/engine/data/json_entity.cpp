@@ -4,7 +4,7 @@
 #include "json_primitive.h"
 #include "json_array.h"
 #include "json_object.h"
-#include <exception>
+#include "invalid_json.h"
 
 namespace StevensDev
 {
@@ -58,21 +58,21 @@ JsonEntity::typeStr() const
 // OPERATORS
 
 const JsonEntity& 
-JsonEntity::operator[]( std::string& key )
+JsonEntity::operator[]( std::string& key ) const
 {
     if ( isObject() )
         return *( ( ( JsonObject* ) this )->attributes()[key] );
 
-    throw std::exception();
+    throw InvalidJsonException( typeStr(), "Entity is not an object" );
 }
 
 const JsonEntity&
-JsonEntity::operator[]( int i )
+JsonEntity::operator[]( int i ) const
 {
     if ( isArray() )
         return *( ( ( JsonArray* ) this )->array()[i] );
 
-    throw std::exception();
+    throw InvalidJsonException( typeStr(), "Entity is not an array" );
 }
 
 
@@ -84,7 +84,7 @@ JsonEntity::asInt() const
     if ( isInt() )
         return ( ( JsonInt* ) this )->value();
 
-    throw std::exception();
+    throw InvalidJsonException( typeStr(), "Entity is not an int" );
 }
 
 std::string const
@@ -93,7 +93,7 @@ JsonEntity::asString() const
     if ( isString() )
         return ( ( JsonString* ) this )->value();
 
-    throw std::exception();
+    throw InvalidJsonException( typeStr(), "Entity is not an string" );
 }
 
 double const
@@ -102,7 +102,7 @@ JsonEntity::asDouble() const
     if ( isDouble() )
         return ( ( JsonDouble* ) this )->value();
 
-    throw std::exception();
+    throw InvalidJsonException( typeStr(), "Entity is not an double" );
 }
 
 bool const
@@ -111,7 +111,7 @@ JsonEntity::asBool() const
     if ( isBool() )
         return ( ( JsonBool* ) this )->value();
 
-    throw std::exception();
+    throw InvalidJsonException( typeStr(), "Entity is not an boolean" );
 }
 
 const sgdc::DynamicArray<JsonEntity*>&
@@ -120,7 +120,7 @@ JsonEntity::asArray() const
     if ( isArray() )
         return ( ( JsonArray* ) this )->array();
 
-    throw std::exception();
+    throw InvalidJsonException( typeStr(), "Entity is not an array" );
 }
 
 const sgdc::Map<JsonEntity*>&
@@ -129,7 +129,7 @@ JsonEntity::asObject() const
     if ( isObject() )
         return ( ( JsonObject* ) this )->attributes();
 
-    throw std::exception();
+    throw InvalidJsonException( typeStr(), "Entity is not an object" );
 }
 
 bool const

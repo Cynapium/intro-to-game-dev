@@ -1,11 +1,12 @@
 // json_parser.cpp
 
-#include "json_parser.h"
-#include "json_array.h"
-#include "json_object.h"
-#include "../memory/default_allocator.h"
-#include "../containers/dynamic_array.h"
-#include "../containers/map.h"
+#include "data/json_parser.h"
+#include "data/json_array.h"
+#include "data/json_object.h"
+#include "memory/default_allocator.h"
+#include "containers/dynamic_array.h"
+#include "containers/map.h"
+#include "invalid_json.h"
 #include <cstdlib>
 #include <exception>
 #include <iostream>
@@ -27,6 +28,12 @@ Token*
 JsonParser::token()
 {
     d_index++;
+
+    if ( d_index >= d_json.size() )
+    {
+        return nullptr;
+    }
+
     switch ( d_json[d_index] )
     {
         // SPACES AND NEWLINES (We skip them)
@@ -83,7 +90,7 @@ JsonParser::token()
 
             // PRIMITIVE
         default:
-            throw std::exception();
+            throw InvalidJsonException( "Unknown token", d_json[d_index] );
     }
 }
 
@@ -183,6 +190,11 @@ JsonParser::createArray()
     while ( true )
     {
         Token*          t = token();
+
+        if ( t == nullptr )
+        {
+            throw InvalidJsonException( "End of file", "" );
+        }
 
         // We check if the token is the one we expected
         if ( ( expect.type() != NULLPTR && t->type() != expect.type() &&

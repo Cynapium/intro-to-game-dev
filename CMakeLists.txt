@@ -19,6 +19,7 @@ file(GLOB_RECURSE FILES_TESTS tests/*.cpp)
 # Include
 include_directories(
     ${PROJECT_SOURCE_DIR}/src/engine
+    ${PROJECT_SOURCE_DIR}/src/exception
     ${PROJECT_SOURCE_DIR}
 )
 
