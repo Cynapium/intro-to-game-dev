@@ -6,6 +6,8 @@
 #include "tests/engine/memory/default_allocator_tests.h"
 #include "tests/engine/memory/counting_allocator_tests.h"
 
+#include "tests/engine/data/json_parser.h"
+
 int main( int argc, char **argv )
 {
     testing::InitGoogleTest( &argc, argv );
