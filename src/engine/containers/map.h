@@ -124,7 +124,9 @@ Node* Map<T>::createEntry( const std::string key )
     current->setIndex( d_values.length() );
 
     // Fill arrays with default values
-    d_values.push( 0 );
+    T                t;
+
+    d_values.push( t );
     d_keys.push( key );
 
     return current;
@@ -242,7 +244,6 @@ template<typename T>
 inline
 bool Map<T>::has( const std::string& key )
 {
-    // Equivalent to return ( ( node = d_trie->lookUp(key) ) != nullptr );
     return d_trie->lookUp(key);
 }
 
