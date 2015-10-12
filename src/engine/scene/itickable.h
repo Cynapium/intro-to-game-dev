@@ -1,7 +1,7 @@
 #ifndef INCLUDED_ITICKABLE
 # define INCLUDED_ITICKABLE
 
-namespace Stevens Dev
+namespace StevensDev
 {
 namespace sgds
 {
@@ -13,13 +13,13 @@ class ITickable
 
   public:
 
-    void                    preTick() = 0;
+    virtual void            preTick() = 0;
       // Used for caching, pre-conditions, additions,...
 
-    void                    tick( float dts ) = 0;
+    virtual void            tick( float dts ) = 0;
       // Physical work of the frame
 
-    void                    postTick() = 0;
+    virtual void            postTick() = 0;
       // The post tick represents the clean-up phase
 };
 
