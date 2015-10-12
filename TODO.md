@@ -96,3 +96,58 @@
 - [x] Move operator assignment
 - [x] Destructor
 - [x] addChild();
+
+---
+
+## Week 4
+
+---
+
+## Week 1
+
+### ITickable
+
+- [x] Create interface
+
+
+### Input
+
+- [ ] Implements ITickable
+- [x] static inst() : Input&
+- [x] isDown ( type : InputType ) : bool
+- [x] isUp( type : InputType ) : bool
+- [x] wasPressed( type : InputType ) : bool
+- [x] preTick() : void
+- [x] Delete copy constructor / assignment operator
+- [ ] Destructor
+
+
+### RenderableSprite
+
+- [ ] d_sprite sf::Sprite
+- [ ] sprite() const : const sf::Sprite&
+- [ ] setPosition( x : float, y : float ) : void
+- [ ] getPositionX() : float
+- [ ] getPositionY() : float
+- [ ] move( x : float, y : float ) : void
+
+### Renderer
+
+- [ ] d_sprites : DynamicArray<RenderableSprite*>
+- [ ] draw() : void
+- [ ] addSprite( sprite : RenderableSprite* ) : void
+- [ ] removeSprite( sprite : RenderableSprite* ) : void
+- [ ] setupWindow( width : int, height : int ) : void
+- [ ] loadTexture( name : const String&, path : const String& ) : bool
+- [ ] getTexture( name : const String& ) : const sf::Texture&
+- [ ] isActive() : bool
+
+
+### Scene
+
+- [ ] Singleton implementation
+- [ ] static inst() : Scene&
+- [ ] tick() : void
+- [ ] addTickable( tickable : ITickable* ) : void
+- [ ] removeTickable( tickable : ITickable* ) : void
+- [ ] setRenderer( renderer : Renderer* ) : void
