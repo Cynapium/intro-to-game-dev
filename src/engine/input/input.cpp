@@ -16,7 +16,6 @@ Input *Input::d_instance = nullptr;
 
 Input::Input()
 {
-
 }
 
 
