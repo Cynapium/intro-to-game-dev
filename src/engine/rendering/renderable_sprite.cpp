@@ -12,8 +12,8 @@ namespace sgdr
 //
 
 RenderableSprite::RenderableSprite()
-    : RenderableSprite( 0, 0 )
 {
+    setPosition( 0, 0 );
 }
 
 RenderableSprite::RenderableSprite( float x, float y )
