@@ -40,6 +40,24 @@ Input::inst()
 // MEMBER FUNCTIONS
 //
 
+bool
+Input::isDown( InputType type )
+{
+    return d_state[type];
+}
+
+bool
+Input::isUp( InputType type )
+{
+    return !d_state[type];
+}
+
+bool
+Input::wasPressed( InputType type )
+{
+    return ( d_previous[type] && !d_state[type] );
+}
+
 void
 Input::preTick()
 {
@@ -62,24 +80,15 @@ Input::preTick()
     #undef  INPUT_KEY
 }
 
-bool
-Input::isDown( InputType type )
+void
+Input::tick( float dts )
 {
-    return d_state[type];
 }
 
-bool
-Input::isUp( InputType type )
+void
+Input::postTick()
 {
-    return !d_state[type];
 }
-
-bool
-Input::wasPressed( InputType type )
-{
-    return ( d_previous[type] && !d_state[type] );
-}
-
 
 } // End sgdi namespace
 } // End StevensDev namespace

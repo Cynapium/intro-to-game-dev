@@ -3,13 +3,17 @@
 #ifndef INCLUDED_INPUT
 # define INCLUDED_INPUT
 
+#include "scene/itickable.h"
+
 namespace StevensDev
 {
 namespace sgdi
 {
 
+// Number of input types
 #define INPUT_NB 109
 
+// Create an enum with all input types in input_type.def
 enum InputType
 {
     #define INPUT_MOUSE( code ) MOUSE_##code,
@@ -19,7 +23,7 @@ enum InputType
     #undef  INPUT_KEY
 };
 
-class Input
+class Input : public sgds::ITickable
 {
   private:
 
@@ -60,9 +64,6 @@ class Input
 
     // MEMBER FUNCTIONS
 
-    void                                preTick();
-      // Poll input state at this point and setup internal state
-
     bool                                isDown( InputType type );
       // Return true if the current input state is down
 
@@ -71,6 +72,15 @@ class Input
 
     bool                                wasPressed( InputType type );
       // Return true if the current input state was down and is now up
+
+    void                                preTick();
+      // Poll input state at this point and setup internal state
+
+    void                                tick( float dts );
+      //
+
+    void                                postTick();
+      //
 };
 
 } // End sgdi namespace
