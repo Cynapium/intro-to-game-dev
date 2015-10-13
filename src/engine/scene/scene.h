@@ -45,7 +45,7 @@ class Scene
 
     // MUTATORS
 
-    void                             setRenderer( sgdr::Renderer* renderer );
+    void                             setRenderer( sgdr::Renderer *renderer );
       // 
 
 
@@ -54,10 +54,10 @@ class Scene
     void                             tick();
       //
 
-    void                             addTickable( ITickable* tickable );
+    void                             addTickable( ITickable *tickable );
       // 
 
-    void                             removeTickable( ITickable* tickable );
+    void                             removeTickable( ITickable *tickable );
       //
 };
 

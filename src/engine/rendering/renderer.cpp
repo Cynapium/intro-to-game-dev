@@ -34,7 +34,7 @@ void
 Renderer::draw()
 {
     // Clear
-    d_window->clear();
+    d_window->clear( sf::Color( 255, 255, 255 ) );
 
     // Draw
     for ( int i = 0; i < d_sprites.length(); i++ )
