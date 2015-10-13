@@ -22,11 +22,11 @@ class RenderableSprite
 
     // CONSTRUCTOR
 
-    RenderableSprite();
-      // Create a sprite at position ( 0, 0 )
+    RenderableSprite() = delete;
+      // Delete the default constructor
 
-    RenderableSprite( float x, float y );
-      // Create a RenderableSprite with a given position
+    RenderableSprite( const sf::Texture &texture );
+      // Create a sprite at position ( 0, 0 )
 
     RenderableSprite( const RenderableSprite &copy );
       // Copy constructor

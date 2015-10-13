@@ -11,14 +11,9 @@ namespace sgdr
 // CONSTRUCTORS
 //
 
-RenderableSprite::RenderableSprite()
+RenderableSprite::RenderableSprite( const sf::Texture &texture )
+    : d_sprite( texture )
 {
-    setPosition( 0, 0 );
-}
-
-RenderableSprite::RenderableSprite( float x, float y )
-{
-    setPosition( x, y );
 }
 
 RenderableSprite::RenderableSprite( const RenderableSprite &copy )
