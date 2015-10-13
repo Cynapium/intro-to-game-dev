@@ -19,7 +19,7 @@ class Renderer
 {
   private:
 
-    sf::RenderWindow                        d_window;
+    sf::RenderWindow                       *d_window;
       // Represent the renderer window
 
     sgdc::DynamicArray<RenderableSprite*>   d_sprites;

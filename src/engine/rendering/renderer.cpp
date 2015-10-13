@@ -12,6 +12,7 @@ namespace sgdr
 //
 
 Renderer::Renderer()
+    : d_window()
 {
 }
 
@@ -33,16 +34,16 @@ void
 Renderer::draw()
 {
     // Clear
-    d_window.clear();
+    d_window->clear();
 
     // Draw
     for ( int i = 0; i < d_sprites.length(); i++ )
     {
-        d_window.draw( d_sprites[i]->sprite() );
+        d_window->draw( d_sprites[i]->sprite() );
     }
 
     // Display
-    d_window.display();
+    d_window->display();
 }
 
 void
@@ -67,7 +68,7 @@ Renderer::removeSprite( RenderableSprite *sprite )
 void
 Renderer::setupWindow( int width, int height )
 {
-    d_window.create( sf::VideoMode(width, height), "" );
+    d_window = new sf::RenderWindow( sf::VideoMode( width, height ), "x" );
 }
 
 bool
@@ -92,7 +93,7 @@ Renderer::getTexture( const std::string &name )
 bool
 Renderer::isActive()
 {
-    return d_window.isOpen();
+    return d_window->isOpen();
 }
 
 
