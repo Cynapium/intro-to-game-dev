@@ -4,6 +4,7 @@
 # define INCLUDED_DEFAULT_ALLOCATOR
 
 #include <iostream>
+#include <cassert>
 #include "iallocator.h"
 
 namespace StevensDev
@@ -83,7 +84,7 @@ inline
 DefaultAllocator<T>&
 DefaultAllocator<T>::operator=( const DefaultAllocator<T>& allocator )
 {
-    return *this;
+    return allocator;
 }
 
 
@@ -94,8 +95,7 @@ inline
 T* DefaultAllocator<T>::get( int count )
 {
     // Error checking
-    if ( count <= 0 )
-        return 0;
+    assert( count > 0 );
 
     // Create the value
     T       *ptr = new T[count];
