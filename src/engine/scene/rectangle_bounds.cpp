@@ -12,7 +12,7 @@ namespace sgds
 //
 
 RectangleBounds::RectangleBounds()
-    : RectangleBounds( 0, 0, 0, 0 )
+    : d_x( 0 ), d_y( 0 ), d_width( 0 ), d_height( 0 )
 {
 }
 
