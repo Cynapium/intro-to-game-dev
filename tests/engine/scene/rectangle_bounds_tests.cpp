@@ -2,20 +2,19 @@
 
 #include "rectangle_bounds_tests.h"
 
-
-RecTest::RecTest()
+RectangleBoundsTest::RectangleBoundsTest()
 {
 }
 
-void RecTest::SetUp()
+void RectangleBoundsTest::SetUp()
 {
 }
 
-void RecTest::TearDown()
+void RectangleBoundsTest::TearDown()
 {
 }
 
-RecTest::~RecTest()
+RectangleBoundsTest::~RectangleBoundsTest()
 {
 }
 

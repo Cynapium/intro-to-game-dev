@@ -6,18 +6,17 @@
 #include <gtest/gtest.h>
 #include "scene/rectangle_bounds.h"
 
-class RecTest : public ::testing::Test
+class RectangleBoundsTest : public ::testing::Test
 {
   public:
 
-
     // CONSTRUCTOR
 
-    RecTest();
+    RectangleBoundsTest();
       // Set-up work which cannot throw exception for each tests
 
     // DESTRUCTOR
-    virtual ~RecTest();
+    virtual ~RectangleBoundsTest();
 
 
     // MEMBER FUNCTIONS
@@ -30,7 +29,7 @@ class RecTest : public ::testing::Test
 
 };
 
-TEST_F( RecTest, DefaultConstructor )
+TEST_F( RectangleBoundsTest, DefaultConstructor )
 {
     StevensDev::sgds::RectangleBounds         rectangle;
     float                   zero = 0;
@@ -41,7 +40,7 @@ TEST_F( RecTest, DefaultConstructor )
     EXPECT_EQ( 0, rectangle.height() );
 }
 
-TEST_F( RecTest, RegularConstructor )
+TEST_F( RectangleBoundsTest, RegularConstructor )
 {
     StevensDev::sgds::RectangleBounds         rectangle( 21, 10, 20, 15 );
 
@@ -51,7 +50,7 @@ TEST_F( RecTest, RegularConstructor )
     EXPECT_EQ( 15, rectangle.height() );
 }
 
-TEST_F( RecTest, CopyConstructor )
+TEST_F( RectangleBoundsTest, CopyConstructor )
 {
     StevensDev::sgds::RectangleBounds         rectangle( 21, 10, 20, 15 );
     StevensDev::sgds::RectangleBounds         copy( rectangle );
@@ -67,7 +66,7 @@ TEST_F( RecTest, CopyConstructor )
     EXPECT_EQ( 15, rectangle.height() );
 }
 
-TEST_F( RecTest, Mutators )
+TEST_F( RectangleBoundsTest, Mutators )
 {
     StevensDev::sgds::RectangleBounds         rectangle;
 
@@ -90,7 +89,7 @@ TEST_F( RecTest, Mutators )
     EXPECT_EQ( 42, rectangle.height() );
 }
 
-TEST_F( RecTest, Collisions )
+TEST_F( RectangleBoundsTest, Collisions )
 {
     StevensDev::sgds::RectangleBounds         base( 1, 1, 4, 3 );
     StevensDev::sgds::RectangleBounds         r_far( 7, 3, 3, 2 );  // Far away from base
