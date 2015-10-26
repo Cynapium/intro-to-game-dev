@@ -14,6 +14,12 @@ class ICollider
 {
   private:
 
+    RectangleBounds             d_bounds;
+      // Bounds of the collider
+
+    unsigned short              d_flags;
+      // Flags
+
 
   public:
 
@@ -23,22 +29,30 @@ class ICollider
       // Default constructor
 
 
+    // ACCESSOR
+
+    virtual const RectangleBounds& bounds() const = 0;
+      // Return a reference to the RectangleBounds stored in the Collider
+
+    virtual unsigned short      flags() const = 0;
+      // Return a copy of the flags
+
+
+    // MUTATOR
+
+    virtual void                setFlags( unsigned short flags ) = 0;
+      // Set the flags for this Collider
+
+
     // MEMBER FUNCTIONS
 
-    virtual const RectangleBounds&  bounds() const = 0;
-      //
+    virtual bool                canCollide( unsigned short flags ) const = 0;
+      // Return true if the current rectangle can collide considering the flags
+      // given in parameter ; false otherwise
 
-    virtual unsigned short          flags() const = 0;
-      //
-
-    virtual void                    setFlags( unsigned short flags ) = 0;
-      //
-
-    virtual bool                    canCollide( unsigned short flags ) const = 0;
-      //
-
-    virtual bool                    doesCollide( const RectangleBounds& other ) = 0;
-      //
+    virtual bool                doesCollide( const RectangleBounds& rec ) = 0;
+      // Return true if the other rectangle does collide with the bounds stored
+      // inside this collider ; false otherwise
 };
 
 } // end sgds namespace

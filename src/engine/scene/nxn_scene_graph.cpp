@@ -91,42 +91,64 @@ NxNSceneGraph::addCollider( ICollider *collider )
 void
 NxNSceneGraph::removeCollider( ICollider *collider )
 {
-    // TODO
+    for ( int i = 0; i < d_colliders.length(); i++)
+        if ( d_colliders[i] == collider )
+            d_colliders.removeAt( i );
 }
 
 sgdc::DynamicArray<ICollider*>
 NxNSceneGraph::find( float x, float y, float w, float h )
 {
-    // TODO
-    return d_colliders;
+    RectangleBounds             rectangle( x, y, w, h );
+
+    return find( rectangle );
 }
 
 sgdc::DynamicArray<ICollider*>
 NxNSceneGraph::find( float x, float y, float w, float h, unsigned short flags )
 {
-    // TODO
-    return d_colliders;
+    RectangleBounds             rectangle( x, y, w, h );
+
+    return find( rectangle, flags );
 }
 
 sgdc::DynamicArray<ICollider*>
 NxNSceneGraph::find( const RectangleBounds &bounds )
 {
-    // TODO
-    return d_colliders;
+    sgdc::DynamicArray<ICollider*> array;
+
+    for ( int i = 0; i < d_colliders.length(); i++)
+        if ( d_colliders[i]->doesCollide( bounds ) )
+            array.push( d_colliders[i] );
+
+    return array;
 }
 
 sgdc::DynamicArray<ICollider*>
 NxNSceneGraph::find( const RectangleBounds &bounds, unsigned short flags )
 {
-    // TODO
-    return d_colliders;
+    sgdc::DynamicArray<ICollider*> array;
+
+    for ( int i = 0; i < d_colliders.length(); i++)
+        if ( d_colliders[i]->canCollide( flags ) &&
+             d_colliders[i]->doesCollide( bounds ) )
+            array.push( d_colliders[i] );
+
+    return array;
 }
 
 sgdc::DynamicArray<ICollider*>
 NxNSceneGraph::find( const ICollider *collider )
 {
-    // TODO
-    return d_colliders;
+    sgdc::DynamicArray<ICollider*> array;
+
+    for ( int i = 0; i < d_colliders.length(); i++)
+        if ( d_colliders[i] != collider &&
+             d_colliders[i]->canCollide( collider->flags() ) &&
+             d_colliders[i]->doesCollide( collider->bounds() ) )
+            array.push( d_colliders[i] );
+
+    return array;
 }
 
 void
