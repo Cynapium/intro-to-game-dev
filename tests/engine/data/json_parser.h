@@ -10,6 +10,24 @@ class JsonParserTest : public ::testing::Test
 {
   public:
     StevensDev::sgdd::JsonEntity*       entity;
+
+    // CONSTRUCTOR
+
+    JsonParserTest();
+      // Set-up work which cannot throw exception for each tests
+
+    // DESTRUCTOR
+    virtual ~JsonParserTest();
+
+
+    // MEMBER FUNCTIONS
+
+    virtual void SetUp();
+      // Set-up work for each tests
+
+    virtual void TearDown();
+      // Clean-up work for each tests
+
 };
 
 TEST_F( JsonParserTest, ArrayOnePrimitive )
@@ -59,8 +77,8 @@ TEST_F( JsonParserTest, ArrayPrimitives )
     // Check values
     ASSERT_EQ( "one", entity->asArray()[0]->asString() );
     ASSERT_EQ( 234, entity->asArray()[1]->asInt() );
-    ASSERT_EQ( false, entity->asArray()[2]->asBool() );
     ASSERT_EQ( 4.6, entity->asArray()[3]->asDouble() );
+    ASSERT_FALSE( entity->asArray()[2]->asBool() );
 }
 
 TEST_F( JsonParserTest, ObjectOnePrimitive )
@@ -122,6 +140,5 @@ TEST_F( JsonParserTest, TestSubject )
     ASSERT_EQ( 3,         ( *entity )[values][1].asInt() );
     ASSERT_EQ( "penguin", ( *entity )[values][2].asString() );
 }
-
 
 #endif // INCLUDED_JSON_PARSER_TEST
