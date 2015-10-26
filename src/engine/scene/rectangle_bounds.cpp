@@ -104,6 +104,21 @@ RectangleBounds::setHeight( float hval )
     d_height = hval;
 }
 
+void
+RectangleBounds::setPosition( float xval, float yval )
+{
+    setX( xval );
+    setY( yval );
+}
+
+void
+RectangleBounds::setDimensions( float wval, float hval )
+{
+    setWidth( wval );
+    setHeight( hval );
+}
+
+
 
 //
 // OPERATORS
@@ -138,10 +153,23 @@ RectangleBounds::operator=( RectangleBounds&& rectangle )
 bool
 RectangleBounds::doesCollide( const RectangleBounds& candidate )
 {
-    // TODO
-    return true;
-}
+    if ( ( d_width == 0 && d_height == 0 ) || 
+         ( candidate.d_width == 0 && candidate.d_height == 0 ) )
+        return false;
 
+    float           rec1_x1 = d_x;
+    float           rec1_y1 = d_y;
+    float           rec1_x2 = d_x + d_width;
+    float           rec1_y2 = d_y + d_height;
+
+    float           rec2_x1 = candidate.d_x;
+    float           rec2_y1 = candidate.d_y;
+    float           rec2_x2 = candidate.d_x + candidate.d_width;
+    float           rec2_y2 = candidate.d_y + candidate.d_height;
+
+    return ( rec1_x1 < rec2_x2 && rec1_x2 > rec2_x1 &&
+             rec1_y1 < rec2_y2 && rec1_y2 > rec2_y1 );
+}
 
 } // End sgds namespace
 } // End StevensDev namespace
