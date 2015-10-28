@@ -47,11 +47,17 @@ class Input : public sgds::ITickable
     Input( const Input& copy ) = delete;
       // Delete copy constructor
 
+    Input( Input& move ) = delete;
+      // Delete move constructor
+
 
     // OPERATOR
 
-    Input& operator=( const Input copy ) = delete;
-      // Delete assignment operator
+    Input& operator=( const Input& copy ) = delete;
+      // Delete copy assignment operator
+
+    Input& operator=( Input&& move ) = delete;
+      // Delete move assignment operator
 
 
   public:
