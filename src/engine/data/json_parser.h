@@ -30,6 +30,7 @@ class JsonParser
     static int                              d_index;
       // Index of the lexer inside the json string
 
+
     // MEMBER FUNCTIONS
 
     static Token*                           token();

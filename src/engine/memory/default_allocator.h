@@ -109,7 +109,7 @@ inline
 void DefaultAllocator<T>::release( T* ptr, int count )
 {
     // Error checking
-    if ( ptr == 0 )
+    if ( ptr == nullptr )
         return;
 
     // Release the memory
@@ -119,7 +119,7 @@ void DefaultAllocator<T>::release( T* ptr, int count )
     }
     delete[] ptr;
 
-    ptr = 0;
+    ptr = nullptr;
 }
 
 template<typename T>

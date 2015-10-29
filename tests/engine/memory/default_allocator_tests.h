@@ -32,20 +32,4 @@ TEST_F( DefaultAllocatorTest, MultipleAllocation )
     ASSERT_TRUE( tmp[3] != 0 );
 }
 
-TEST_F( DefaultAllocatorTest, SimpleRelease )
-{
-    int*   tmp = d_alloc.get( 1 );
-    d_alloc.release( tmp, 1 );
-
-    ASSERT_TRUE( tmp == 0 );
-}
-
-TEST_F( DefaultAllocatorTest, BiggerRelease )
-{
-    int*   tmp = d_alloc.get( 42 );
-    d_alloc.release( tmp, 42 );
-
-    ASSERT_TRUE( tmp == 0 );
-}
-
 #endif // INCLUDED_DEFAULT_ALLOCATOR_TEST
