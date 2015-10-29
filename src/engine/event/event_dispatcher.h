@@ -1,0 +1,73 @@
+// event_dispatcher.h
+
+#ifndef INCLUDED_EVENT_DISPATCHER
+# define INCLUDED_EVENT_DISPATCHER
+
+#include <functional>
+#include "containers/dynamic_array.h"
+#include "event/ievent.h"
+#include "scene/itickable.h"
+
+namespace StevensDev
+{
+namespace sgde
+{
+
+typedef std::function<void( const IEvent& )> IEventFunc;
+
+class EventDispatcher : public sgds::ITickable
+{
+  private:
+
+    sgdc::DynamicArray<IEventFunc*>  d_listeners;
+      // List of listeners
+
+
+  public:
+
+    // CONSTRUCTORS
+
+    EventDispatcher();
+      // Default constructor
+
+    EventDispatcher( const EventDispatcher& copy );
+      // Copy constructor
+
+    EventDispatcher( EventDispatcher&& move );
+      // Move constructor
+
+
+    // OPERATORS
+
+    EventDispatcher&            operator=( const EventDispatcher& copy );
+      // Copy assignment operator
+
+    EventDispatcher&            operator=( EventDispatcher&& move );
+      // Move assignment operator
+
+
+    // MEMBER FUNCTIONS
+
+    void                        add( IEventFunc* listener );
+      // Add a listener to the list
+
+    void                        remove( IEventFunc* listener );
+      // Remove a listener from the list of listeners
+
+    void                        dispatch( const IEvent& event );
+      // Called as part of tick, synchronous
+
+    void                        preTick();
+      // Does nothing
+
+    void                        tick( float dts );
+      // Does nothing
+
+    void                        postTick();
+      // Add and remove listeners
+};
+
+} // end sgde namespace
+} // end StevensDev namespace
+
+#endif // EventDispatcher
