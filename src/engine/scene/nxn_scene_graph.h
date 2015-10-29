@@ -18,13 +18,13 @@ class NxNSceneGraph : public ITickable
   private:
 
     float                   d_dimensions;
-      // 
+      // Dimensions (w * h) of the scene
 
     int                     d_divisions;
-      // 
+      // Number of rows and columns in the scene
 
     sgdc::DynamicArray<ICollider*> d_colliders;
-      //
+      // List of colliders
 
 
   public:
@@ -64,42 +64,42 @@ class NxNSceneGraph : public ITickable
     // ACCESSORS
 
     float                           dimensions();
-      //
+      // Return the dimensions of the NxN scene
 
     int                             divisions();
-      //
+      // Return the divisions of the NxN scene
 
     sgdc::DynamicArray<ICollider*>  colliders();
-      //
+      // Return the list of colliders
 
 
     // MEMBER FUNCTIONS
 
     void                            addCollider( ICollider* collider );
-      //
+      // Add a collider to the list
 
     void                            removeCollider( ICollider* collider );
-      //
+      // Remove a collider from the list
 
     sgdc::DynamicArray<ICollider*>  find( float x, float y, float w, float h );
-      //
+      // Find all colliders that collide with the given rectangle
 
     sgdc::DynamicArray<ICollider*>  find( float x, float y, float w, float h,
                                           unsigned short flags );
-      //
+      // Find all colliders that collide with the given rectangle and flags
 
     sgdc::DynamicArray<ICollider*>  find( const RectangleBounds& bounds );
-      //
+      // Find all colliders that collide with the given rectangle
 
     sgdc::DynamicArray<ICollider*>  find( const RectangleBounds& bounds,
                                           unsigned short flags );
-      //
+      // Find all colliders that collide with the given rectangle and flags
 
     sgdc::DynamicArray<ICollider*>  find( const ICollider* collider );
-      // 
+      // Find all colliders that collide with this collider (except this one)
 
     void                            preTick();
-      // 
+      // Pre tick which represents the initialization phase
 
     void                            tick( float dts );
       // Physical work of the frame

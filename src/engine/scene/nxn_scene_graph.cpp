@@ -92,8 +92,13 @@ void
 NxNSceneGraph::removeCollider( ICollider *collider )
 {
     for ( int i = 0; i < d_colliders.length(); i++)
+    {
         if ( d_colliders[i] == collider )
+        {
             d_colliders.removeAt( i );
+            return;
+        }
+    }
 }
 
 sgdc::DynamicArray<ICollider*>
