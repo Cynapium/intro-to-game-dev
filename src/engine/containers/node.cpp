@@ -1,4 +1,7 @@
-// node.cpp
+//
+// File: node.cpp
+// Author: Barbara Crepeau
+//
 
 #include "node.h"
 
@@ -7,7 +10,9 @@ namespace StevensDev
 namespace sgdc
 {
 
+//
 // CONSTRUCTORS
+//
 
 Node::Node()
     : d_key(), d_index( -1 ), d_children()
@@ -35,14 +40,18 @@ Node::Node( Node&& move )
 }
 
 
+//
 // DESTRUCTOR
+//
 
 Node::~Node()
 {
 }
 
 
+//
 // OPERATORS
+//
 
 Node& Node::operator=( const Node& node )
 {
@@ -54,7 +63,9 @@ Node& Node::operator=( const Node& node )
 }
 
 
+//
 // ACCESSORS
+//
 
 const char Node::key() const
 {
@@ -72,18 +83,24 @@ DynamicArray<Node*> Node::children() const
 }
 
 
+//
 // MUTATORS
+//
 
 void Node::setIndex( int index )
 {
     if (index < -1)
+    {
         index = -1;
+    }
 
     d_index = index;
 }
 
 
+//
 // MEMBER FUNCTION
+//
 
 Node* Node::lookUp( const std::string& key )
 {
@@ -100,16 +117,20 @@ Node* Node::lookUp( const std::string& key, int level )
     }
 
     if ( level >= key.length() - 1 && node->hasValue() )
+    {
         return node;
+    }
     else
+    {
         return node->lookUp( key, level + 1);
+    }
 }
 
 Node* Node::findChild( const char c )
 {
     for ( int i = 0; i < d_children.length(); i++ )
     {
-        Node         *current = d_children[i];
+        Node *current = d_children[i];
 
         if ( current->key() == c )
         {
@@ -144,7 +165,7 @@ void Node::remove( const char c )
 {
     for ( int i = 0; i < d_children.length(); i++ )
     {
-        Node         *current = d_children[i];
+        Node *current = d_children[i];
 
         if ( current->key() == c )
         {
@@ -162,7 +183,9 @@ void Node::addChild( Node* child )
 void Node::print( int level, bool last )
 {
     for ( int i = 1; i < level; i++)
+    {
         std::cout << "    ";
+    }
 
     if ( level > 0 )
     {
@@ -185,7 +208,9 @@ void Node::print( int level, bool last )
 }
 
 
+//
 // FREE OPERATORS
+//
 
 template<class T>
 inline std::ostream&
@@ -212,7 +237,5 @@ operator<<( std::ostream& str, const Node node )
 
 }
 
-
 } // End sgdc namespace
 } // End StevensDev namespace
-

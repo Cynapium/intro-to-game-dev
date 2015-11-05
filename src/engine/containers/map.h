@@ -1,4 +1,9 @@
-// map.h
+//
+// File: map.h
+// Author: Barbara Crepeau
+//
+// Declare Map templated class and its functions
+//
 
 #ifndef INCLUDED_MAP
 # define INCLUDED_MAP
@@ -8,25 +13,25 @@
 #include "containers/node.h"
 #include "memory/iallocator.h"
 
-
 namespace StevensDev
 {
 namespace sgdc
 {
 
+// Represents a map which stores elements with a key, using a trie
 template<typename T>
 class Map
 {
   private:
 
     Node*                       d_trie;
-    // Root node of the trie containing keys & values
+      // Root node of the trie containing keys & values
 
     DynamicArray<std::string>   d_keys;
-    // Keys of the map
+      // Keys of the map
 
     DynamicArray<T>             d_values;
-    // Values of the map
+      // Values of the map
 
 
     // MEMBER FUNCTIONS
@@ -36,7 +41,6 @@ class Map
 
 
   public:
-
 
     // CONSTRUCTORS
 
@@ -56,18 +60,18 @@ class Map
     // DESTRUCTORS
 
     virtual ~Map();
-      // Destructor
+      // Destroy all elements
 
 
     // OPERATORS
 
-    Map&                operator=( const Map<T>& map );
+    Map& operator=( const Map<T>& map );
       // Copy assignment operator
 
-    T&                  operator[]( const std::string& key );
+    T& operator[]( const std::string& key );
       // Mutable
 
-    const T             operator[]( const std::string& key ) const;
+    const T operator[]( const std::string& key ) const;
       // No mutation
 
 
@@ -79,34 +83,37 @@ class Map
     const DynamicArray<T>& values() const;
       // Retrieves all values
 
-    const unsigned int  length() const;
+    const unsigned int length() const;
+      // Return the number of elements in the graph
 
 
     // MEMBER FUNCTIONS
 
-    bool                has( const std::string& key );
+    bool has( const std::string& key );
       // Determines if a key exists in the map
 
-    bool                remove( Node* node, const std::string& key, int l );
-    T                   remove( const std::string& key );
+    bool remove( Node* node, const std::string& key, int l );
+    T remove( const std::string& key );
       // Removes a key and its value
 
-    void                print();
+    void print();
       // Print function for debug purpose
 };
 
 
+//
 // PRIVATE MEMBER FUNCTIONS
+//
 
 template<typename T>
 inline
 Node* Map<T>::createEntry( const std::string key )
 {
-    Node             *current = d_trie;
+    Node *current = d_trie;
 
     for ( int i = 0; i < key.length(); i++ )
     {
-        Node         *child = current->findChild( key[i] );
+        Node *child = current->findChild( key[i] );
 
         if ( child )
         {
@@ -124,7 +131,7 @@ Node* Map<T>::createEntry( const std::string key )
     current->setIndex( d_values.length() );
 
     // Fill arrays with default values
-    T                t;
+    T t;
 
     d_values.push( t );
     d_keys.push( key );
@@ -132,7 +139,10 @@ Node* Map<T>::createEntry( const std::string key )
     return current;
 }
 
+
+//
 // CONSTRUCTORS
+//
 
 template<typename T>
 inline
@@ -168,17 +178,22 @@ Map<T>::Map( Map<T>&& map )
 }
 
 
+//
 // DESTRUCTORS
+//
 
 template<typename T>
 inline
 Map<T>::~Map()
 {
+    // FIXME
     //delete d_trie;
 }
 
 
+//
 // OPERATORS
+//
 
 template<typename T>
 inline
@@ -199,7 +214,9 @@ T& Map<T>::operator[]( const std::string& key )
 
     // If the value does not exist, create an entry with default value
     if ( !node )
+    {
         node = createEntry( key );
+    }
 
     return d_values[node->index()];
 }
@@ -214,7 +231,9 @@ const T Map<T>::operator[]( const std::string& key ) const
 }
 
 
+//
 // ACCESSORS
+//
 
 template<typename T>
 inline
@@ -238,7 +257,9 @@ const unsigned int Map<T>::length() const
 }
 
 
+//
 // MEMBER FUNCTIONS
+//
 
 template<typename T>
 inline
@@ -252,7 +273,9 @@ inline
 bool Map<T>::remove( Node* node, const std::string& key, int level )
 {
     if ( !node )
+    {
         return false;
+    }
 
     if ( level == key.length() )
     {
@@ -299,7 +322,9 @@ void Map<T>::print()
 }
 
 
+//
 // FREE OPERATORS
+//
 
 template<class T>
 inline std::ostream&
@@ -318,7 +343,6 @@ operator<<( std::ostream& str, const Map<T> map )
 
     return str << " }";
 }
-
 
 } // End sgdc namespace
 } // End StevensDev namespace

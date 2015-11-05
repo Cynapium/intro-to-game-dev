@@ -1,4 +1,9 @@
-// dynamic_array.h
+//
+// File: dynamic_array.h
+// Author: Barbara Crepeau
+//
+// Declare DynamicArray templated class and its functions
+//
 
 #ifndef INCLUDED_DYNAMIC_ARRAY
 # define INCLUDED_DYNAMIC_ARRAY
@@ -12,8 +17,7 @@ namespace StevensDev
 namespace sgdc
 {
 
-using namespace sgdm;
-
+// Represents a dynamic array of any elements
 template<typename T>
 class DynamicArray
 {
@@ -33,8 +37,6 @@ class DynamicArray
 
 
     // MEMBER FUNCTIONS
-    // These functions are private because we don't want them to be used in a
-    // bad way, outside the class.
 
     void            shiftRight( unsigned int index );
       // Shift the array to the right, starting at index value
@@ -65,49 +67,49 @@ class DynamicArray
 
     // DESTRUCTOR
 
-    virtual             ~DynamicArray();
-      // Delete everything
+    virtual ~DynamicArray();
+      // Delete all elements in the array
 
 
     // OPERATORS
 
-    DynamicArray&       operator=( const DynamicArray& array );
+    DynamicArray& operator=( const DynamicArray& array );
       // Copy assignment operator
 
-    T&                  operator[]( int index );
+    T& operator[]( int index );
       // Sets an element, undefined behavior if out of bounds
 
-    T                   operator[]( int index ) const;
+    T operator[]( int index ) const;
       // Retrieves an element, undefined behaviour if out of bounds
 
 
     // ACCESSORS
 
-    unsigned int const  length() const;
+    unsigned int const length() const;
       // Number of elements contained
 
-    const T             at( unsigned int index );
+    const T at( unsigned int index );
       // Retrieves an element at a location, throws if out of bounds
 
 
     // MEMBER FUNCTIONS
 
-    void                push( const T& element );
+    void push( const T& element );
       // Adds element to end of collection, grow
 
-    void                pushFront( T element );
+    void pushFront( T element );
       // Pushes to the front of the collection, grow, shift
 
-    T                   pop();
+    T pop();
       // Removes and retrieve the last element, shifts
 
-    T                   popFront();
+    T popFront();
       // Removes and retrieve the first element, shifts
 
-    T                   removeAt( unsigned int index );
+    T removeAt( unsigned int index );
       // Removes, throws if invalid, shifts
 
-    T                   insertAt( unsigned int index, const T& element );
+    T insertAt( unsigned int index, const T& element );
       // Can grow, shifts
 };
 
