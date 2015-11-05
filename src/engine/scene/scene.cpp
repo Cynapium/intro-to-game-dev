@@ -1,4 +1,7 @@
-// scene.cpp
+//
+// File: scene.cpp
+// Author: Barbara Crepeau
+//
 
 #include "scene.h"
 
@@ -8,7 +11,6 @@ namespace sgds
 {
 
 Scene *Scene::d_instance = nullptr;
-
 
 //
 // CONSTRUCTOR
@@ -55,21 +57,27 @@ Scene::setRenderer( sgdr::Renderer *renderer )
 void
 Scene::tick()
 {
-    time_t              prev = d_time;
+    time_t prev = d_time;
 
     time( &d_time );
 
     // Pre-tick
     for ( int i = 0; i < d_tickables.length(); i++ )
+    {
         d_tickables[i]->preTick();
+    }
 
     // Tick
     for ( int i = 0; i < d_tickables.length(); i++ )
+    {
         d_tickables[i]->tick( prev - d_time );
+    }
 
     // Post tick
     for ( int i = 0; i < d_tickables.length(); i++ )
+    {
         d_tickables[i]->postTick();
+    }
 }
 
 void

@@ -1,4 +1,7 @@
-// rectangle_bounds.cpp
+//
+// File: rectangle_bounds.cpp
+// Author: Barbara Crepeau
+//
 
 #include "rectangle_bounds.h"
 
@@ -31,6 +34,7 @@ RectangleBounds::RectangleBounds( RectangleBounds&& rectangle )
     : d_x( rectangle.d_x ), d_y( rectangle.d_y ),
       d_width( rectangle.d_width ), d_height( rectangle.d_height )
 {
+    // Reset rectangle
     rectangle.d_x = 0;
     rectangle.d_y = 0;
     rectangle.d_width = 0;
@@ -81,41 +85,41 @@ RectangleBounds::height() const
 //
 
 void
-RectangleBounds::setX( float xval )
+RectangleBounds::setX( float x )
 {
-    d_x = xval;
+    d_x = x;
 }
 
 void
-RectangleBounds::setY( float yval )
+RectangleBounds::setY( float y )
 {
-    d_y = yval;
+    d_y = y;
 }
 
 void
-RectangleBounds::setWidth( float wval )
+RectangleBounds::setWidth( float w )
 {
-    d_width = wval;
+    d_width = w;
 }
 
 void
-RectangleBounds::setHeight( float hval )
+RectangleBounds::setHeight( float h )
 {
-    d_height = hval;
+    d_height = h;
 }
 
 void
-RectangleBounds::setPosition( float xval, float yval )
+RectangleBounds::setPosition( float x, float y )
 {
-    setX( xval );
-    setY( yval );
+    setX( x );
+    setY( y );
 }
 
 void
-RectangleBounds::setDimensions( float wval, float hval )
+RectangleBounds::setDimensions( float w, float h )
 {
-    setWidth( wval );
-    setHeight( hval );
+    setWidth( w );
+    setHeight( h );
 }
 
 
@@ -127,7 +131,7 @@ RectangleBounds::setDimensions( float wval, float hval )
 RectangleBounds&
 RectangleBounds::operator=( const RectangleBounds& rectangle )
 {
-    // FIXME
+    // Copy content of rectangle into this one
     d_x = rectangle.d_x;
     d_y = rectangle.d_y;
     d_width = rectangle.d_width;
@@ -139,34 +143,43 @@ RectangleBounds::operator=( const RectangleBounds& rectangle )
 RectangleBounds&
 RectangleBounds::operator=( RectangleBounds&& rectangle )
 {
-    // FIXME
+    // Copy content of rectangle into this one
     d_x = rectangle.d_x;
     d_y = rectangle.d_y;
     d_width = rectangle.d_width;
     d_height = rectangle.d_height;
+
+    // Reset rectangle
     rectangle.d_x = 0;
     rectangle.d_y = 0;
     rectangle.d_width = 0;
     rectangle.d_height = 0;
 }
 
-bool
-RectangleBounds::doesCollide( const RectangleBounds& candidate )
+const bool
+RectangleBounds::doesCollide( const RectangleBounds& candidate ) const
 {
-    if ( ( d_width == 0 && d_height == 0 ) || 
+    // If one of them has has a width and a height of zero, then it does not
+    // really exist on the plan and cannot collide.
+    if ( ( d_width == 0 && d_height == 0 ) ||
          ( candidate.d_width == 0 && candidate.d_height == 0 ) )
+    {
         return false;
+    }
 
-    float           rec1_x1 = d_x;
-    float           rec1_y1 = d_y;
-    float           rec1_x2 = d_x + d_width;
-    float           rec1_y2 = d_y + d_height;
+    // Define points for the first rectangle
+    float rec1_x1 = d_x;
+    float rec1_y1 = d_y;
+    float rec1_x2 = d_x + d_width;
+    float rec1_y2 = d_y + d_height;
 
-    float           rec2_x1 = candidate.d_x;
-    float           rec2_y1 = candidate.d_y;
-    float           rec2_x2 = candidate.d_x + candidate.d_width;
-    float           rec2_y2 = candidate.d_y + candidate.d_height;
+    // Define points for the second rectangle
+    float rec2_x1 = candidate.d_x;
+    float rec2_y1 = candidate.d_y;
+    float rec2_x2 = candidate.d_x + candidate.d_width;
+    float rec2_y2 = candidate.d_y + candidate.d_height;
 
+    // Return the result of the collision
     return ( rec1_x1 < rec2_x2 && rec1_x2 > rec2_x1 &&
              rec1_y1 < rec2_y2 && rec1_y2 > rec2_y1 );
 }

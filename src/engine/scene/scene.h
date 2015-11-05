@@ -1,4 +1,9 @@
-// scene.h
+//
+// File: scene.h
+// Author: Barbara Crepeau
+//
+// Declare Scene singleton class
+//
 
 #ifndef INCLUDED_SCENE
 # define INCLUDED_SCENE
@@ -13,6 +18,7 @@ namespace StevensDev
 namespace sgds
 {
 
+// Manage the lifecycle of objects in the world, and the dissemination of ticks
 class Scene
 {
   private:
@@ -40,25 +46,26 @@ class Scene
 
     // ACCESSOR
 
-    static Scene&                    inst();
+    static Scene& inst();
+      // Return the static instance of Scene
 
 
     // MUTATORS
 
-    void                             setRenderer( sgdr::Renderer *renderer );
-      // 
+    void setRenderer( sgdr::Renderer *renderer );
+      // Set the renderer
 
 
     // MEMBER FUNCTIONS
 
-    void                             tick();
-      //
+    void tick();
+      // Execute the pre-ticks, ticks and post-ticks of all ITickable
 
-    void                             addTickable( ITickable *tickable );
-      // 
+    void addTickable( ITickable *tickable );
+      // Add an ITickable element
 
-    void                             removeTickable( ITickable *tickable );
-      //
+    void removeTickable( ITickable *tickable );
+      // Remove an ITickable element
 };
 
 } // End sgds namespace
