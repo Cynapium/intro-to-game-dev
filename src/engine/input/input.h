@@ -1,4 +1,9 @@
-// input.h
+//
+// File: input.h
+// Author: Barbara Crepeau
+//
+// Declare InputType enum, the number of input type, and Input singleton class
+//
 
 #ifndef INCLUDED_INPUT
 # define INCLUDED_INPUT
@@ -23,6 +28,7 @@ enum InputType
     #undef  INPUT_KEY
 };
 
+// Lightweight wrapper around SFML's input implementation
 class Input : public sgds::ITickable
 {
   private:
@@ -58,29 +64,29 @@ class Input : public sgds::ITickable
 
     // ACCESSORS
 
-    static Input&                       inst();
+    static Input& inst();
       // Return the instance of Input
 
 
     // MEMBER FUNCTIONS
 
-    bool                                isDown( InputType type );
+    bool isDown( InputType type );
       // Return true if the current input state is down
 
-    bool                                isUp( InputType type );
+    bool isUp( InputType type );
       // Return true if the current input state is up
 
-    bool                                wasPressed( InputType type );
+    bool wasPressed( InputType type );
       // Return true if the current input state was down and is now up
 
-    void                                preTick();
+    void preTick();
       // Poll input state at this point and setup internal state
 
-    void                                tick( float dts );
-      //
+    void tick( float dts );
+      // Does nothing
 
-    void                                postTick();
-      //
+    void postTick();
+      // Does nothing
 };
 
 } // End sgdi namespace

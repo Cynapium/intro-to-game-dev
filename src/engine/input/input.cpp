@@ -1,4 +1,7 @@
-// input.cpp
+//
+// File: input.cpp
+// Author: Barbara Crepeau
+//
 
 #include "input.h"
 #include <SFML/Window.hpp>
