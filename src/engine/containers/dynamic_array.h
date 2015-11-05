@@ -23,28 +23,28 @@ class DynamicArray
 {
   private:
 
-    IAllocator<T>  *d_allocator;
+    sgdm::IAllocator<T> *d_allocator;
       // Allocator used to manage memory in the dynamic array
 
-    T              *d_array;
+    T                   *d_array;
       // Array where data are stored
 
-    unsigned int    d_length;
+    unsigned int         d_length;
       // Number of elements contained
 
-    unsigned int    d_size;
+    unsigned int         d_size;
       // Size of the array allocation
 
 
     // MEMBER FUNCTIONS
 
-    void            shiftRight( unsigned int index );
+    void                 shiftRight( unsigned int index );
       // Shift the array to the right, starting at index value
 
-    void            shiftLeft( unsigned int index );
+    void                 shiftLeft( unsigned int index );
       // Shift the array to the left, starting at index value
 
-    void            reallocate();
+    void                 reallocate();
       // This function increase the size of the array. When the array is full,
       // it allocate a new array twice as large (size * 2). That strategy
       // allows us to reduce the reallocation cost logarithmically.
@@ -58,7 +58,7 @@ class DynamicArray
     DynamicArray();
       // Default constructor
 
-    DynamicArray( IAllocator<T>* alloc );
+    DynamicArray( sgdm::IAllocator<T>* alloc );
       // Pointer to an allocator for use with memory
 
     DynamicArray( const DynamicArray<T>& copy );
@@ -181,12 +181,14 @@ void DynamicArray<T>::reallocate()
 }
 
 
+//
 // CONSTRUCTORS
+//
 
 template<typename T>
 inline
 DynamicArray<T>::DynamicArray()
-    : d_allocator( new DefaultAllocator<T> ), d_array( 0 ),
+    : d_allocator( new sgdm::DefaultAllocator<T> ), d_array( 0 ),
     d_length( 0 ), d_size( 0 )
 {
     // Size is two because we want to create a dynamic array, and we don't know
@@ -222,8 +224,9 @@ DynamicArray<T>::DynamicArray( const DynamicArray<T>& copy )
         d_array[i] = copy.d_array[i];
 }
 
-
+//
 // DESTRUCTOR
+//
 
 template<typename T>
 inline
@@ -233,7 +236,9 @@ DynamicArray<T>::~DynamicArray()
 }
 
 
+//
 // OPERATORS
+//
 
 template<typename T>
 inline
@@ -264,7 +269,9 @@ T DynamicArray<T>::operator[]( int index ) const
 }
 
 
+//
 // ACCESSORS
+//
 
 template<typename T>
 inline
@@ -285,7 +292,9 @@ const T DynamicArray<T>::at( unsigned int index )
 }
 
 
+//
 // MEMBER FUNCTIONS
+//
 
 template<typename T>
 inline
@@ -375,7 +384,9 @@ T DynamicArray<T>::insertAt( unsigned int index, const T& element )
 }
 
 
+//
 // FREE OPERATORS
+//
 
 template<class T>
 inline std::ostream&
@@ -394,7 +405,6 @@ operator<<( std::ostream& stream, const DynamicArray<T> array )
 
     return stream << " ]";
 }
-
 
 } // End sgdc namespace
 } // End StevensDev namespace

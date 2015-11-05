@@ -47,7 +47,7 @@ class Map
     Map();
       // Default constructor
 
-    Map( IAllocator<T> *alloc );
+    Map( sgdm::IAllocator<T> *alloc );
       // Constructor
 
     Map( const Map<T>& map );
@@ -154,7 +154,7 @@ Map<T>::Map()
 
 template<typename T>
 inline
-Map<T>::Map( IAllocator<T> *alloc )
+Map<T>::Map( sgdm::IAllocator<T> *alloc )
     : d_trie(), d_keys( alloc ), d_values( alloc )
 {
     d_trie = new Node();
