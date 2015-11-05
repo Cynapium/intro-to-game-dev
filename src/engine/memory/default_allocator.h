@@ -1,4 +1,9 @@
-// default_allocator.h
+//
+// File: default_allocator.h
+// Author: Barbara Crepeau
+//
+// Define DefaultAllocator templated class and its functions
+//
 
 #ifndef INCLUDED_DEFAULT_ALLOCATOR
 # define INCLUDED_DEFAULT_ALLOCATOR
@@ -28,7 +33,8 @@ class DefaultAllocator : public IAllocator<T>
 
     // DESTRUCTOR
 
-    virtual             ~DefaultAllocator();
+    virtual ~DefaultAllocator();
+      // Destroy the allocator
 
 
     // OPERATORS
@@ -39,19 +45,19 @@ class DefaultAllocator : public IAllocator<T>
 
     // MEMBER FUNCTIONS
 
-    T*                  get( int count );
+    T* get( int count );
       // Allocate memory
 
-    void                release( T* ptr, int count );
+    void release( T* ptr, int count );
       // Release allocated memory
 
-    void                construct( T* ptr, T&& copy);
+    void construct( T* ptr, T&& copy);
       // Construct a T object in-place by move
 
-    void                construct( T* ptr, const T& copy );
+    void construct( T* ptr, const T& copy );
       // Construct a T object in-place by copy
 
-    void                destruct( T* ptr );
+    void destruct( T* ptr );
       // Call the destructor on an object
 };
 

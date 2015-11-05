@@ -1,9 +1,15 @@
-// counting_allocator.h
+//
+// File: counting_allocator.h
+// Author: Barbara Crepeau
+//
+// Declare CountingAllocator templated class and its functions
+//
 
 #ifndef INCLUDED_COUNTING_ALLOCATOR
 # define INCLUDED_COUNTING_ALLOCATOR
 
 #include "default_allocator.h"
+#include <cassert>
 
 namespace StevensDev
 {
@@ -15,16 +21,16 @@ class CountingAllocator : public DefaultAllocator<T>
 {
   private:
 
-    int         d_allocation_count;
+    int             d_allocation_count;
       // Number of allocations that occured
 
-    int         d_release_count;
+    int             d_release_count;
       // Number of releases that occured
 
-    static int  d_total_allocation_count;
+    static int      d_total_allocation_count;
       // Number of allocations across instances
 
-    static int  d_total_release_count;
+    static int      d_total_release_count;
       // Number of releases across instances
 
 
@@ -41,7 +47,8 @@ class CountingAllocator : public DefaultAllocator<T>
 
     // DESTRUCTOR
 
-    virtual             ~CountingAllocator();
+    virtual ~CountingAllocator();
+      // Destroy the allocator
 
 
     // OPERATORS
@@ -52,30 +59,41 @@ class CountingAllocator : public DefaultAllocator<T>
 
     // ACCESSORS
 
-    int const           getAllocationCount();
+    int const getAllocationCount();
       // Number of allocations that occured
 
-    int const           getReleaseCount();
+    int const getReleaseCount();
       // Number of releases that occured
 
-    int const           getOutstandingCount();
+    int const getOutstandingCount();
       // Allocations - releases
 
-    static int          getTotalAllocationCount();
+    static int getTotalAllocationCount();
       // Number of allocations across instances
 
-    static int          getTotalReleaseCount();
+    static int getTotalReleaseCount();
       // Number of releases across instances
 
-    static int          getTotalOutstandingCount();
+    static int getTotalOutstandingCount();
       // Allocations - releases across instances
 
 
     // MEMBER FUNCTIONS
 
-    T*                  get( int count );
+    virtual T* get( int count );
+      // Allocate memory
 
-    void                release( T* ptr, int count );
+    virtual void release( T* ptr, int count );
+      // Release allocated memory
+
+    virtual void construct( T* ptr, T&& copy );
+      // Construct a T object in-place by move
+
+    virtual void construct( T* ptr, const T& copy );
+      // Construct a T object in-place by copy
+
+    virtual void destruct( T* ptr );
+      // Call the destructor on an object
 };
 
 // Static variables instantiation
@@ -86,7 +104,9 @@ template<typename T>
 int CountingAllocator<T>::d_total_release_count = 0;
 
 
+//
 // CONSTRUCTORS
+//
 
 template<typename T>
 inline
@@ -104,7 +124,9 @@ CountingAllocator<T>::CountingAllocator( const CountingAllocator<T>& copy )
 }
 
 
+//
 // DESTRUCTOR
+//
 
 template<typename T>
 inline
@@ -113,7 +135,9 @@ CountingAllocator<T>::~CountingAllocator()
 }
 
 
+//
 // OPERATORS
+//
 
 template<typename T>
 inline
@@ -127,13 +151,15 @@ CountingAllocator<T>::operator=( const CountingAllocator<T>& allocator )
 }
 
 
+//
 // MEMBER FUNCTIONS
+//
+
 template<typename T>
 inline
 T* CountingAllocator<T>::get( int count )
 {
-    if ( count <= 0 )
-        return 0;
+    assert( count > 0 );
 
     d_allocation_count += count;
     d_total_allocation_count += count;
@@ -145,8 +171,8 @@ template<typename T>
 inline
 void CountingAllocator<T>::release( T* ptr, int count )
 {
-    if ( ptr == 0 || count <= 0 )
-        return;
+    assert( ptr != nullptr );
+    assert( count > 0 );
 
     d_release_count += count;
     d_total_release_count += count;
@@ -154,8 +180,31 @@ void CountingAllocator<T>::release( T* ptr, int count )
     DefaultAllocator<T>::release( ptr, count );
 }
 
+template<typename T>
+inline
+void CountingAllocator<T>::construct( T* ptr, T&& copy )
+{
+    ptr = new T( copy );
+}
 
+template<typename T>
+inline
+void CountingAllocator<T>::construct( T* ptr, const T& copy )
+{
+    ptr = new T( copy );
+}
+
+template<typename T>
+inline
+void CountingAllocator<T>::destruct( T* ptr )
+{
+    delete ptr;
+}
+
+
+//
 // ACCESSORS
+//
 
 template<typename T>
 inline
@@ -200,7 +249,9 @@ int CountingAllocator<T>::getTotalOutstandingCount()
 }
 
 
+//
 // FREE OPERATORS
+//
 
 template<class T>
 inline
@@ -212,7 +263,6 @@ operator<<( std::ostream& stream, const CountingAllocator<T> allocator )
         << "\"releaseCount\": "    << allocator.getReleaseCount()
         << " }";
 }
-
 
 } // End sgdm namespace
 } // End StevensDev namespace

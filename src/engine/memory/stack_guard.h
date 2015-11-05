@@ -1,4 +1,9 @@
-// stack_guard.h
+//
+// File: stack_guard.h
+// Author: Barbara Crepeau
+//
+// Define StackGuard templated class and its functions
+//
 
 #ifndef INCLUDED_STACK_GUARD
 # define INCLUDED_STACK_GUARD
@@ -8,12 +13,14 @@ namespace StevensDev
 namespace sgdm
 {
 
+// Act like a smart pointer around a given pointer
 template<typename T>
 class StackGuard
 {
   private:
 
     T*                  d_ptr;
+      // Pointer to type T
 
 
   public:
@@ -21,7 +28,7 @@ class StackGuard
     // CONSTRUCTORS
 
     StackGuard( T* guarded );
-      //
+      // Create a new StackGuard around a pointer
 
     StackGuard( const StackGuard<T>& stackGuard ) = delete;
       // Copy constructor
@@ -32,20 +39,21 @@ class StackGuard
     // DESTRUCTOR
 
     ~StackGuard();
+      // Destroy the pointer
 
 
     // OPERATORS
 
-    T*                  operator->() const;
+    T* operator->() const;
       // Pointer access operator
 
-    const bool          operator!();
+    const bool operator!();
       // Logical NOT operator
 
-    const bool          operator==( bool rhs );
+    const bool operator==( bool rhs );
       // Equality operator
 
-    const bool          operator!=( bool rhs );
+    const bool operator!=( bool rhs );
       // Inequality operator
 };
 
