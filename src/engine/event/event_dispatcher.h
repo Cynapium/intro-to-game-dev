@@ -22,6 +22,12 @@ class EventDispatcher : public sgds::ITickable
     sgdc::DynamicArray<IEventFunc*>  d_listeners;
       // List of listeners
 
+    sgdc::DynamicArray<IEventFunc*>  d_listeners_new;
+      // List of listeners to add for next tick
+
+    sgdc::DynamicArray<IEventFunc*>  d_listeners_old;
+      // List of listeners to remove for next tick
+
 
   public:
 
@@ -39,31 +45,31 @@ class EventDispatcher : public sgds::ITickable
 
     // OPERATORS
 
-    EventDispatcher&            operator=( const EventDispatcher& copy );
+    EventDispatcher& operator=( const EventDispatcher& copy );
       // Copy assignment operator
 
-    EventDispatcher&            operator=( EventDispatcher&& move );
+    EventDispatcher& operator=( EventDispatcher&& move );
       // Move assignment operator
 
 
     // MEMBER FUNCTIONS
 
-    void                        add( IEventFunc* listener );
+    void add( const std::string& type, IEventFunc* listener );
       // Add a listener to the list
 
-    void                        remove( IEventFunc* listener );
+    void remove( const std::string& type, IEventFunc* listener );
       // Remove a listener from the list of listeners
 
-    void                        dispatch( const IEvent& event );
+    void dispatch( const IEvent& event );
       // Called as part of tick, synchronous
 
-    void                        preTick();
+    void preTick();
       // Does nothing
 
-    void                        tick( float dts );
+    void tick( float dts );
       // Does nothing
 
-    void                        postTick();
+    void postTick();
       // Add and remove listeners
 };
 
