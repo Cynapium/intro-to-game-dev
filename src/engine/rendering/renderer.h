@@ -5,7 +5,7 @@
 
 #include "containers/dynamic_array.h"
 #include "containers/map.h"
-#include "renderable_sprite.h"
+#include "rendering/renderable_sprite.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
