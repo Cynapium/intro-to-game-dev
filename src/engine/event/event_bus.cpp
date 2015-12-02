@@ -8,13 +8,13 @@ namespace sgde
 {
 
 EventBus *EventBus::d_instance = nullptr;
+EventDispatcher EventBus::d_dispatcher;
 
 //
 // CONSTRUCTOR
 //
 
 EventBus::EventBus()
-    : d_dispatcher( nullptr )
 {
 }
 
@@ -23,34 +23,17 @@ EventBus::EventBus()
 // ACCESSOR
 //
 
-EventBus&
-EventBus::inst()
+EventDispatcher&
+EventBus::get()
 {
     if ( !d_instance )
     {
         d_instance = new EventBus;
     }
 
-    return *d_instance;
+    return d_dispatcher;
 }
 
-
-//
-// MUTATOR
-//
-
-void
-EventBus::setDispatcher( EventDispatcher *dispatcher )
-{
-    delete d_dispatcher;
-
-    d_dispatcher = dispatcher;
-}
-
-
-//
-// MEMBER FUNCTIONS
-//
 
 } // end sgde namespace
 } // end StevensDev namespace
