@@ -3,7 +3,7 @@
 #ifndef INCLUDED_PLAYER_ACTOR
 # define INCLUDED_PLAYER_ACTOR
 
-#include<SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 #include "scene/iactor.h"
 
@@ -33,10 +33,10 @@ class PlayerActor : public sgds::IActor
 
     // OPERATORS
 
-    PlayerActor&            operator=( const PlayerActor& copy );
+    PlayerActor& operator=( const PlayerActor& copy );
       // Copy assignment operator
 
-    PlayerActor&            operator=( PlayerActor&& move );
+    PlayerActor& operator=( PlayerActor&& move );
       // Move assignment operator
 };
 
