@@ -13,7 +13,7 @@ namespace sgds
 //
 
 IActor::IActor( std::string name, const sf::Texture &texture )
-    : d_name( name ), d_sprite( texture )
+    : d_name( name ), d_sprite( new sgdr::RenderableSprite( texture ) )
 {
 }
 
@@ -59,7 +59,7 @@ IActor::name()
     return d_name;
 }
 
-sgdr::RenderableSprite&
+sgdr::RenderableSprite*
 IActor::sprite()
 {
     return d_sprite;
@@ -72,37 +72,16 @@ IActor::collider()
 }
 
 
-
 //
 // MEMBER FUNCTIONS
 //
-/*
 
 void
-IActor::preTick()
+IActor::move( float x, float y )
 {
+    d_sprite->move( x, y );
 }
 
-void
-IActor::tick( float dts )
-{
-    sgdi::Input                 &in = sgdi::Input::inst();
-
-    if ( in.isDown( sgdi::KEY_Right ) )
-        move( 2, 0 );
-    if ( in.isDown( sgdi::KEY_Left ) )
-        move( -2, 0 );
-    if ( in.isDown( sgdi::KEY_Up ) )
-        move( 0, -2 );
-    if ( in.isDown( sgdi::KEY_Down ) )
-        move( 0, 2 );
-}
-
-void
-IActor::postTick()
-{
-}
-*/
 
 } // end sgds namespace
 } // end StevensDev namespace

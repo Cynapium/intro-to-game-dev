@@ -21,7 +21,7 @@ class IActor
     std::string                  d_name;
       //
 
-    sgdr::RenderableSprite       d_sprite;
+    sgdr::RenderableSprite      *d_sprite;
       //
 
     sgds::ICollider             *d_collider;
@@ -55,12 +55,17 @@ class IActor
     std::string name();
       // Return the actor's name
 
-    sgdr::RenderableSprite& sprite();
+    sgdr::RenderableSprite* sprite();
       // Return the renderable sprite
 
     sgds::ICollider* collider();
       // Return the actor's collider
 
+
+    // MEMBER FUNCTIONS
+
+    void move( float x, float y );
+      // Move the actor's sprite
 };
 
 } // end sgdr namespace
