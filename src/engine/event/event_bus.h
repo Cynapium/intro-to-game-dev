@@ -17,7 +17,7 @@ class EventBus
     static EventBus                    *d_instance;
       // Static instance of EventBus
 
-    EventDispatcher                    *d_dispatcher;
+    static EventDispatcher              d_dispatcher;
       // Event dispatcher managed by the EventBus
 
 
@@ -37,28 +37,17 @@ class EventBus
 
     // OPERATORS
 
-    EventBus&            operator=( const EventBus& copy ) = delete;
+    EventBus& operator=( const EventBus& copy ) = delete;
       // Copy assignment operator
 
-    EventBus&            operator=( EventBus&& move ) = delete;
+    EventBus& operator=( EventBus&& move ) = delete;
       // Move assignment operator
 
 
     // ACCESSOR
 
-    static EventBus&                    inst();
-      // Return the instance of EventBus
-
-
-    // MUTATOR
-
-    void                                setDispatcher( EventDispatcher *d );
-      // Set the EventDispatcher
-
-
-    // MEMBER FUNCTIONS
-
-    // TODO : Functions of the dispatcher
+    static EventDispatcher& get();
+      // Return the instance of EventDispatcher
 };
 
 } // end sgde namespace
