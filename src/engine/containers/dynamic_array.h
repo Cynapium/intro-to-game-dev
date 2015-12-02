@@ -111,6 +111,9 @@ class DynamicArray
 
     T insertAt( unsigned int index, const T& element );
       // Can grow, shifts
+
+    void clear();
+      // Removes all elements from the array
 };
 
 
@@ -382,6 +385,19 @@ T DynamicArray<T>::insertAt( unsigned int index, const T& element )
     // Return
     return element;
 }
+
+template<typename T>
+inline
+void DynamicArray<T>::clear()
+{
+    for ( int i = 0; i < d_length; i++ )
+    {
+        d_array[i] = 0;
+    }
+
+    d_length = 0;
+}
+
 
 
 //
