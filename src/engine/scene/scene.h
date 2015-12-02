@@ -49,6 +49,9 @@ class Scene
     static Scene& inst();
       // Return the static instance of Scene
 
+    sgdr::Renderer* renderer();
+      // Return the scene's renderer
+
 
     // MUTATORS
 

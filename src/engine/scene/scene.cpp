@@ -38,6 +38,11 @@ Scene::inst()
     return *d_instance;
 }
 
+sgdr::Renderer*
+Scene::renderer()
+{
+    return d_renderer;
+}
 
 //
 // MUTATOR
