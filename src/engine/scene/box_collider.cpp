@@ -49,13 +49,13 @@ BoxCollider::operator=( BoxCollider&& move )
 bool
 BoxCollider::canCollide( unsigned short flags ) const
 {
-    return true; // FIXME
+    return ( d_flags & flags );
 }
 
 bool
 BoxCollider::doesCollide( const RectangleBounds& rectangle )
 {
-    return true; // FIXME
+    return d_bounds->doesCollide( rectangle );
 }
 
 
