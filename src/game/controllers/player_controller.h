@@ -5,6 +5,7 @@
 
 #include "scene/icontroller.h"
 #include "actors/player_actor.h"
+#include "input/input.h"
 
 namespace StevensDev
 {
@@ -15,6 +16,7 @@ class PlayerController : public sgds::IController
 {
   private:
 
+    sgdi::InputType         d_last;
 
   public:
 
@@ -40,6 +42,8 @@ class PlayerController : public sgds::IController
 
 
     // MEMBER FUNCTIONS
+
+    void reverse();
 
     virtual void preTick();
       //

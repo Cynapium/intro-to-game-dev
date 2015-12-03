@@ -24,19 +24,19 @@ class PlayerActor : public sgds::IActor
     PlayerActor( std::string name, const sf::Texture& texture );
       // Default constructor
 
-    PlayerActor( const PlayerActor& copy );
+    PlayerActor( const PlayerActor& actor );
       // Copy constructor
 
-    PlayerActor( PlayerActor&& move );
+    PlayerActor( PlayerActor&& actor );
       // Move constructor
 
 
     // OPERATORS
 
-    PlayerActor& operator=( const PlayerActor& copy );
+    PlayerActor& operator=( const PlayerActor& actor );
       // Copy assignment operator
 
-    PlayerActor& operator=( PlayerActor&& move );
+    PlayerActor& operator=( PlayerActor&& actor );
       // Move assignment operator
 };
 

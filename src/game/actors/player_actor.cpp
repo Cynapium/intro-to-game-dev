@@ -2,6 +2,8 @@
 
 #include "player_actor.h"
 
+#include "scene/icollider.h"
+
 namespace StevensDev
 {
 namespace mga
@@ -14,15 +16,16 @@ namespace mga
 PlayerActor::PlayerActor( std::string name, const sf::Texture& texture )
     : IActor( name, texture )
 {
+    setPosition( 200, 200 );
 }
 
-PlayerActor::PlayerActor( const PlayerActor& copy )
-    : IActor( copy )
+PlayerActor::PlayerActor( const PlayerActor& actor )
+    : IActor( actor )
 {
 }
 
-PlayerActor::PlayerActor( PlayerActor&& move )
-    : IActor( move )
+PlayerActor::PlayerActor( PlayerActor&& actor )
+    : IActor( actor )
 {
 }
 
