@@ -16,11 +16,18 @@ namespace StevensDev
 namespace sgds
 {
 
+enum CollisionFlags
+{
+    L0,
+    L1,
+    L2
+};
+
 // Simple interface for defining the bounds of collission and flags appropriate
 // for colliding.
 class ICollider
 {
-  private:
+  protected:
 
     RectangleBounds             d_bounds;
       // Bounds of the collider
@@ -33,22 +40,25 @@ class ICollider
 
     // CONSTRUCTORS
 
-    ICollider();
+    ICollider( int x, int y, int width, int height );
       // Default constructor
+
+    ICollider( RectangleBounds bounds, unsigned short flags );
+     // Constructor with attributes
 
 
     // ACCESSOR
 
-    virtual const RectangleBounds& bounds() const = 0;
+    const RectangleBounds& bounds() const;
       // Return a reference to the RectangleBounds stored in the Collider
 
-    virtual unsigned short flags() const = 0;
+    unsigned short flags() const;
       // Return the bitmask of flags
 
 
     // MUTATOR
 
-    virtual void setFlags( unsigned short flags ) = 0;
+    void setFlags( unsigned short flags );
       // Set the flags for this Collider
 
 

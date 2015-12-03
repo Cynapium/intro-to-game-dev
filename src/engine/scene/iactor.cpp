@@ -1,6 +1,7 @@
 // actor.cpp
 
 #include "scene/iactor.h"
+#include "scene/box_collider.h"
 #include "input/input.h"
 
 namespace StevensDev
@@ -13,17 +14,26 @@ namespace sgds
 //
 
 IActor::IActor( std::string name, const sf::Texture &texture )
-    : d_name( name ), d_sprite( new sgdr::RenderableSprite( texture ) )
+    : d_name( name ),
+      d_sprite( new sgdr::RenderableSprite( texture ) ),
+      d_collider( new BoxCollider( d_sprite->getPositionX(),
+                                   d_sprite->getPositionY(),
+                                   d_sprite->width(),
+                                   d_sprite->height() ) )
 {
 }
 
 IActor::IActor( const IActor& actor )
-    : d_name( actor.d_name ), d_sprite( actor.d_sprite )
+    : d_name( actor.d_name ),
+      d_sprite( actor.d_sprite )//,
+      //d_collider( actor.collider )
 {
 }
 
 IActor::IActor( IActor&& actor )
-    : d_name( actor.d_name ), d_sprite( actor.d_sprite )
+    : d_name( actor.d_name ),
+      d_sprite( actor.d_sprite )//,
+      //d_collider( actor.d_collider )
 {
     // TODO set actor attributes to null
 }
@@ -34,19 +44,19 @@ IActor::IActor( IActor&& actor )
 //
 
 IActor&
-IActor::operator=( const IActor &copy )
+IActor::operator=( const IActor &actor )
 {
-    d_name = copy.d_name;
-    d_sprite = copy.d_sprite;
+    d_name = actor.d_name;
+    d_sprite = actor.d_sprite;
 }
 
 IActor&
-IActor::operator=( IActor &&move )
+IActor::operator=( IActor &&actor )
 {
-    d_name = move.d_name;
-    d_sprite = move.d_sprite;
+    d_name = actor.d_name;
+    d_sprite = actor.d_sprite;
 
-    move.d_name = "";
+    actor.d_name = "";
 }
 
 

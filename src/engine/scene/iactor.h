@@ -16,7 +16,7 @@ namespace sgds
 
 class IActor
 {
-  private:
+  protected:
 
     std::string                  d_name;
       //
