@@ -24,7 +24,7 @@ EventBus::EventBus()
 //
 
 EventDispatcher&
-EventBus::get()
+EventBus::dispatcher()
 {
     if ( !d_instance )
     {

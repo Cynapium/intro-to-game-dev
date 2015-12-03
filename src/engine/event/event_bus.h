@@ -46,7 +46,7 @@ class EventBus
 
     // ACCESSOR
 
-    static EventDispatcher& get();
+    static EventDispatcher& dispatcher();
       // Return the instance of EventDispatcher
 };
 
