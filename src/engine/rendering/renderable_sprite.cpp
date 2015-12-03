@@ -88,6 +88,18 @@ RenderableSprite::move( float x, float y )
     d_sprite.move( x, y );
 }
 
+const int
+RenderableSprite::height() const
+{
+    return d_sprite.getTextureRect().height;
+}
+
+const int
+RenderableSprite::width() const
+{
+    return d_sprite.getTextureRect().width;
+}
+
 
 } // End sgdr namespace
 } // End StevensDev namespace

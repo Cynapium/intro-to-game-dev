@@ -43,29 +43,35 @@ class RenderableSprite
 
     // OPERATORS
 
-    RenderableSprite&           operator=( const RenderableSprite &copy );
+    RenderableSprite& operator=( const RenderableSprite &copy );
       // Copy operator
 
 
     // ACCESSOR
 
-    const sf::Sprite            sprite() const;
+    const sf::Sprite sprite() const;
       // Return the private sprite
 
 
     // MEMBER FUNCTIONS
 
-    float                       getPositionX();
+    float getPositionX();
       // Get absolute X position
 
-    float                       getPositionY();
+    float getPositionY();
       // Get absolute Y position
 
-    void                        setPosition( float x, float y );
+    void setPosition( float x, float y );
       // Set absolute (x, y) position
 
-    void                        move( float x, float y );
+    void move( float x, float y );
       // Increments the position by the given parameter
+
+    const int width() const;
+      // Return the width of the sprite
+
+    const int height() const;
+      // Return the height of the sprite
 
 };
 
