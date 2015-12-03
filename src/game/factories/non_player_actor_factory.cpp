@@ -25,6 +25,8 @@ NonPlayerActorFactory::create( std::string name )
 
     renderer->addSprite( actor-> sprite() );
     scene.addTickable( controller );
+
+    scene.graph()->addCollider( actor->collider() );
 }
 
 } // end mgf namespace

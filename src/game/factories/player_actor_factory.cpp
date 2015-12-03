@@ -18,7 +18,6 @@ namespace mgf
 // MEMBER FUNCTION
 //
 
-#include<iostream>
 void
 PlayerActorFactory::create( std::string name )
 {
@@ -28,8 +27,10 @@ PlayerActorFactory::create( std::string name )
     mga::PlayerActor        *actor = new mga::PlayerActor( name, texture );
     mgc::PlayerController   *controller = new mgc::PlayerController( actor );
 
-    renderer->addSprite( actor-> sprite() );
+    renderer->addSprite( actor->sprite() );
     scene.addTickable( controller );
+
+    scene.graph()->addCollider( actor->collider() );
 }
 
 } // end mgf namespace
