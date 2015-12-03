@@ -19,7 +19,7 @@ RectangleBounds::RectangleBounds()
 {
 }
 
-RectangleBounds::RectangleBounds( float x, float y, float width, float height )
+RectangleBounds::RectangleBounds( int x, int y, int width, int height )
     : d_x( x ), d_y( y ), d_width( width ), d_height( height )
 {
 }
@@ -55,25 +55,25 @@ RectangleBounds::~RectangleBounds()
 // ACCESSORS
 //
 
-const float
+const int
 RectangleBounds::x() const
 {
     return d_x;
 }
 
-const float
+const int
 RectangleBounds::y() const
 {
     return d_y;
 }
 
-const float
+const int
 RectangleBounds::width() const
 {
     return d_width;
 }
 
-const float
+const int
 RectangleBounds::height() const
 {
     return d_height;
@@ -85,38 +85,38 @@ RectangleBounds::height() const
 //
 
 void
-RectangleBounds::setX( float x )
+RectangleBounds::setX( int x )
 {
     d_x = x;
 }
 
 void
-RectangleBounds::setY( float y )
+RectangleBounds::setY( int y )
 {
     d_y = y;
 }
 
 void
-RectangleBounds::setWidth( float w )
+RectangleBounds::setWidth( int w )
 {
     d_width = w;
 }
 
 void
-RectangleBounds::setHeight( float h )
+RectangleBounds::setHeight( int h )
 {
     d_height = h;
 }
 
 void
-RectangleBounds::setPosition( float x, float y )
+RectangleBounds::setPosition( int x, int y )
 {
     setX( x );
     setY( y );
 }
 
 void
-RectangleBounds::setDimensions( float w, float h )
+RectangleBounds::setDimensions( int w, int h )
 {
     setWidth( w );
     setHeight( h );
@@ -168,16 +168,16 @@ RectangleBounds::doesCollide( const RectangleBounds& candidate ) const
     }
 
     // Define points for the first rectangle
-    float rec1_x1 = d_x;
-    float rec1_y1 = d_y;
-    float rec1_x2 = d_x + d_width;
-    float rec1_y2 = d_y + d_height;
+    int rec1_x1 = d_x;
+    int rec1_y1 = d_y;
+    int rec1_x2 = d_x + d_width;
+    int rec1_y2 = d_y + d_height;
 
     // Define points for the second rectangle
-    float rec2_x1 = candidate.d_x;
-    float rec2_y1 = candidate.d_y;
-    float rec2_x2 = candidate.d_x + candidate.d_width;
-    float rec2_y2 = candidate.d_y + candidate.d_height;
+    int rec2_x1 = candidate.d_x;
+    int rec2_y1 = candidate.d_y;
+    int rec2_x2 = candidate.d_x + candidate.d_width;
+    int rec2_y2 = candidate.d_y + candidate.d_height;
 
     // Return the result of the collision
     return ( rec1_x1 < rec2_x2 && rec1_x2 > rec2_x1 &&

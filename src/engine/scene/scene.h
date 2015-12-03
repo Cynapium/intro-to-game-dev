@@ -12,6 +12,7 @@
 #include "containers/dynamic_array.h"
 #include "rendering/renderer.h"
 #include "itickable.h"
+#include "nxn_scene_graph.h"
 
 namespace StevensDev
 {
@@ -35,6 +36,9 @@ class Scene
     sgdc::DynamicArray<ITickable*>   d_tickables;
       // Array of tickable objects
 
+    NxNSceneGraph                   *d_scene_graph;
+      // 2D grid used to store colliders
+
 
     // CONSTRUCTOR
 
@@ -52,11 +56,17 @@ class Scene
     sgdr::Renderer* renderer();
       // Return the scene's renderer
 
+    NxNSceneGraph* graph();
+      // Return the scene's graph
+
 
     // MUTATORS
 
     void setRenderer( sgdr::Renderer *renderer );
       // Set the renderer
+
+    void setGraph( int dimensions, int divisions );
+      // Set the scene graph
 
 
     // MEMBER FUNCTIONS

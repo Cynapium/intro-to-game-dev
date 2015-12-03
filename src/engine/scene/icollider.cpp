@@ -29,6 +29,12 @@ ICollider::ICollider( RectangleBounds bounds, unsigned short flags )
 // ACCESSORS
 //
 
+RectangleBounds&
+ICollider::bounds()
+{
+    return d_bounds;
+}
+
 const RectangleBounds&
 ICollider::bounds() const
 {

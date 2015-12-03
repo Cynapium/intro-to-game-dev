@@ -55,7 +55,7 @@ BoxCollider::canCollide( unsigned short flags ) const
 bool
 BoxCollider::doesCollide( const RectangleBounds& rectangle )
 {
-    return d_bounds->doesCollide( rectangle );
+    return d_bounds.doesCollide( rectangle );
 }
 
 

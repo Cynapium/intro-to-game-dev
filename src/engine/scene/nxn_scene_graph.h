@@ -23,13 +23,13 @@ class NxNSceneGraph : public ITickable
 {
   private:
 
-    float                   d_dimensions;
+    int                             d_dimensions;
       // Dimensions (w * h) of the scene
 
-    int                     d_divisions;
+    int                             d_divisions;
       // Number of rows and columns in the scene
 
-    sgdc::DynamicArray<ICollider*> d_colliders;
+    sgdc::DynamicArray<ICollider*>  d_colliders;
       // List of colliders
 
 
@@ -40,7 +40,7 @@ class NxNSceneGraph : public ITickable
     NxNSceneGraph() = delete;
       // Default constructor
 
-    NxNSceneGraph( float dimensions, int divisions );
+    NxNSceneGraph( int dimensions, int divisions );
       // Constructor with dimensions which represents the width / height (this
       // scene being a square, width and height are the same) and the
       // divisions, which is the number of cells per column and row.
@@ -69,7 +69,7 @@ class NxNSceneGraph : public ITickable
 
     // ACCESSORS
 
-    const float dimensions() const;
+    const int dimensions() const;
       // Return the dimensions of the NxN scene
 
     const int divisions() const;
@@ -87,10 +87,10 @@ class NxNSceneGraph : public ITickable
     void removeCollider( ICollider* collider );
       // Remove a collider from the list
 
-    sgdc::DynamicArray<ICollider*> find( float x, float y, float w, float h );
+    sgdc::DynamicArray<ICollider*> find( int x, int y, int w, int h );
       // Find all colliders that collide with the given rectangle
 
-    sgdc::DynamicArray<ICollider*> find( float x, float y, float w, float h,
+    sgdc::DynamicArray<ICollider*> find( int x, int y, int w, int h,
                                           unsigned short flags );
       // Find all colliders that collide with the given rectangle and flags
 

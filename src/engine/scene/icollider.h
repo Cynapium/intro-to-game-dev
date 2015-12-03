@@ -49,6 +49,9 @@ class ICollider
 
     // ACCESSOR
 
+    RectangleBounds& bounds();
+      // Return a reference to the RectangleBounds stored in the Collider
+
     const RectangleBounds& bounds() const;
       // Return a reference to the RectangleBounds stored in the Collider
 

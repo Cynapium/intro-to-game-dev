@@ -18,16 +18,16 @@ class RectangleBounds
 {
   private:
 
-    float                   d_x;
+    int                   d_x;
       // Position on the x absis
 
-    float                   d_y;
+    int                   d_y;
       // Position on the y absis
 
-    float                   d_width;
+    int                   d_width;
       // Rectangle's width
 
-    float                   d_height;
+    int                   d_height;
       // Rectangle's height
 
 
@@ -38,7 +38,7 @@ class RectangleBounds
     RectangleBounds();
       // Default constructor
 
-    RectangleBounds( float x, float y, float width, float height );
+    RectangleBounds( int x, int y, int width, int height );
       // Constructor with all parameters
 
     RectangleBounds( const RectangleBounds& rectangle );
@@ -55,37 +55,37 @@ class RectangleBounds
 
     // ACCESSORS
 
-    const float x() const;
+    const int x() const;
       // Return the position on the x absis
 
-    const float y() const;
+    const int y() const;
       // Return the position on the y absis
 
-    const float width() const;
+    const int width() const;
       // Return the rectangle's width
 
-    const float height() const;
+    const int height() const;
       // Return the rectangle's height
 
 
     // MUTATORS
 
-    void setX( float x );
+    void setX( int x );
       // Set the position on the x absis
 
-    void setY( float y );
+    void setY( int y );
       // Set the position on the y absis
 
-    void setPosition( float x, float y );
+    void setPosition( int x, int y );
       // Set the position (x, y)
 
-    void setWidth( float width );
+    void setWidth( int width );
       // Set the rectangle's width
 
-    void setHeight( float height );
+    void setHeight( int height );
       // Set the rectangle's height
 
-    void setDimensions( float width, float height );
+    void setDimensions( int width, int height );
       // Set the rectangle's dimention width and height
 
 

@@ -5,6 +5,8 @@
 
 #include "scene.h"
 
+#include <cassert>
+
 namespace StevensDev
 {
 namespace sgds
@@ -17,7 +19,7 @@ Scene *Scene::d_instance = nullptr;
 //
 
 Scene::Scene()
-    : d_renderer( nullptr )
+    : d_renderer( nullptr ), d_scene_graph( nullptr )
 {
     time( &d_time );
 }
@@ -41,8 +43,19 @@ Scene::inst()
 sgdr::Renderer*
 Scene::renderer()
 {
+    assert( d_renderer != nullptr );
+
     return d_renderer;
 }
+
+NxNSceneGraph*
+Scene::graph()
+{
+    assert( d_scene_graph != nullptr );
+
+    return d_scene_graph;
+}
+
 
 //
 // MUTATOR
@@ -54,6 +67,18 @@ Scene::setRenderer( sgdr::Renderer *renderer )
     d_renderer = renderer;
 }
 
+void
+Scene::setGraph( int dimensions, int divisions )
+{
+    if ( d_scene_graph )
+    {
+        removeTickable( d_scene_graph );
+        delete d_scene_graph;
+    }
+
+    d_scene_graph = new NxNSceneGraph( dimensions, divisions );
+    addTickable( d_scene_graph );
+}
 
 //
 // MEMBER FUNCTIONS
@@ -106,3 +131,4 @@ Scene::removeTickable( ITickable *tickable )
 
 } // End sgds namespace
 } // End StevensDev namespace
+

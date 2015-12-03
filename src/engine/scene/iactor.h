@@ -64,6 +64,9 @@ class IActor
 
     // MEMBER FUNCTIONS
 
+    void setPosition( int x, int y );
+      // Set the position of the actor's sprite
+
     void move( float x, float y );
       // Move the actor's sprite
 };

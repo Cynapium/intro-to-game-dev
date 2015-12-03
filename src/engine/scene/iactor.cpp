@@ -87,9 +87,17 @@ IActor::collider()
 //
 
 void
+IActor::setPosition( int x, int y )
+{
+    d_sprite->setPosition( x, y );
+    d_collider->bounds().setPosition( x, y );
+}
+
+void
 IActor::move( float x, float y )
 {
     d_sprite->move( x, y );
+    d_collider->bounds().setPosition( d_sprite->getPositionX(), d_sprite->getPositionY() );
 }
 
 

@@ -14,7 +14,7 @@ namespace sgds
 // CONSTRUCTORS
 //
 
-NxNSceneGraph::NxNSceneGraph( float dimensions, int divisions )
+NxNSceneGraph::NxNSceneGraph( int dimensions, int divisions )
     : d_dimensions( dimensions ), d_divisions( divisions )
 {
 }
@@ -61,7 +61,7 @@ NxNSceneGraph::operator=( NxNSceneGraph&& move )
 // ACCESSORS
 //
 
-const float
+const int
 NxNSceneGraph::dimensions() const
 {
     return d_dimensions;
@@ -86,6 +86,7 @@ NxNSceneGraph::colliders() const
 // MEMBER FUNCTIONS
 //
 
+#include <iostream>
 void
 NxNSceneGraph::addCollider( ICollider *collider )
 {
@@ -106,7 +107,7 @@ NxNSceneGraph::removeCollider( ICollider *collider )
 }
 
 sgdc::DynamicArray<ICollider*>
-NxNSceneGraph::find( float x, float y, float w, float h )
+NxNSceneGraph::find( int x, int y, int w, int h )
 {
     RectangleBounds rectangle( x, y, w, h );
 
@@ -114,7 +115,7 @@ NxNSceneGraph::find( float x, float y, float w, float h )
 }
 
 sgdc::DynamicArray<ICollider*>
-NxNSceneGraph::find( float x, float y, float w, float h, unsigned short flags )
+NxNSceneGraph::find( int x, int y, int w, int h, unsigned short flags )
 {
     RectangleBounds rectangle( x, y, w, h );
 
@@ -153,6 +154,8 @@ NxNSceneGraph::find( const RectangleBounds &bounds, unsigned short flags )
 
     return array;
 }
+
+#include <iostream>
 
 sgdc::DynamicArray<ICollider*>
 NxNSceneGraph::find( const ICollider *collider )
