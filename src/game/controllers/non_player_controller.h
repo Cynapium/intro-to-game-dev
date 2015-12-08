@@ -5,6 +5,9 @@
 
 #include "scene/icontroller.h"
 #include "actors/non_player_actor.h"
+#include "event/ievent.h"
+
+#include <functional>
 
 namespace StevensDev
 {
@@ -14,6 +17,9 @@ namespace mgc
 class NonPlayerController : public sgds::IController
 {
   private:
+
+    //std::function<void( const sgde::IEvent& )>  d_onCollision;
+      //
 
 
   public:
@@ -49,6 +55,11 @@ class NonPlayerController : public sgds::IController
 
     virtual void postTick();
       //
+
+
+    // EVENT
+
+    void onCollision( const sgde::IEvent& event );
 };
 
 } // end mgc namespace
