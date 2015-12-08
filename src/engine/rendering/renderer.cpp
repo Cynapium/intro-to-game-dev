@@ -84,6 +84,12 @@ Renderer::loadTexture( const std::string &name, const std::string &path )
     return true;
 }
 
+void
+Renderer::setRepeated( const std::string &name, const bool repeat )
+{
+    d_textures[name].setRepeated( repeat );
+}
+
 const sf::Texture&
 Renderer::getTexture( const std::string &name )
 {

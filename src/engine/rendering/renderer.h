@@ -59,10 +59,14 @@ class Renderer
 
     bool                        loadTexture( const std::string &name,
                                              const std::string &path );
-      //
+      // Load the texture from a file on disk
+
+    void                        setRepeated( const std::string &name,
+                                             const bool repeated );
+      // Enable or disable repeating
 
     const sf::Texture&          getTexture( const std::string& name );
-      //
+      // Return the texture
 
     bool                        isActive();
       // Return false once the window is ready to be destroyed
