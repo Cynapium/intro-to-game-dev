@@ -5,6 +5,8 @@
 
 #include <string>
 
+#include "controllers/player_controller.h"
+
 namespace StevensDev
 {
 namespace mgf
@@ -18,6 +20,9 @@ class PlayerActorFactory
 
     static void create( std::string name );
       // Create a new PlayerActor and PlayerController
+
+    static void destroy( mgc::PlayerController *controller );
+      //
 };
 
 } // end mgf namespace

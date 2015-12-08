@@ -3,7 +3,6 @@
 #include "player_actor_factory.h"
 
 #include "actors/player_actor.h"
-#include "controllers/player_controller.h"
 #include "rendering/renderer.h"
 #include "scene/scene.h"
 
@@ -31,6 +30,19 @@ PlayerActorFactory::create( std::string name )
     scene.addTickable( controller );
 
     scene.graph()->addCollider( actor->collider() );
+}
+
+void
+PlayerActorFactory::destroy( mgc::PlayerController *controller )
+{
+    sgds::Scene             &scene = sgds::Scene::inst();
+    sgdr::Renderer          *renderer = scene.renderer();
+    mga::PlayerActor        *actor = (mga::PlayerActor*) controller->actor();
+
+    renderer->removeSprite( actor->sprite() );
+    scene.removeTickable( controller );
+
+    scene.graph()->removeCollider( actor->collider() );
 }
 
 } // end mgf namespace
