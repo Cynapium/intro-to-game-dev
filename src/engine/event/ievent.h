@@ -12,6 +12,9 @@ namespace sgde
 
 enum EventType
 {
+    ATTACK,
+    COLLISION,
+
     // Input events
     #define INPUT_MOUSE( code ) INPUT_MOUSE_##code,
     #define INPUT_KEY( code )   INPUT_KEY_##code,
