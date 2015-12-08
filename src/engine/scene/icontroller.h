@@ -32,7 +32,7 @@ class IController : public ITickable
     IController( IController&& move );
       // Move constructor
 
-    
+
     // DESTRUCTOR
 
     virtual ~IController();
@@ -46,6 +46,12 @@ class IController : public ITickable
 
     IController& operator=( IController&& move );
       // Move assignment operator
+
+
+    // ACCESSOR
+
+    IActor *actor();
+      // Return the actor
 
 
     // MEMBER FUNCTIONS

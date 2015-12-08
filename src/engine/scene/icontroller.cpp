@@ -53,6 +53,16 @@ IController::operator=( IController&& controller )
 }
 
 
+//
+// ACCESSOR
+//
+
+IActor*
+IController::actor()
+{
+    return d_actor;
+}
+
 
 
 } // end sgds namespace
