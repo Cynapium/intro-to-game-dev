@@ -392,7 +392,7 @@ void DynamicArray<T>::clear()
 {
     for ( int i = 0; i < d_length; i++ )
     {
-        d_array[i] = 0;
+        //d_array[i] = 0;
     }
 
     d_length = 0;
