@@ -2,10 +2,10 @@
 
 #include "player_actor_factory.h"
 
-#include "scene/scene.h"
-#include "rendering/renderer.h"
 #include "actors/player_actor.h"
 #include "controllers/player_controller.h"
+#include "rendering/renderer.h"
+#include "scene/scene.h"
 
 #include <SFML/Graphics/Sprite.hpp>
 

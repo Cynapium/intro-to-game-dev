@@ -19,6 +19,18 @@ class EventDispatcher : public sgds::ITickable
 {
   private:
 
+    // FIXME : Ugly solution
+
+    sgdc::DynamicArray<EventType>  d_types;
+      // Store the list of types
+
+    sgdc::DynamicArray<EventType>  d_types_new;
+      // Store the list of types
+
+    sgdc::DynamicArray<EventType>  d_types_old;
+      // Store the list of types
+
+
     sgdc::DynamicArray<IEventFunc*>  d_listeners;
       // List of listeners
 
@@ -54,10 +66,10 @@ class EventDispatcher : public sgds::ITickable
 
     // MEMBER FUNCTIONS
 
-    void add( const std::string& type, IEventFunc* listener );
+    void add( const EventType& type, IEventFunc* listener );
       // Add a listener to the list
 
-    void remove( const std::string& type, IEventFunc* listener );
+    void remove( const EventType& type, IEventFunc* listener );
       // Remove a listener from the list of listeners
 
     void dispatch( const IEvent& event );

@@ -4,6 +4,8 @@
 //
 
 #include "input.h"
+#include "event/event_bus.h"
+
 #include <SFML/Window.hpp>
 
 namespace StevensDev
@@ -85,6 +87,32 @@ Input::preTick()
 void
 Input::tick( float dts )
 {
+    bool dispatch = false;
+    sgde::IEvent event;
+
+    #define INPUT_MOUSE( key )                                             \
+        if ( isDown( MOUSE_##key ) )                                       \
+        {                                                                  \
+            dispatch = true;                                               \
+            event.setType( sgde::EventType::INPUT_MOUSE_##key );           \
+        }
+    #define INPUT_KEY( key )                                               \
+        if ( isDown( KEY_##key ) )                                         \
+        {                                                                  \
+            dispatch = true;                                               \
+            event.setType( sgde::EventType::INPUT_KEY_##key );             \
+        }
+
+    #include "input_type.def"
+
+    #undef INPUT_MOUSE
+    #undef INPUT_KEY
+
+    // Dispatch if needed
+    if ( dispatch )
+    {
+        sgde::EventBus::dispatcher().dispatch( event );
+    }
 }
 
 void

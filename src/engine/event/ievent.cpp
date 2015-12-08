@@ -11,7 +11,12 @@ namespace sgde
 // CONSTRUCTOR
 //
 
-IEvent::IEvent( std::string type )
+IEvent::IEvent()
+    : d_type( NONE )
+{
+}
+
+IEvent::IEvent( EventType type )
     : d_type( type )
 {
 }
@@ -21,10 +26,21 @@ IEvent::IEvent( std::string type )
 // ACCESSOR
 //
 
-std::string
-IEvent::type()
+const EventType
+IEvent::type() const
 {
     return d_type;
+}
+
+
+//
+// MUTATOR
+//
+
+void
+IEvent::setType( EventType type )
+{
+    d_type = type;
 }
 
 } // end sgde namespace

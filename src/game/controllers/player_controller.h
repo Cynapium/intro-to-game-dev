@@ -6,6 +6,7 @@
 #include "scene/icontroller.h"
 #include "actors/player_actor.h"
 #include "input/input.h"
+#include "event/ievent.h"
 
 namespace StevensDev
 {
@@ -16,7 +17,14 @@ class PlayerController : public sgds::IController
 {
   private:
 
-    sgdi::InputType         d_last;
+    std::function<void( const sgde::IEvent& )>  d_onRight;
+    std::function<void( const sgde::IEvent& )>  d_onLeft;
+    std::function<void( const sgde::IEvent& )>  d_onDown;
+    std::function<void( const sgde::IEvent& )>  d_onUp;
+      //
+
+    sgdi::InputType                             d_last;
+      //
 
   public:
 
@@ -53,6 +61,14 @@ class PlayerController : public sgds::IController
 
     virtual void postTick();
       //
+
+
+    // EVENTS
+
+    void onLeft( const sgde::IEvent& event );
+    void onRight( const sgde::IEvent& event );
+    void onUp( const sgde::IEvent& event );
+    void onDown( const sgde::IEvent& event );
 };
 
 } // end mgc namespace

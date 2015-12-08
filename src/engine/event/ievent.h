@@ -10,11 +10,24 @@ namespace StevensDev
 namespace sgde
 {
 
+enum EventType
+{
+    // Input events
+    #define INPUT_MOUSE( code ) INPUT_MOUSE_##code,
+    #define INPUT_KEY( code )   INPUT_KEY_##code,
+    #include "input/input_type.def"
+    #undef  INPUT_MOUSE
+    #undef  INPUT_KEY
+
+    // None
+    NONE
+};
+
 class IEvent
 {
-  private:
+  protected:
 
-    std::string             d_type;
+    EventType             d_type;
       // Infos about the event
 
 
@@ -22,14 +35,23 @@ class IEvent
 
     // CONSTRUCTORS
 
-    IEvent( std::string type );
+    IEvent();
       // Default constructor
 
+    IEvent( EventType type );
+      // Constructor with type
 
-    // ACCESSORS
 
-    std::string             type();
+    // ACCESSOR
+
+    const EventType type() const;
       // Return information about the event
+
+
+    // MUTATOR
+
+    void setType( EventType type );
+      // Set a new type for this event
 };
 
 } // end sgde namespace
