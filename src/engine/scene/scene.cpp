@@ -84,6 +84,18 @@ Scene::setGraph( int dimensions, int divisions )
 // MEMBER FUNCTIONS
 //
 
+int
+Scene::width()
+{
+    return d_scene_graph->dimensions();
+}
+
+int
+Scene::height()
+{
+    return d_scene_graph->dimensions();
+}
+
 void
 Scene::tick()
 {

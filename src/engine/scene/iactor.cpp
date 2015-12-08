@@ -2,6 +2,7 @@
 
 #include "scene/iactor.h"
 #include "scene/box_collider.h"
+#include "scene/scene.h"
 #include "input/input.h"
 
 namespace StevensDev
@@ -96,7 +97,23 @@ IActor::setPosition( int x, int y )
 void
 IActor::move( float x, float y )
 {
-    d_sprite->move( x, y );
+    Scene        scene = Scene::inst();
+    const int    x_current = d_collider->bounds().x();
+    const int    y_current = d_collider->bounds().y();
+
+    // Check if we can move
+    if ( x_current + x >= 0 &&
+         x_current + x + d_sprite->width() < scene.graph()->dimensions() )
+    {
+        d_sprite->move( x, 0 );
+    }
+
+    if ( y_current + y >= 0 &&
+         y_current + y + d_sprite->height() < scene.graph()->dimensions() )
+    {
+        d_sprite->move( 0, y );
+    }
+
     d_collider->bounds().setPosition( d_sprite->getPositionX(), d_sprite->getPositionY() );
 }
 

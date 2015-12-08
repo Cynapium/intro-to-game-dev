@@ -71,6 +71,12 @@ class Scene
 
     // MEMBER FUNCTIONS
 
+    int width();
+      // Return the width
+
+    int height();
+      // Return the height
+
     void tick();
       // Execute the pre-ticks, ticks and post-ticks of all ITickable
 
