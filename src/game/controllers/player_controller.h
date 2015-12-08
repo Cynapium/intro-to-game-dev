@@ -21,6 +21,7 @@ class PlayerController : public sgds::IController
     std::function<void( const sgde::IEvent& )>  d_onLeft;
     std::function<void( const sgde::IEvent& )>  d_onDown;
     std::function<void( const sgde::IEvent& )>  d_onUp;
+    std::function<void( const sgde::IEvent& )>  d_onAttacked;
       //
 
     sgdi::InputType                             d_last;
@@ -69,6 +70,7 @@ class PlayerController : public sgds::IController
     void onRight( const sgde::IEvent& event );
     void onUp( const sgde::IEvent& event );
     void onDown( const sgde::IEvent& event );
+    void onAttacked( const sgde::IEvent& event );
 };
 
 } // end mgc namespace

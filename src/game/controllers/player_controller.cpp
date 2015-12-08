@@ -6,6 +6,7 @@
 #include "scene/scene.h"
 #include "scene/icollider.h"
 #include "event/event_bus.h"
+#include "factories/player_actor_factory.h"
 
 namespace StevensDev
 {
@@ -23,7 +24,8 @@ PlayerController::PlayerController( mga::PlayerActor *actor )
       d_onRight( std::bind( &mgc::PlayerController::onRight, this, _1 ) ),
       d_onLeft( std::bind( &mgc::PlayerController::onLeft, this, _1 ) ),
       d_onDown( std::bind( &mgc::PlayerController::onDown, this, _1 ) ),
-      d_onUp( std::bind( &mgc::PlayerController::onUp, this, _1 ) )
+      d_onUp( std::bind( &mgc::PlayerController::onUp, this, _1 ) ),
+      d_onAttacked( std::bind( &mgc::PlayerController::onAttacked, this, _1 ) )
 {
     sgde::EventDispatcher &dispatcher = sgde::EventBus::dispatcher();
 
@@ -31,6 +33,7 @@ PlayerController::PlayerController( mga::PlayerActor *actor )
     dispatcher.add( sgde::EventType::INPUT_KEY_Left, &d_onLeft );
     dispatcher.add( sgde::EventType::INPUT_KEY_Down, &d_onDown );
     dispatcher.add( sgde::EventType::INPUT_KEY_Up, &d_onUp );
+    dispatcher.add( sgde::EventType::ATTACK, &d_onAttacked );
 }
 
 PlayerController::PlayerController( const PlayerController& controller )
@@ -159,6 +162,12 @@ void
 PlayerController::onDown( const sgde::IEvent& event )
 {
     d_actor->move( 0, 2 );
+}
+
+void
+PlayerController::onAttacked( const sgde::IEvent& event )
+{
+    mgf::PlayerActorFactory::destroy( this );    
 }
 
 
